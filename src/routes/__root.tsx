@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Outlet, createRootRoute } from '@tanstack/react-router'
+import { Outlet, createRootRoute, useLocation } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 import { useTranslation } from 'react-i18next'
@@ -12,6 +12,10 @@ function RootComponent() {
   const theme = useTheme()
   const language = useLanguage()
   const { i18n } = useTranslation()
+  const location = useLocation()
+
+  // Hide header on the landing page (mindmap)
+  const isLandingPage = location.pathname === '/'
 
   // Apply theme to DOM when it changes
   useEffect(() => {
@@ -40,7 +44,7 @@ function RootComponent() {
 
   return (
     <>
-      <Header />
+      {!isLandingPage && <Header />}
       <Outlet />
       <PWAPrompt />
       <TanStackDevtools
