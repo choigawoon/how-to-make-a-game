@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { ArrowLeft, BookOpen, FileText } from 'lucide-react'
+import { ArrowLeft, BookOpen, FileText, Play, Database } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { mainCourseTree, getNodeById } from '@/content'
@@ -71,6 +71,38 @@ function TopicPage() {
 
       {/* Content */}
       <div className="container mx-auto px-4 py-8">
+        {/* Interactive Demo for Asset Management */}
+        {topicId === 'asset-management' && (
+          <Card className="mb-8 bg-gradient-to-r from-teal-900/50 to-blue-900/50 border-teal-700">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Database className="h-5 w-5 text-teal-400" />
+                인터랙티브 데모
+              </CardTitle>
+              <CardDescription>
+                직접 실험해보며 학습하세요
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                <div className="flex-1">
+                  <h3 className="font-semibold mb-1">직렬화 포맷 벤치마크</h3>
+                  <p className="text-sm text-slate-400">
+                    JSON vs MessagePack 성능을 실시간으로 비교해보세요.
+                    데이터 크기와 압축 옵션을 조절하며 결과를 확인할 수 있습니다.
+                  </p>
+                </div>
+                <Button asChild className="bg-teal-600 hover:bg-teal-700">
+                  <Link to="/demo/serialization">
+                    <Play className="h-4 w-4 mr-2" />
+                    데모 실행
+                  </Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         <div className="mb-8">
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <BookOpen className="h-5 w-5" />
