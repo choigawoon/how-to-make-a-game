@@ -18,7 +18,19 @@ import {
   Zap,
   Grid3X3,
   Clock,
+  Trophy,
+  Blocks,
+  Crosshair,
+  Target,
+  Swords,
+  Map,
+  Network,
+  Server,
+  RefreshCw,
+  Gauge,
+  Sliders,
 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import type { MindMapNode as MindMapNodeType } from '@/types/course'
 import { nodeColorClasses } from '@/content/course-tree'
 import { cn } from '@/lib/utils'
@@ -42,6 +54,17 @@ const iconMap: Record<string, LucideIcon> = {
   Zap,
   Grid3x3: Grid3X3,
   Clock,
+  Trophy,
+  Blocks,
+  Crosshair,
+  Target,
+  Swords,
+  Map,
+  Network,
+  Server,
+  RefreshCw,
+  Gauge,
+  Sliders,
 }
 
 interface MindMapNodeProps {
@@ -49,13 +72,41 @@ interface MindMapNodeProps {
   onClick: () => void
   isCenter?: boolean
   isTarget?: boolean
+  mindmapId?: string  // ID of the parent mindmap for translation context
 }
 
-export function MindMapNode({ node, onClick, isCenter = false, isTarget = false }: MindMapNodeProps) {
+export function MindMapNode({ node, onClick, isCenter = false, isTarget = false, mindmapId = 'main' }: MindMapNodeProps) {
+  const { t } = useTranslation()
   const colors = nodeColorClasses[node.color] || nodeColorClasses.blue
 
   // Get the icon component
   const IconComponent = node.icon ? iconMap[node.icon] : null
+
+  // Get translated title based on context
+  const getTitle = (): string => {
+    if (mindmapId === 'main') {
+      if (node.id === 'center') {
+        return t('course.main.center.title')
+      }
+      return t(`course.layers.${node.id}.title` as never) as string
+    }
+    // For sub-mindmaps (cases, fundamentals, decisions)
+    if (node.id === 'center') {
+      return t(`course.layers.${mindmapId}.title` as never) as string
+    }
+    return t(`course.${mindmapId}.${node.id}.title` as never) as string
+  }
+
+  // Get translated description based on context
+  const getDescription = (): string | null => {
+    if (mindmapId === 'main' && node.id !== 'center') {
+      return t(`course.layers.${node.id}.description` as never) as string
+    }
+    return null
+  }
+
+  const title = getTitle()
+  const description = getDescription()
 
   return (
     <motion.div
@@ -103,13 +154,13 @@ export function MindMapNode({ node, onClick, isCenter = false, isTarget = false 
           'font-bold text-center leading-tight',
           isCenter ? 'text-lg' : 'text-sm'
         )}>
-          {node.title}
+          {title}
         </div>
 
         {/* Description (for non-center nodes) */}
-        {!isCenter && node.description && (
+        {!isCenter && description && (
           <div className="mt-1 text-xs text-center opacity-80 line-clamp-2">
-            {node.description}
+            {description}
           </div>
         )}
 

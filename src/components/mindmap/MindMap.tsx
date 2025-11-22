@@ -1,6 +1,7 @@
 import { useRef, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import type { MindMapData, MindMapNode as MindMapNodeType, ViewState, TransitionState } from '@/types/course'
 import { MindMapNode } from './MindMapNode'
 import { MindMapConnector } from './MindMapConnector'
@@ -15,6 +16,7 @@ interface MindMapProps {
 }
 
 export function MindMap({ data, className = '', onNodeClick, onBack }: MindMapProps) {
+  const { t } = useTranslation()
   const containerRef = useRef<HTMLDivElement>(null)
 
   // View state for zoom and pan
@@ -234,6 +236,7 @@ export function MindMap({ data, className = '', onNodeClick, onBack }: MindMapPr
             onClick={() => handleNodeClick(node)}
             isCenter={node.id === 'center'}
             isTarget={transition.targetNode?.id === node.id}
+            mindmapId={data.id}
           />
         ))}
       </motion.div>
@@ -247,7 +250,7 @@ export function MindMap({ data, className = '', onNodeClick, onBack }: MindMapPr
           className="absolute top-4 left-4 z-10 bg-slate-800/80 hover:bg-slate-700 text-white"
         >
           <ArrowLeft className="h-4 w-4 mr-1.5" />
-          뒤로
+          {t('course.ui.back')}
         </Button>
       )}
 

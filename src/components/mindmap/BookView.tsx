@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import { ChevronRight, ChevronDown, BookOpen, Play, FileText } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import type { MindMapData, MindMapNode } from '@/types/course'
 import { cn } from '@/lib/utils'
 import { nodeColorClasses } from '@/content/course-tree'
@@ -16,9 +17,11 @@ interface TreeNodeProps {
   node: MindMapNode
   subMindmap?: MindMapData
   level: number
+  mindmapId: string  // Parent mindmap ID for translation context
 }
 
-function TreeNode({ node, subMindmap, level }: TreeNodeProps) {
+function TreeNode({ node, subMindmap, level, mindmapId }: TreeNodeProps) {
+  const { t } = useTranslation()
   const [isExpanded, setIsExpanded] = useState(level === 0)
   const colors = nodeColorClasses[node.color] || nodeColorClasses.blue
 
@@ -28,6 +31,25 @@ function TreeNode({ node, subMindmap, level }: TreeNodeProps) {
   // Determine the link destination
   const linkTo = node.lessonPath || (node.topicPath ? undefined : undefined)
   const isDemo = node.lessonPath?.includes('/demo/')
+
+  // Get translated title based on context
+  const getTitle = (): string => {
+    if (mindmapId === 'main') {
+      return t(`course.layers.${node.id}.title` as never) as string
+    }
+    return t(`course.${mindmapId}.${node.id}.title` as never) as string
+  }
+
+  // Get translated description based on context
+  const getDescription = (): string | null => {
+    if (mindmapId === 'main') {
+      return t(`course.layers.${node.id}.description` as never) as string
+    }
+    return null
+  }
+
+  const title = getTitle()
+  const description = getDescription()
 
   return (
     <div className={cn('select-none', level > 0 && 'ml-4')}>
@@ -56,7 +78,7 @@ function TreeNode({ node, subMindmap, level }: TreeNodeProps) {
         <div className={cn('w-3 h-3 rounded-full', colors.bg)} />
 
         {/* Title */}
-        <span className="flex-1 text-sm font-medium">{node.title}</span>
+        <span className="flex-1 text-sm font-medium">{title}</span>
 
         {/* Action button for demos */}
         {isDemo && linkTo && (
@@ -70,7 +92,7 @@ function TreeNode({ node, subMindmap, level }: TreeNodeProps) {
             onClick={(e) => e.stopPropagation()}
           >
             <Play className="h-3 w-3" />
-            데모
+            {t('course.ui.demo')}
           </Link>
         )}
 
@@ -86,15 +108,15 @@ function TreeNode({ node, subMindmap, level }: TreeNodeProps) {
             onClick={(e) => e.stopPropagation()}
           >
             <FileText className="h-3 w-3" />
-            보기
+            {t('course.ui.view')}
           </Link>
         )}
       </div>
 
       {/* Description */}
-      {node.description && level === 0 && (
+      {description && level === 0 && (
         <p className="ml-10 text-xs text-slate-500 pb-1">
-          {node.description}
+          {description}
         </p>
       )}
 
@@ -114,6 +136,7 @@ function TreeNode({ node, subMindmap, level }: TreeNodeProps) {
                   key={child.id}
                   node={child}
                   level={level + 1}
+                  mindmapId={node.id}
                 />
               ))}
             </div>
@@ -125,13 +148,22 @@ function TreeNode({ node, subMindmap, level }: TreeNodeProps) {
 }
 
 export function BookView({ data, subMindmaps = {}, className = '' }: BookViewProps) {
+  const { t } = useTranslation()
   const mainNodes = data.nodes.filter(n => n.id !== 'center')
+
+  // Get translated title for the book view header
+  const getBookTitle = (): string => {
+    if (data.id === 'main') {
+      return t('course.main.center.title')
+    }
+    return t(`course.layers.${data.id}.title` as never) as string
+  }
 
   return (
     <div className={cn('bg-slate-900 rounded-lg p-4', className)}>
       <div className="flex items-center gap-2 mb-4 pb-4 border-b border-slate-800">
         <BookOpen className="h-5 w-5 text-slate-400" />
-        <h2 className="font-semibold">{data.title}</h2>
+        <h2 className="font-semibold">{getBookTitle()}</h2>
       </div>
 
       <div className="space-y-1">
@@ -141,6 +173,7 @@ export function BookView({ data, subMindmaps = {}, className = '' }: BookViewPro
             node={node}
             subMindmap={subMindmaps[node.id]}
             level={0}
+            mindmapId={data.id}
           />
         ))}
       </div>

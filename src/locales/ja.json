@@ -523,7 +523,10 @@
       "pageNotFound": "ページが見つかりません",
       "goHome": "ホームへ戻る",
       "graphView": "グラフ",
-      "bookView": "目次"
+      "bookView": "目次",
+      "back": "戻る",
+      "demo": "デモ",
+      "view": "見る"
     }
   }
 }
