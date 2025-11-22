@@ -6,8 +6,9 @@ import { BookView } from '@/components/mindmap/BookView'
 import { Button } from '@/components/ui/button'
 import {
   mainCourseTree,
-  assetManagementTree,
-  gameWorldTree,
+  casesTree,
+  fundamentalsTree,
+  decisionsTree,
 } from '@/content'
 import type { MindMapData, MindMapNode } from '@/types/course'
 
@@ -15,10 +16,11 @@ export const Route = createFileRoute('/')({
   component: LandingPage,
 })
 
-// Map of sub-mindmaps by topic ID
+// Map of sub-mindmaps by layer ID
 const subMindmaps: Record<string, MindMapData> = {
-  'asset-management': assetManagementTree,
-  'game-world': gameWorldTree,
+  'cases': casesTree,
+  'fundamentals': fundamentalsTree,
+  'decisions': decisionsTree,
 }
 
 type ViewMode = 'mindmap' | 'book'
@@ -49,7 +51,7 @@ function LandingPage() {
     }
   }, [viewMode, breadcrumbs])
 
-  // Handle node click - drill into sub-mindmap or navigate to demo
+  // Handle node click - drill into sub-mindmap or navigate to lesson
   const handleNodeClick = useCallback((node: MindMapNode) => {
     // If it's a lesson with a path, navigate to it
     if (node.lessonPath) {
@@ -57,7 +59,7 @@ function LandingPage() {
       return
     }
 
-    // If there's a sub-mindmap for this topic, drill into it
+    // If there's a sub-mindmap for this node, drill into it
     const subMindmap = subMindmaps[node.id]
     if (subMindmap) {
       setBreadcrumbs(prev => [
@@ -67,7 +69,7 @@ function LandingPage() {
       return
     }
 
-    // Otherwise navigate to topic page
+    // Otherwise navigate to topic page if exists
     if (node.topicPath) {
       navigate({ to: node.topicPath })
     }

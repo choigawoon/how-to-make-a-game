@@ -19,6 +19,9 @@ export type NodeColor =
   | 'teal'
   | 'pink'
   | 'yellow'
+  | 'cyan'
+  | 'indigo'
+  | 'amber'
 
 // Mind map node structure
 export interface MindMapNode {
