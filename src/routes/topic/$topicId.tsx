@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { ArrowLeft, BookOpen, FileText, Play, Database } from 'lucide-react'
+import { ArrowLeft, BookOpen, FileText, Play, Database, Globe } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { mainCourseTree, getNodeById } from '@/content'
@@ -71,6 +71,38 @@ function TopicPage() {
 
       {/* Content */}
       <div className="container mx-auto px-4 py-8">
+        {/* Interactive Demo for Game World */}
+        {topicId === 'game-world' && (
+          <Card className="mb-8 bg-gradient-to-r from-blue-900/50 to-purple-900/50 border-blue-700">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Globe className="h-5 w-5 text-blue-400" />
+                인터랙티브 데모
+              </CardTitle>
+              <CardDescription>
+                3D 공간에서 게임 데이터를 시각화하세요
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                <div className="flex-1">
+                  <h3 className="font-semibold mb-1">게임 월드 시뮬레이션</h3>
+                  <p className="text-sm text-slate-400">
+                    엔티티의 위치, 체력, 스탯을 실시간으로 조작하고
+                    3D 공간에서 시각화된 결과를 확인하세요.
+                  </p>
+                </div>
+                <Button asChild className="bg-blue-600 hover:bg-blue-700">
+                  <Link to="/demo/game-world">
+                    <Play className="h-4 w-4 mr-2" />
+                    데모 실행
+                  </Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Interactive Demo for Asset Management */}
         {topicId === 'asset-management' && (
           <Card className="mb-8 bg-gradient-to-r from-teal-900/50 to-blue-900/50 border-teal-700">
