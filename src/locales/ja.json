@@ -367,33 +367,33 @@
     "fundamentals": {
       "modeling-simulation": {
         "title": "モデリング＆シミュレーション",
-        "description": "ゲームワールドの状態定義と更新",
-        "concepts": ["ゲームループ", "ステートマシン", "ECSパターン", "ワールド更新"],
-        "usedIn": ["すべてのゲーム"]
-      },
-      "serialization": {
-        "title": "シリアライズ＆状態管理",
-        "description": "データの保存、送信、復元",
-        "concepts": ["JSON", "MessagePack", "Protocol Buffers", "圧縮", "状態スナップショット"],
-        "usedIn": ["セーブ/ロード", "ネットワーク送信", "リプレイ"]
+        "description": "ゲームの核心：ゲームワールドをモデリングし状態をシミュレーション",
+        "concepts": ["ゲーム状態", "ワールドシミュレーション", "ステートマシン", "ゲームループ", "ECSパターン"],
+        "usedIn": ["すべてのゲームの基盤 - ゲームを作る = モデリング＆シミュレーション"]
       },
       "rendering": {
         "title": "レンダリング＆可視化",
-        "description": "ゲーム状態を画面に表示",
-        "concepts": ["レンダリングパイプライン", "補間", "フレーム独立性", "LOD"],
-        "usedIn": ["すべてのゲーム"]
+        "description": "ゲーム状態を入出力デバイスを通じてユーザーに表示",
+        "concepts": ["レンダリングパイプライン", "フレーム補間", "カメラシステム", "UI/UX", "シェーダー"],
+        "usedIn": ["モデリング＆シミュレーションの結果を可視化"]
       },
-      "physics": {
-        "title": "物理演算",
-        "description": "衝突、重力、力の計算",
-        "concepts": ["衝突検出", "剛体力学", "レイキャスト", "トリガー"],
-        "usedIn": ["プラットフォーマー", "FPS", "レーシング"]
+      "state-tools": {
+        "title": "状態最適化ツール",
+        "description": "状態を効率的に表現し圧縮するツール",
+        "concepts": ["物理シミュレーション", "キネマティック", "ベジェ曲線", "補間法", "LOD"],
+        "usedIn": ["すべてのデータを保存せず物理法則等を活用して状態を圧縮/効率化"]
+      },
+      "serialization": {
+        "title": "シリアライズ＆状態管理",
+        "description": "ゲーム状態の保存、送信、復元",
+        "concepts": ["JSON", "MessagePack", "Protocol Buffers", "圧縮", "状態スナップショット"],
+        "usedIn": ["セーブ/ロード", "ネットワーク送信", "リプレイ"]
       },
       "networking": {
-        "title": "ネットワーク通信基礎",
-        "description": "TCP/UDP、パケット、遅延",
-        "concepts": ["TCP vs UDP", "レイテンシ", "パケットロス", "帯域幅"],
-        "usedIn": ["マルチプレイヤーゲーム"]
+        "title": "ネットワーク通信",
+        "description": "ゲーム状態をネットワークで共有",
+        "concepts": ["TCP vs UDP", "レイテンシ", "パケットロス", "帯域幅", "シリアライズされた状態送信"],
+        "usedIn": ["マルチプレイヤー - 状態をシリアライズしてネットワークで送信"]
       }
     },
     "decisions": {

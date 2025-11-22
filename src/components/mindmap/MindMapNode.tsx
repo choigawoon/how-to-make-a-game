@@ -29,6 +29,9 @@ import {
   RefreshCw,
   Gauge,
   Sliders,
+  Wrench,
+  Box,
+  Orbit,
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import type { MindMapNode as MindMapNodeType } from '@/types/course'
@@ -65,6 +68,9 @@ const iconMap: Record<string, LucideIcon> = {
   RefreshCw,
   Gauge,
   Sliders,
+  Wrench,
+  Box,
+  Orbit,
 }
 
 interface MindMapNodeProps {

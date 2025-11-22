@@ -367,33 +367,33 @@
     "fundamentals": {
       "modeling-simulation": {
         "title": "Modeling & Simulation",
-        "description": "Defining and updating game world state",
-        "concepts": ["Game loop", "State machine", "ECS pattern", "World update"],
-        "usedIn": ["All games"]
-      },
-      "serialization": {
-        "title": "Serialization & State Management",
-        "description": "Saving, transmitting, and restoring data",
-        "concepts": ["JSON", "MessagePack", "Protocol Buffers", "Compression", "State snapshots"],
-        "usedIn": ["Save/Load", "Network transmission", "Replay"]
+        "description": "The core of games: modeling game world and simulating state",
+        "concepts": ["Game state", "World simulation", "State machine", "Game loop", "ECS pattern"],
+        "usedIn": ["Foundation of all games - making games = modeling & simulation"]
       },
       "rendering": {
         "title": "Rendering & Visualization",
-        "description": "Displaying game state on screen",
-        "concepts": ["Rendering pipeline", "Interpolation", "Frame independence", "LOD"],
-        "usedIn": ["All games"]
+        "description": "Displaying game state to users through I/O devices",
+        "concepts": ["Rendering pipeline", "Frame interpolation", "Camera system", "UI/UX", "Shaders"],
+        "usedIn": ["Visualizing the result of modeling & simulation"]
       },
-      "physics": {
-        "title": "Physics Computation",
-        "description": "Collision, gravity, force calculations",
-        "concepts": ["Collision detection", "Rigid body dynamics", "Raycast", "Triggers"],
-        "usedIn": ["Platformers", "FPS", "Racing"]
+      "state-tools": {
+        "title": "State Optimization Tools",
+        "description": "Tools for efficiently representing and compressing state",
+        "concepts": ["Physics simulation", "Kinematic", "Bezier curves", "Interpolation", "LOD"],
+        "usedIn": ["Using physics laws etc. to compress/optimize state without storing all data"]
+      },
+      "serialization": {
+        "title": "Serialization & State Management",
+        "description": "Saving, transmitting, and restoring game state",
+        "concepts": ["JSON", "MessagePack", "Protocol Buffers", "Compression", "State snapshots"],
+        "usedIn": ["Save/Load", "Network transmission", "Replay"]
       },
       "networking": {
-        "title": "Network Communication Basics",
-        "description": "TCP/UDP, packets, latency",
-        "concepts": ["TCP vs UDP", "Latency", "Packet loss", "Bandwidth"],
-        "usedIn": ["Multiplayer games"]
+        "title": "Network Communication",
+        "description": "Sharing game state over network",
+        "concepts": ["TCP vs UDP", "Latency", "Packet loss", "Bandwidth", "Serialized state transmission"],
+        "usedIn": ["Multiplayer - serializing and transmitting state over network"]
       }
     },
     "decisions": {

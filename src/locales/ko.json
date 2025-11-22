@@ -367,33 +367,33 @@
     "fundamentals": {
       "modeling-simulation": {
         "title": "모델링 & 시뮬레이션",
-        "description": "게임 세계의 상태 정의와 업데이트",
-        "concepts": ["게임 루프", "상태 머신", "ECS 패턴", "월드 업데이트"],
-        "usedIn": ["모든 게임"]
-      },
-      "serialization": {
-        "title": "직렬화 & 상태관리",
-        "description": "데이터 저장, 전송, 복원",
-        "concepts": ["JSON", "MessagePack", "Protocol Buffers", "압축", "상태 스냅샷"],
-        "usedIn": ["저장/로드", "네트워크 전송", "리플레이"]
+        "description": "게임의 핵심: 게임 세계를 모델링하고 상태를 시뮬레이션",
+        "concepts": ["게임 상태", "월드 시뮬레이션", "상태 머신", "게임 루프", "ECS 패턴"],
+        "usedIn": ["모든 게임의 기반 - 게임을 만든다 = 모델링&시뮬레이션"]
       },
       "rendering": {
         "title": "렌더링 & 시각화",
-        "description": "게임 상태를 화면에 표현",
-        "concepts": ["렌더링 파이프라인", "보간", "프레임 독립성", "LOD"],
-        "usedIn": ["모든 게임"]
+        "description": "게임 상태를 입출력 장치를 통해 사용자에게 보여주기",
+        "concepts": ["렌더링 파이프라인", "프레임 보간", "카메라 시스템", "UI/UX", "쉐이더"],
+        "usedIn": ["모델링&시뮬레이션의 결과를 시각화"]
       },
-      "physics": {
-        "title": "물리 연산",
-        "description": "충돌, 중력, 힘의 계산",
-        "concepts": ["충돌 감지", "강체 역학", "Raycast", "트리거"],
-        "usedIn": ["플랫포머", "FPS", "레이싱"]
+      "state-tools": {
+        "title": "상태 최적화 도구",
+        "description": "상태를 효율적으로 표현하고 압축하는 도구들",
+        "concepts": ["물리 시뮬레이션", "Kinematic", "베지어 곡선", "보간법", "LOD"],
+        "usedIn": ["모든 데이터를 저장하지 않고 물리법칙 등을 활용해 상태를 압축/효율화"]
+      },
+      "serialization": {
+        "title": "직렬화 & 상태관리",
+        "description": "게임 상태의 저장, 전송, 복원",
+        "concepts": ["JSON", "MessagePack", "Protocol Buffers", "압축", "상태 스냅샷"],
+        "usedIn": ["저장/로드", "네트워크 전송", "리플레이"]
       },
       "networking": {
-        "title": "네트워크 통신 기초",
-        "description": "TCP/UDP, 패킷, 지연시간",
-        "concepts": ["TCP vs UDP", "지연시간", "패킷 손실", "대역폭"],
-        "usedIn": ["멀티플레이어 게임"]
+        "title": "네트워크 통신",
+        "description": "게임 상태를 네트워크로 공유",
+        "concepts": ["TCP vs UDP", "지연시간", "패킷 손실", "대역폭", "직렬화된 상태 전송"],
+        "usedIn": ["멀티플레이어 - 상태를 직렬화해서 네트워크로 전송"]
       }
     },
     "decisions": {
