@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import * as msgpack from 'msgpack-lite'
+import { encode, decode } from '@msgpack/msgpack'
 import pako from 'pako'
 import {
   BarChart,
@@ -84,7 +84,7 @@ function benchmarkFormat(
       serializedBytes = new TextEncoder().encode(jsonString)
       break
     case 'MessagePack':
-      serializedBytes = msgpack.encode(data)
+      serializedBytes = encode(data)
       break
     default:
       jsonString = JSON.stringify(data)
@@ -108,7 +108,7 @@ function benchmarkFormat(
       if (jsonString) JSON.parse(jsonString)
       break
     case 'MessagePack':
-      msgpack.decode(serializedBytes)
+      decode(serializedBytes)
       break
     default:
       if (jsonString) JSON.parse(jsonString)
