@@ -1,19 +1,21 @@
 import { useRef, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { useNavigate } from '@tanstack/react-router'
+import { ArrowLeft } from 'lucide-react'
 import type { MindMapData, MindMapNode as MindMapNodeType, ViewState, TransitionState } from '@/types/course'
 import { MindMapNode } from './MindMapNode'
 import { MindMapConnector } from './MindMapConnector'
 import { MindMapControls } from './MindMapControls'
+import { Button } from '@/components/ui/button'
 
 interface MindMapProps {
   data: MindMapData
   className?: string
+  onNodeClick?: (node: MindMapNodeType) => void
+  onBack?: () => void
 }
 
-export function MindMap({ data, className = '' }: MindMapProps) {
+export function MindMap({ data, className = '', onNodeClick, onBack }: MindMapProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const navigate = useNavigate()
 
   // View state for zoom and pan
   const [viewState, setViewState] = useState<ViewState>({
@@ -116,7 +118,7 @@ export function MindMap({ data, className = '' }: MindMapProps) {
     }))
   }, [])
 
-  // Handle node click - animate and navigate
+  // Handle node click - animate and call callback
   const handleNodeClick = useCallback(async (node: MindMapNodeType) => {
     if (node.id === 'center' || transition.isTransitioning) return
 
@@ -142,15 +144,14 @@ export function MindMap({ data, className = '' }: MindMapProps) {
       translateY: targetY,
     })
 
-    // Wait for animation then navigate
+    // Wait for animation then call callback
     setTimeout(() => {
       setTransition(prev => ({ ...prev, phase: 'fade-out' }))
 
       setTimeout(() => {
-        if (node.topicPath) {
-          navigate({ to: node.topicPath })
-        } else if (node.lessonPath) {
-          navigate({ to: node.lessonPath })
+        // Call the onNodeClick callback if provided
+        if (onNodeClick) {
+          onNodeClick(node)
         }
 
         // Reset transition state
@@ -161,7 +162,7 @@ export function MindMap({ data, className = '' }: MindMapProps) {
         })
       }, 300)
     }, 400)
-  }, [transition.isTransitioning, navigate])
+  }, [transition.isTransitioning, onNodeClick])
 
   return (
     <div
@@ -236,6 +237,19 @@ export function MindMap({ data, className = '' }: MindMapProps) {
           />
         ))}
       </motion.div>
+
+      {/* Back button */}
+      {onBack && (
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onBack}
+          className="absolute top-4 left-4 z-10 bg-slate-800/80 hover:bg-slate-700 text-white"
+        >
+          <ArrowLeft className="h-4 w-4 mr-1.5" />
+          뒤로
+        </Button>
+      )}
 
       {/* Controls */}
       <MindMapControls
