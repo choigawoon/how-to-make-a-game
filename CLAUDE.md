@@ -1,58 +1,111 @@
 # CLAUDE.md - AI Assistant Development Guide
 
-**Repository**: my-spa-template
-**Last Updated**: 2025-11-21
-**Purpose**: Comprehensive guide for AI assistants working on this codebase
+**Repository**: how-to-make-a-game
+**Last Updated**: 2025-11-22
+**Purpose**: Interactive course platform for game development education (like Genially)
 
 ---
 
 ## Table of Contents
 
 1. [Project Overview](#project-overview)
-2. [Tech Stack](#tech-stack)
-3. [Directory Structure](#directory-structure)
-4. [Development Workflow](#development-workflow)
-5. [Code Conventions](#code-conventions)
-6. [Styling Guidelines](#styling-guidelines)
-7. [Routing Patterns](#routing-patterns)
-8. [State Management](#state-management)
-9. [Data Fetching & API Layer](#data-fetching--api-layer)
-10. [API Mocking with MSW](#api-mocking-with-msw)
-11. [IndexedDB with Dexie](#indexeddb-with-dexie)
-12. [Schema Validation with Zod](#schema-validation-with-zod)
-13. [Internationalization (i18n)](#internationalization-i18n)
-14. [PWA Support](#pwa-support)
-15. [Tauri Desktop App](#tauri-desktop-app)
-16. [Testing](#testing)
-17. [Common Tasks](#common-tasks)
-18. [Important Notes for AI Assistants](#important-notes-for-ai-assistants)
+2. [Interactive Course Features](#interactive-course-features)
+3. [Tech Stack](#tech-stack)
+4. [Directory Structure](#directory-structure)
+5. [Development Workflow](#development-workflow)
+6. [Code Conventions](#code-conventions)
+7. [Styling Guidelines](#styling-guidelines)
+8. [Routing Patterns](#routing-patterns)
+9. [State Management](#state-management)
+10. [Data Fetching & API Layer](#data-fetching--api-layer)
+11. [API Mocking with MSW](#api-mocking-with-msw)
+12. [IndexedDB with Dexie](#indexeddb-with-dexie)
+13. [Schema Validation with Zod](#schema-validation-with-zod)
+14. [Internationalization (i18n)](#internationalization-i18n)
+15. [PWA Support](#pwa-support)
+16. [Tauri Desktop App](#tauri-desktop-app)
+17. [Testing](#testing)
+18. [Common Tasks](#common-tasks)
+19. [Important Notes for AI Assistants](#important-notes-for-ai-assistants)
 
 ---
 
 ## Project Overview
 
-This is a modern React application built with TanStack Router, featuring:
+This is an **interactive course platform** for game development education, similar to Genially. Built as a modern React SSG deployable to GitHub Pages or Cloudflare Pages.
 
+### Key Features
+
+- **Mindmap-based navigation** with zoom/pan/drag
+- **Dual view modes** - Graph (mindmap) and Book (outline)
+- **Sub-mindmap drill-down** - Click topic to expand sub-topics
+- **Interactive demos** - Real-time data visualization
 - **Type-safe routing** with file-based routes
 - **Modern styling** with Tailwind CSS v4
-- **Component library** integration via shadcn/ui
-- **State management** with Zustand (slice pattern)
-- **Data fetching** with TanStack Query
-- **API mocking** with MSW (Mock Service Worker)
-- **Persistent mock DB** with IndexedDB (Dexie)
-- **Schema validation** with Zod
-- **Internationalization** with i18next (en, ko, ja) including type safety, pluralization, and formatting
 - **PWA support** with offline capability
 - **Desktop app** with Tauri 2.0
-- **Development tooling** with Vite for fast HMR
-- **Strict TypeScript** configuration for type safety
 
 ### Project Status
 
-- **Current Branch**: `claude/claude-md-mi853hhmav0o4u7n-012SaE9nRtNeZNkMYwoHwLEJ`
-- **Git Status**: Clean (no uncommitted changes)
-- **Last Commit**: `17eb898 - Merge pull request #21 (Tauri 2.0 integration)`
-- **Production Ready**: Development environment with full MSW + IndexedDB mocking support
+- **Current Branch**: `claude/interactive-course-ssg-01BEM3mCSMCsXsabma4c78gz`
+- **Git Status**: Clean
+- **Last Commit**: `5eb7f84 - feat: Add sub-mindmap drill-down navigation and book view mode`
+- **Deployment Target**: GitHub Pages / Cloudflare Pages
+
+---
+
+## Interactive Course Features
+
+### Course Topics (Main Mindmap)
+
+6 main topics arranged in hexagonal layout:
+1. **게임월드 모델링과 시뮬레이션** - ECS, physics, world simulation
+2. **멀티플레이 정책** - Networking, synchronization
+3. **게임 엔진** - Engine architecture
+4. **에셋 관리** - Serialization, compression, storage
+5. **빌드 배포** - Build pipelines, deployment
+6. **크로스플랫폼** - Cross-platform development
+
+### Interactive Demos
+
+| Demo | Route | Description |
+|------|-------|-------------|
+| Serialization Benchmark | `/demo/serialization` | Compare JSON vs MessagePack vs Gzip |
+| 3D Game World Viewer | `/demo/game-world` | Three.js entity visualization |
+
+### Mindmap Components
+
+```tsx
+import { MindMap, BookView } from '@/components/mindmap'
+import { mainCourseTree, assetManagementTree, gameWorldTree } from '@/content'
+
+// Graph view with zoom/pan/drag
+<MindMap
+  data={currentMindmap}
+  onNodeClick={handleNodeClick}
+  onBack={goBack}
+/>
+
+// Outline/tree view
+<BookView
+  data={currentMindmap}
+  subMindmaps={subMindmaps}
+/>
+```
+
+### Navigation System
+
+- **Breadcrumb navigation** - Track path through sub-mindmaps
+- **View mode toggle** - Switch between graph and outline
+- **Back button** - Return to parent mindmap
+- **Node click handlers** - Drill down or navigate to demos
+
+### Adding New Topics
+
+1. Create mindmap data in `src/content/topics/[topic].ts`
+2. Add to `subMindmaps` mapping in `src/routes/index.tsx`
+3. Create demo component in `src/components/interactive/`
+4. Add route in `src/routes/demo/[demo].tsx`
 
 ---
 
@@ -90,6 +143,16 @@ This is a modern React application built with TanStack Router, featuring:
 - **i18next-browser-languagedetector** (8.2.0) - Auto language detection
 - **workbox-window** (7.4.0) - Service worker management
 
+### Interactive Course Dependencies
+
+- **framer-motion** - Animation library for mindmap transitions
+- **@msgpack/msgpack** - Browser-compatible MessagePack serialization
+- **recharts** - Data visualization for benchmark charts
+- **pako** - Gzip compression for serialization demo
+- **three** - 3D graphics library
+- **@react-three/fiber** - React renderer for Three.js
+- **@react-three/drei** - Useful helpers for R3F
+
 ### Radix UI Primitives
 
 - **@radix-ui/react-dialog** (1.1.15)
@@ -126,26 +189,33 @@ yarn install # Wrong package manager
 ## Directory Structure
 
 ```
-/home/user/my-spa-template/
+/home/user/how-to-make-a-game/
 ├── src/                          # Main source code
 │   ├── api/                     # API layer
 │   │   ├── client.ts           # API fetch wrapper
 │   │   ├── config.ts           # API configuration (mock/real mode)
 │   │   └── services/           # TanStack Query hooks
-│   │       ├── index.ts        # Re-exports all services
-│   │       ├── items.ts        # Items CRUD hooks
-│   │       ├── users.ts        # Users CRUD hooks
-│   │       ├── auth.ts         # Authentication hooks
-│   │       ├── search.ts       # Search hook
-│   │       └── health.ts       # Health check hook
 │   ├── components/              # React components
-│   │   ├── Header.tsx          # Navigation header (mobile sidebar)
-│   │   ├── LanguageSelector.tsx # Language switcher component
-│   │   ├── PWAPrompt.tsx       # PWA install/update prompts
+│   │   ├── mindmap/            # Mindmap navigation components
+│   │   │   ├── MindMap.tsx     # Main canvas with zoom/pan/drag
+│   │   │   ├── MindMapNode.tsx # Individual node with icons
+│   │   │   ├── MindMapConnector.tsx # Bezier curve connections
+│   │   │   ├── MindMapControls.tsx  # Zoom/fit buttons
+│   │   │   ├── BookView.tsx    # Outline/tree view mode
+│   │   │   └── index.ts        # Re-exports
+│   │   ├── interactive/        # Interactive demo components
+│   │   │   ├── BenchmarkDemo.tsx    # Serialization benchmark
+│   │   │   └── GameWorldViewer.tsx  # 3D entity visualization
+│   │   ├── Header.tsx          # Navigation header
+│   │   ├── LanguageSelector.tsx # Language switcher
+│   │   ├── PWAPrompt.tsx       # PWA prompts
 │   │   └── ui/                 # shadcn/ui components
-│   │       ├── alert.tsx, badge.tsx, button.tsx, card.tsx
-│   │       ├── dialog.tsx, input.tsx, label.tsx, progress.tsx
-│   │       ├── select.tsx, separator.tsx, sheet.tsx
+│   ├── content/                 # Course content data
+│   │   ├── course-tree.ts      # Main mindmap with 6 topics
+│   │   ├── topics/             # Sub-mindmap data
+│   │   │   ├── asset-management.ts
+│   │   │   └── game-world.ts
+│   │   └── index.ts            # Re-exports
 │   ├── db/                      # IndexedDB database
 │   │   └── index.ts            # Dexie setup, entities, seed data
 │   ├── hooks/                   # Custom React hooks
@@ -170,10 +240,16 @@ yarn install # Wrong package manager
 │   │   └── index.ts            # Main entry point
 │   ├── routes/                  # File-based routing (TanStack Router)
 │   │   ├── __root.tsx          # Root layout
-│   │   ├── index.tsx           # Home page (/)
-│   │   ├── zustand-test.tsx    # Zustand test page
-│   │   ├── msw-test.tsx        # MSW + TanStack Query test page
+│   │   ├── index.tsx           # Landing page with mindmap
+│   │   ├── topic/              # Topic pages
+│   │   │   └── $topicId.tsx    # Dynamic topic page
+│   │   ├── demo/               # Interactive demo pages
+│   │   │   ├── serialization.tsx  # Benchmark demo
+│   │   │   └── game-world.tsx     # 3D viewer demo
 │   │   └── routeTree.gen.ts    # AUTO-GENERATED - DO NOT EDIT
+│   ├── types/                   # TypeScript type definitions
+│   │   ├── course.ts           # MindMapNode, BenchmarkResult, etc.
+│   │   └── i18next.d.ts        # Type-safe i18n keys
 │   ├── stores/                  # Zustand state management
 │   │   ├── slices/             # apiSlice, uiSlice, taskSlice, workflowSlice
 │   │   └── index.ts            # Combined store with middleware
@@ -807,6 +883,21 @@ pnpx shadcn@latest add X  # Add UI component
 ---
 
 ## Changelog
+
+### 2025-11-22
+- **Major**: Transformed into interactive course platform for game development
+- Added Interactive Course Features section
+- Added mindmap components (MindMap, BookView, MindMapNode, MindMapConnector, MindMapControls)
+- Added interactive demos (BenchmarkDemo, GameWorldViewer)
+- Added content system with course-tree and sub-mindmaps
+- Added framer-motion, @msgpack/msgpack, recharts, pako, three.js dependencies
+- Added routes for demos (/demo/serialization, /demo/game-world)
+- Added topic routes (/topic/$topicId)
+- Implemented sub-mindmap drill-down navigation
+- Added dual view modes (graph/book)
+- Added breadcrumb navigation
+- Added course.ts types for MindMapNode, BenchmarkResult, etc.
+- Updated directory structure
 
 ### 2025-11-21
 - Updated repository name to my-spa-template
