@@ -539,11 +539,37 @@ type Item = z.infer<typeof ItemSchema>
 
 ### Overview
 
-Supports **English (en)**, **Korean (ko)**, and **Japanese (ja)** using i18next with advanced features:
+**Korean-first approach**: This project uses Korean as the primary language. English and Japanese translations can be added later.
 
+Supports **Korean (ko)** as default, with **English (en)** and **Japanese (ja)** available using i18next with advanced features:
+
+- **Korean-first development** - Add Korean translations first, other languages later
 - **Type-safe translation keys** - Autocomplete and compile-time checking
 - **Pluralization support** - Automatic plural forms
 - **Date/time/number formatting** - Locale-aware formatting using Intl API
+
+### Development Workflow (Korean-First)
+
+**CRITICAL**: When adding new text to the application:
+
+1. **Always use `t('key')` from the start** - Never hardcode text
+2. **Add Korean translation first** - Add the key to `ko.json` only
+3. **English/Japanese later** - Add translations to `en.json` and `ja.json` when ready
+4. **Fallback works automatically** - Missing translations show Korean text
+
+```tsx
+// ✅ Correct: Use t() from the start, add Korean first
+// ko.json: { "myFeature": { "title": "새 기능" } }
+<h1>{t('myFeature.title')}</h1>
+
+// ❌ Wrong: Hardcoding text for "later translation"
+<h1>새 기능</h1>
+```
+
+**Why Korean-first?**
+- Retrofitting i18n to hardcoded text is painful
+- Using `t()` from the start has minimal overhead
+- Korean fallback ensures app works with partial translations
 
 ### Basic Usage
 
@@ -644,11 +670,14 @@ setLanguage('ko') // Syncs with i18next and updates document.lang
 ### Translation Files
 
 Located in `src/locales/`:
-- `en.json` - English
-- `ko.json` - Korean
-- `ja.json` - Japanese
+- `ko.json` - Korean (PRIMARY - add here first)
+- `en.json` - English (add later)
+- `ja.json` - Japanese (add later)
 
-**Important**: When adding translations, add to ALL locale files.
+**Important**:
+- **Korean-first**: Always add new keys to `ko.json` first
+- English/Japanese translations can be added in batch later
+- Missing translations automatically fall back to Korean
 
 ---
 
@@ -846,7 +875,7 @@ import { Sheet, SheetContent } from '@/components/ui/sheet'
 2. **Use pnpm** - not npm or yarn
 3. **TypeScript strict mode** - no `any` types
 4. **TanStack Query** for server state, **Zustand** for client state
-5. **i18n** for all user-facing text
+5. **i18n Korean-first** - Use `t()` for all text, add to `ko.json` first
 6. **Zod** for all API validation
 
 ### Common Pitfalls
@@ -854,15 +883,16 @@ import { Sheet, SheetContent } from '@/components/ui/sheet'
 **DON'T**:
 - Use npm/yarn
 - Put server state in Zustand
-- Hardcode text (use i18n)
+- Hardcode text (use i18n `t()` function)
 - Skip Zod validation
-- Forget translations in ALL locale files
+- Add translations to en.json/ja.json before ko.json
 - Ignore type safety for i18n keys
 
 **DO**:
 - Use `@/` alias for imports
 - Invalidate queries after mutations
-- Add translations to en.json, ko.json, ja.json
+- **Add translations to ko.json first** (Korean-first approach)
+- Add en.json/ja.json translations later in batch
 - Use selector hooks for Zustand
 - Use type-safe translation keys
 - Format dates/numbers using the provided formatters
