@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ZustandTestRouteImport } from './routes/zustand-test'
 import { Route as MswTestRouteImport } from './routes/msw-test'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TopicTopicIdRouteImport } from './routes/topic/$topicId'
+import { Route as DemoSerializationRouteImport } from './routes/demo/serialization'
 
 const ZustandTestRoute = ZustandTestRouteImport.update({
   id: '/zustand-test',
@@ -28,35 +30,69 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TopicTopicIdRoute = TopicTopicIdRouteImport.update({
+  id: '/topic/$topicId',
+  path: '/topic/$topicId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemoSerializationRoute = DemoSerializationRouteImport.update({
+  id: '/demo/serialization',
+  path: '/demo/serialization',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/msw-test': typeof MswTestRoute
   '/zustand-test': typeof ZustandTestRoute
+  '/demo/serialization': typeof DemoSerializationRoute
+  '/topic/$topicId': typeof TopicTopicIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/msw-test': typeof MswTestRoute
   '/zustand-test': typeof ZustandTestRoute
+  '/demo/serialization': typeof DemoSerializationRoute
+  '/topic/$topicId': typeof TopicTopicIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/msw-test': typeof MswTestRoute
   '/zustand-test': typeof ZustandTestRoute
+  '/demo/serialization': typeof DemoSerializationRoute
+  '/topic/$topicId': typeof TopicTopicIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/msw-test' | '/zustand-test'
+  fullPaths:
+    | '/'
+    | '/msw-test'
+    | '/zustand-test'
+    | '/demo/serialization'
+    | '/topic/$topicId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/msw-test' | '/zustand-test'
-  id: '__root__' | '/' | '/msw-test' | '/zustand-test'
+  to:
+    | '/'
+    | '/msw-test'
+    | '/zustand-test'
+    | '/demo/serialization'
+    | '/topic/$topicId'
+  id:
+    | '__root__'
+    | '/'
+    | '/msw-test'
+    | '/zustand-test'
+    | '/demo/serialization'
+    | '/topic/$topicId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MswTestRoute: typeof MswTestRoute
   ZustandTestRoute: typeof ZustandTestRoute
+  DemoSerializationRoute: typeof DemoSerializationRoute
+  TopicTopicIdRoute: typeof TopicTopicIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +118,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/topic/$topicId': {
+      id: '/topic/$topicId'
+      path: '/topic/$topicId'
+      fullPath: '/topic/$topicId'
+      preLoaderRoute: typeof TopicTopicIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demo/serialization': {
+      id: '/demo/serialization'
+      path: '/demo/serialization'
+      fullPath: '/demo/serialization'
+      preLoaderRoute: typeof DemoSerializationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +139,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MswTestRoute: MswTestRoute,
   ZustandTestRoute: ZustandTestRoute,
+  DemoSerializationRoute: DemoSerializationRoute,
+  TopicTopicIdRoute: TopicTopicIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

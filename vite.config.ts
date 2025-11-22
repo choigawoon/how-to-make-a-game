@@ -9,6 +9,10 @@ import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // Base URL for GitHub Pages deployment
+  // Change this to your repository name for GitHub Pages
+  // For Cloudflare Pages, use '/'
+  base: process.env.GITHUB_PAGES ? '/how-to-make-a-game/' : '/',
   // Tauri expects a fixed port, fail if that port is not available
   clearScreen: false,
   plugins: [
@@ -23,9 +27,9 @@ export default defineConfig({
       registerType: 'prompt',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'logo192.png', 'logo512.png'],
       manifest: {
-        name: 'MermaidChart Clone',
-        short_name: 'MermaidChart',
-        description: 'A modern diagram editor with Mermaid.js support',
+        name: 'How to Make a Game',
+        short_name: 'GameDev',
+        description: 'Interactive game development course with mind map navigation',
         theme_color: '#000000',
         background_color: '#ffffff',
         display: 'standalone',
