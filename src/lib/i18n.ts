@@ -134,8 +134,9 @@ i18n
   .use(initReactI18next) // Pass i18n to react-i18next
   .init({
     resources,
-    fallbackLng: 'en',
+    fallbackLng: 'ko', // Korean-first: fallback to Korean when translation is missing
     supportedLngs: supportedLanguages,
+    lng: 'ko', // Default language is Korean
 
     // Language detection options
     detection: {
@@ -178,7 +179,7 @@ export const changeLanguage = async (language: SupportedLanguage): Promise<void>
  * @returns Current language code
  */
 export const getCurrentLanguage = (): SupportedLanguage => {
-  return (i18n.language || 'en') as SupportedLanguage
+  return (i18n.language || 'ko') as SupportedLanguage
 }
 
 /**
