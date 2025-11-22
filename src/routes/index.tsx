@@ -5,6 +5,7 @@ import { Map, BookOpen, ChevronRight, Home } from 'lucide-react'
 import { MindMap } from '@/components/mindmap'
 import { BookView } from '@/components/mindmap/BookView'
 import { Button } from '@/components/ui/button'
+import { LanguageSelector } from '@/components/LanguageSelector'
 import {
   mainCourseTree,
   casesTree,
@@ -125,34 +126,39 @@ function LandingPage() {
             ))}
           </div>
 
-          {/* View mode toggle */}
-          <div className="flex items-center gap-1 bg-slate-800 rounded-lg p-1">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setViewMode('mindmap')}
-              className={`h-8 px-3 ${
-                viewMode === 'mindmap'
-                  ? 'bg-slate-700 text-white'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              <Map className="h-4 w-4 mr-1.5" />
-              {t('course.ui.graphView')}
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setViewMode('book')}
-              className={`h-8 px-3 ${
-                viewMode === 'book'
-                  ? 'bg-slate-700 text-white'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              <BookOpen className="h-4 w-4 mr-1.5" />
-              {t('course.ui.bookView')}
-            </Button>
+          <div className="flex items-center gap-3">
+            {/* View mode toggle */}
+            <div className="flex items-center gap-1 bg-slate-800 rounded-lg p-1">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setViewMode('mindmap')}
+                className={`h-8 px-3 ${
+                  viewMode === 'mindmap'
+                    ? 'bg-slate-700 text-white'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <Map className="h-4 w-4 mr-1.5" />
+                {t('course.ui.graphView')}
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setViewMode('book')}
+                className={`h-8 px-3 ${
+                  viewMode === 'book'
+                    ? 'bg-slate-700 text-white'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <BookOpen className="h-4 w-4 mr-1.5" />
+                {t('course.ui.bookView')}
+              </Button>
+            </div>
+
+            {/* Language selector */}
+            <LanguageSelector variant="buttons" className="text-white" />
           </div>
         </div>
       </div>

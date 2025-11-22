@@ -523,7 +523,10 @@
       "pageNotFound": "Page Not Found",
       "goHome": "Go to Home",
       "graphView": "Graph",
-      "bookView": "Outline"
+      "bookView": "Outline",
+      "back": "Back",
+      "demo": "Demo",
+      "view": "View"
     }
   }
 }
