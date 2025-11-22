@@ -272,5 +272,258 @@
     "number": "{{value, number}}",
     "currency": "{{value, currency}}",
     "percent": "{{value, percent}}"
+  },
+  "course": {
+    "main": {
+      "title": "Structure of Game Development",
+      "description": "Understanding game development through 3 layers",
+      "center": {
+        "title": "Game Dev",
+        "description": "3-Layer Knowledge Structure"
+      }
+    },
+    "layers": {
+      "cases": {
+        "title": "Case Studies",
+        "description": "How real games implement things",
+        "center": {
+          "title": "Case Studies",
+          "description": "Select a game"
+        }
+      },
+      "fundamentals": {
+        "title": "Fundamentals",
+        "description": "Immutable principles needed regardless of game genre",
+        "center": {
+          "title": "Core Principles",
+          "description": "Select a topic"
+        }
+      },
+      "decisions": {
+        "title": "Design Decisions",
+        "description": "Trade-offs that vary by game characteristics",
+        "center": {
+          "title": "Architecture Decisions",
+          "description": "Select a topic"
+        }
+      }
+    },
+    "cases": {
+      "super-mario": {
+        "title": "Super Mario",
+        "description": "The classic platformer, precise physics and timing",
+        "genre": "Platformer",
+        "year": "1985",
+        "keyFeatures": ["Precise jump physics", "Timing-based gameplay", "Level design"],
+        "fundamentals": ["Physics", "Rendering"],
+        "decisions": ["Tick rate"]
+      },
+      "maplestory": {
+        "title": "MapleStory",
+        "description": "2D MMORPG, massive concurrent connections",
+        "genre": "2D MMORPG",
+        "year": "2003",
+        "keyFeatures": ["Massive concurrent users", "Real-time combat", "Economy system"],
+        "fundamentals": ["Networking", "Serialization", "Modeling"],
+        "decisions": ["Multiplayer architecture", "Sync strategy"]
+      },
+      "overwatch": {
+        "title": "Overwatch",
+        "description": "FPS, client prediction and server authority",
+        "genre": "FPS",
+        "year": "2016",
+        "keyFeatures": ["Client prediction", "Server authority", "Favor the Shooter"],
+        "fundamentals": ["Networking", "Physics"],
+        "decisions": ["Physics authority", "Sync strategy", "Tick rate"]
+      },
+      "pubg": {
+        "title": "PUBG",
+        "description": "Battle royale, large maps and 100-player sync",
+        "genre": "Battle Royale",
+        "year": "2017",
+        "keyFeatures": ["100-player sync", "Large maps", "Dynamic safe zones"],
+        "fundamentals": ["Networking", "Modeling"],
+        "decisions": ["Multiplayer architecture", "Physics authority"]
+      },
+      "lol": {
+        "title": "League of Legends",
+        "description": "MOBA, deterministic simulation",
+        "genre": "MOBA",
+        "year": "2009",
+        "keyFeatures": ["Deterministic simulation", "Lockstep", "Replay system"],
+        "fundamentals": ["Modeling", "Networking"],
+        "decisions": ["Sync strategy", "Tick rate", "Balancing"]
+      },
+      "starcraft": {
+        "title": "StarCraft",
+        "description": "RTS, lockstep and perfect synchronization",
+        "genre": "RTS",
+        "year": "1998",
+        "keyFeatures": ["Perfect synchronization", "Lockstep networking", "Replay"],
+        "fundamentals": ["Modeling", "Networking"],
+        "decisions": ["Sync strategy", "Tick rate"]
+      }
+    },
+    "fundamentals": {
+      "modeling-simulation": {
+        "title": "Modeling & Simulation",
+        "description": "Defining and updating game world state",
+        "concepts": ["Game loop", "State machine", "ECS pattern", "World update"],
+        "usedIn": ["All games"]
+      },
+      "serialization": {
+        "title": "Serialization & State Management",
+        "description": "Saving, transmitting, and restoring data",
+        "concepts": ["JSON", "MessagePack", "Protocol Buffers", "Compression", "State snapshots"],
+        "usedIn": ["Save/Load", "Network transmission", "Replay"]
+      },
+      "rendering": {
+        "title": "Rendering & Visualization",
+        "description": "Displaying game state on screen",
+        "concepts": ["Rendering pipeline", "Interpolation", "Frame independence", "LOD"],
+        "usedIn": ["All games"]
+      },
+      "physics": {
+        "title": "Physics Computation",
+        "description": "Collision, gravity, force calculations",
+        "concepts": ["Collision detection", "Rigid body dynamics", "Raycast", "Triggers"],
+        "usedIn": ["Platformers", "FPS", "Racing"]
+      },
+      "networking": {
+        "title": "Network Communication Basics",
+        "description": "TCP/UDP, packets, latency",
+        "concepts": ["TCP vs UDP", "Latency", "Packet loss", "Bandwidth"],
+        "usedIn": ["Multiplayer games"]
+      }
+    },
+    "decisions": {
+      "multiplayer-arch": {
+        "title": "Multiplayer Architecture",
+        "description": "P2P vs Client-Server, authority model",
+        "considerations": ["Player count", "Cheat sensitivity", "Budget", "Latency requirements"],
+        "options": {
+          "p2p": {
+            "name": "P2P (Peer-to-Peer)",
+            "pros": ["No server cost", "Low latency possible"],
+            "cons": ["Cheat vulnerable", "NAT issues", "Limited scalability"],
+            "useCases": ["Fighting games", "Small-scale co-op"]
+          },
+          "client-server": {
+            "name": "Client-Server",
+            "pros": ["Cheat prevention via server authority", "Scalability", "Central control"],
+            "cons": ["Server cost", "Increased latency"],
+            "useCases": ["FPS", "MMORPG", "Battle royale"]
+          }
+        }
+      },
+      "physics-authority": {
+        "title": "Physics Authority",
+        "description": "Server vs client physics computation",
+        "considerations": ["Responsiveness requirements", "Competitiveness", "Server resources"],
+        "options": {
+          "server": {
+            "name": "Server Physics",
+            "pros": ["Consistency guaranteed", "Cheat prevention"],
+            "cons": ["Input delay", "Server load"],
+            "useCases": ["Competitive games", "Esports"]
+          },
+          "client": {
+            "name": "Client Physics",
+            "pros": ["Immediate response", "Reduced server load"],
+            "cons": ["Sync issues", "Cheat possible"],
+            "useCases": ["Single player", "Co-op PvE"]
+          }
+        }
+      },
+      "sync-strategy": {
+        "title": "Synchronization Strategy",
+        "description": "Optimistic vs pessimistic, rollback",
+        "considerations": ["Game tempo", "Acceptable latency", "Complexity budget"],
+        "options": {
+          "optimistic": {
+            "name": "Optimistic Sync",
+            "pros": ["Immediate feedback", "Good UX"],
+            "cons": ["Rollback needed", "Complex implementation"],
+            "useCases": ["Action games", "FPS"]
+          },
+          "pessimistic": {
+            "name": "Pessimistic Sync",
+            "pros": ["Simple implementation", "Consistency guaranteed"],
+            "cons": ["Input delay", "Slow response"],
+            "useCases": ["Turn-based games", "RTS"]
+          }
+        }
+      },
+      "tickrate": {
+        "title": "Tick Rate & Interpolation",
+        "description": "Update frequency and smooth representation",
+        "considerations": ["Game genre", "Precision requirements", "Infrastructure cost"],
+        "options": {
+          "high": {
+            "name": "High Tick Rate (60-128Hz)",
+            "pros": ["Precise hitboxes", "Smooth movement"],
+            "cons": ["High bandwidth", "Server load"],
+            "useCases": ["FPS", "Fighting games"]
+          },
+          "low": {
+            "name": "Low Tick Rate (10-30Hz)",
+            "pros": ["Low bandwidth", "Server cost savings"],
+            "cons": ["Interpolation needed", "Reduced precision"],
+            "useCases": ["MMORPG", "Strategy games"]
+          }
+        }
+      },
+      "balancing": {
+        "title": "Balancing Structure",
+        "description": "Data-driven balancing design",
+        "considerations": ["Team composition", "Update frequency", "Operations plan"],
+        "options": {
+          "hardcoded": {
+            "name": "Hardcoded",
+            "pros": ["Fast development", "Simplicity"],
+            "cons": ["Patch required", "Lack of flexibility"],
+            "useCases": ["Small projects", "Prototypes"]
+          },
+          "data-driven": {
+            "name": "Data-Driven",
+            "pros": ["Hotfix possible", "Designer accessibility", "A/B testing"],
+            "cons": ["Complex initial setup", "Runtime overhead"],
+            "useCases": ["Live services", "Large-scale games"]
+          }
+        }
+      }
+    },
+    "ui": {
+      "backToHome": "Back",
+      "caseStudy": "Case Study",
+      "fundamental": "Fundamental",
+      "designDecision": "Design Decision",
+      "gameInfo": "Game Info",
+      "genre": "Genre",
+      "releaseYear": "Release",
+      "keyFeatures": "Key Features",
+      "relatedFundamentals": "Related Fundamentals",
+      "relatedDecisions": "Related Decisions",
+      "coreConcepts": "Core Concepts",
+      "usedIn": "Used In",
+      "runDemo": "Run Demo",
+      "contentComingSoon": "Content Coming Soon",
+      "contentComingSoonDesc": "Detailed content for this page will be added soon.",
+      "detailedContentComingSoon": "Detailed Content Coming Soon",
+      "detailedContentComingSoonDesc": "More detailed explanations and examples will be added soon.",
+      "theorySection": "Theory",
+      "visualizationSection": "Visualization",
+      "visualizationDemoSection": "Visualization / Demo",
+      "theoryPlaceholder": "Theory section",
+      "visualizationPlaceholder": "Visualization section",
+      "considerations": "Considerations",
+      "pros": "Pros",
+      "cons": "Cons",
+      "useCases": "Use Cases",
+      "pageNotFound": "Page Not Found",
+      "goHome": "Go to Home",
+      "graphView": "Graph",
+      "bookView": "Outline"
+    }
   }
 }

@@ -19,12 +19,15 @@ export type NodeColor =
   | 'teal'
   | 'pink'
   | 'yellow'
+  | 'cyan'
+  | 'indigo'
+  | 'amber'
 
 // Mind map node structure
 export interface MindMapNode {
   id: string
-  title: string
-  titleEn?: string  // English title for i18n
+  title?: string  // Optional - text stored in locale files
+  titleEn?: string  // Optional - for backwards compatibility
   description?: string
   descriptionEn?: string
   position: Position
@@ -42,7 +45,7 @@ export interface MindMapNode {
 // Root mind map data structure
 export interface MindMapData {
   id: string
-  title: string
+  title?: string  // Optional - text stored in locale files
   titleEn?: string
   description?: string
   centerPosition: Position

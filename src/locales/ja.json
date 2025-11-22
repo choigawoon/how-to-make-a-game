@@ -272,5 +272,258 @@
     "number": "{{value, number}}",
     "currency": "{{value, currency}}",
     "percent": "{{value, percent}}"
+  },
+  "course": {
+    "main": {
+      "title": "ゲーム開発の構造",
+      "description": "3層で理解するゲーム開発",
+      "center": {
+        "title": "ゲーム開発",
+        "description": "3層知識構造"
+      }
+    },
+    "layers": {
+      "cases": {
+        "title": "事例で学ぶ",
+        "description": "実際のゲームがどう実装したか",
+        "center": {
+          "title": "ケーススタディ",
+          "description": "ゲームを選択してください"
+        }
+      },
+      "fundamentals": {
+        "title": "基本原理",
+        "description": "ジャンル問わず常に必要な不変の法則",
+        "center": {
+          "title": "コア原理",
+          "description": "トピックを選択してください"
+        }
+      },
+      "decisions": {
+        "title": "設計判断",
+        "description": "ゲーム特性によって異なるトレードオフ",
+        "center": {
+          "title": "アーキテクチャ判断",
+          "description": "トピックを選択してください"
+        }
+      }
+    },
+    "cases": {
+      "super-mario": {
+        "title": "スーパーマリオ",
+        "description": "プラットフォーマーの定番、精密な物理とタイミング",
+        "genre": "プラットフォーマー",
+        "year": "1985",
+        "keyFeatures": ["精密なジャンプ物理", "タイミングベースのゲームプレイ", "レベルデザイン"],
+        "fundamentals": ["物理演算", "レンダリング"],
+        "decisions": ["ティックレート"]
+      },
+      "maplestory": {
+        "title": "メイプルストーリー",
+        "description": "2D MMORPG、大規模同時接続処理",
+        "genre": "2D MMORPG",
+        "year": "2003",
+        "keyFeatures": ["大規模同時接続", "リアルタイム戦闘", "経済システム"],
+        "fundamentals": ["ネットワーク通信", "シリアライズ", "モデリング"],
+        "decisions": ["マルチプレイアーキテクチャ", "同期戦略"]
+      },
+      "overwatch": {
+        "title": "オーバーウォッチ",
+        "description": "FPS、クライアント予測とサーバー権限",
+        "genre": "FPS",
+        "year": "2016",
+        "keyFeatures": ["クライアント予測", "サーバー権限", "Favor the Shooter"],
+        "fundamentals": ["ネットワーク通信", "物理演算"],
+        "decisions": ["物理処理方式", "同期戦略", "ティックレート"]
+      },
+      "pubg": {
+        "title": "PUBG",
+        "description": "バトルロイヤル、大規模マップと100人同期",
+        "genre": "バトルロイヤル",
+        "year": "2017",
+        "keyFeatures": ["100人同期", "大規模マップ", "動的安全区域"],
+        "fundamentals": ["ネットワーク通信", "モデリング"],
+        "decisions": ["マルチプレイアーキテクチャ", "物理処理方式"]
+      },
+      "lol": {
+        "title": "リーグ・オブ・レジェンド",
+        "description": "MOBA、決定論的シミュレーション",
+        "genre": "MOBA",
+        "year": "2009",
+        "keyFeatures": ["決定論的シミュレーション", "ロックステップ", "リプレイシステム"],
+        "fundamentals": ["モデリング", "ネットワーク通信"],
+        "decisions": ["同期戦略", "ティックレート", "バランシング"]
+      },
+      "starcraft": {
+        "title": "スタークラフト",
+        "description": "RTS、ロックステップと完璧な同期",
+        "genre": "RTS",
+        "year": "1998",
+        "keyFeatures": ["完璧な同期", "ロックステップネットワーキング", "リプレイ"],
+        "fundamentals": ["モデリング", "ネットワーク通信"],
+        "decisions": ["同期戦略", "ティックレート"]
+      }
+    },
+    "fundamentals": {
+      "modeling-simulation": {
+        "title": "モデリング＆シミュレーション",
+        "description": "ゲームワールドの状態定義と更新",
+        "concepts": ["ゲームループ", "ステートマシン", "ECSパターン", "ワールド更新"],
+        "usedIn": ["すべてのゲーム"]
+      },
+      "serialization": {
+        "title": "シリアライズ＆状態管理",
+        "description": "データの保存、送信、復元",
+        "concepts": ["JSON", "MessagePack", "Protocol Buffers", "圧縮", "状態スナップショット"],
+        "usedIn": ["セーブ/ロード", "ネットワーク送信", "リプレイ"]
+      },
+      "rendering": {
+        "title": "レンダリング＆可視化",
+        "description": "ゲーム状態を画面に表示",
+        "concepts": ["レンダリングパイプライン", "補間", "フレーム独立性", "LOD"],
+        "usedIn": ["すべてのゲーム"]
+      },
+      "physics": {
+        "title": "物理演算",
+        "description": "衝突、重力、力の計算",
+        "concepts": ["衝突検出", "剛体力学", "レイキャスト", "トリガー"],
+        "usedIn": ["プラットフォーマー", "FPS", "レーシング"]
+      },
+      "networking": {
+        "title": "ネットワーク通信基礎",
+        "description": "TCP/UDP、パケット、遅延",
+        "concepts": ["TCP vs UDP", "レイテンシ", "パケットロス", "帯域幅"],
+        "usedIn": ["マルチプレイヤーゲーム"]
+      }
+    },
+    "decisions": {
+      "multiplayer-arch": {
+        "title": "マルチプレイアーキテクチャ",
+        "description": "P2P vs Client-Server、権限モデル",
+        "considerations": ["プレイヤー数", "チート感度", "予算", "レイテンシ要件"],
+        "options": {
+          "p2p": {
+            "name": "P2P (Peer-to-Peer)",
+            "pros": ["サーバーコストなし", "低遅延可能"],
+            "cons": ["チート脆弱", "NAT問題", "拡張性制限"],
+            "useCases": ["格闘ゲーム", "小規模協力"]
+          },
+          "client-server": {
+            "name": "Client-Server",
+            "pros": ["サーバー権限でチート防止", "拡張性", "中央制御"],
+            "cons": ["サーバーコスト", "遅延増加"],
+            "useCases": ["FPS", "MMORPG", "バトルロイヤル"]
+          }
+        }
+      },
+      "physics-authority": {
+        "title": "物理処理方式",
+        "description": "サーバー vs クライアント物理演算",
+        "considerations": ["応答性要件", "競争性", "サーバーリソース"],
+        "options": {
+          "server": {
+            "name": "サーバー物理",
+            "pros": ["一貫性保証", "チート防止"],
+            "cons": ["入力遅延", "サーバー負荷"],
+            "useCases": ["競技ゲーム", "eスポーツ"]
+          },
+          "client": {
+            "name": "クライアント物理",
+            "pros": ["即時反応", "サーバー負荷軽減"],
+            "cons": ["同期問題", "チート可能"],
+            "useCases": ["シングルプレイヤー", "協力PvE"]
+          }
+        }
+      },
+      "sync-strategy": {
+        "title": "同期戦略",
+        "description": "楽観的 vs 悲観的、ロールバック",
+        "considerations": ["ゲームテンポ", "許容遅延", "複雑度予算"],
+        "options": {
+          "optimistic": {
+            "name": "楽観的同期",
+            "pros": ["即時フィードバック", "良いUX"],
+            "cons": ["ロールバック必要", "複雑な実装"],
+            "useCases": ["アクションゲーム", "FPS"]
+          },
+          "pessimistic": {
+            "name": "悲観的同期",
+            "pros": ["シンプルな実装", "一貫性保証"],
+            "cons": ["入力遅延", "遅い反応"],
+            "useCases": ["ターン制ゲーム", "RTS"]
+          }
+        }
+      },
+      "tickrate": {
+        "title": "ティックレート＆補間",
+        "description": "更新頻度と滑らかな表現",
+        "considerations": ["ゲームジャンル", "精度要件", "インフラコスト"],
+        "options": {
+          "high": {
+            "name": "高ティックレート (60-128Hz)",
+            "pros": ["精密なヒットボックス", "滑らかな動き"],
+            "cons": ["高帯域幅", "サーバー負荷"],
+            "useCases": ["FPS", "格闘ゲーム"]
+          },
+          "low": {
+            "name": "低ティックレート (10-30Hz)",
+            "pros": ["低帯域幅", "サーバーコスト削減"],
+            "cons": ["補間必要", "精度低下"],
+            "useCases": ["MMORPG", "戦略ゲーム"]
+          }
+        }
+      },
+      "balancing": {
+        "title": "バランシング構造",
+        "description": "データドリブンバランシング設計",
+        "considerations": ["チーム構成", "更新頻度", "運営計画"],
+        "options": {
+          "hardcoded": {
+            "name": "ハードコーディング",
+            "pros": ["開発が速い", "シンプル"],
+            "cons": ["パッチ必要", "柔軟性不足"],
+            "useCases": ["小規模プロジェクト", "プロトタイプ"]
+          },
+          "data-driven": {
+            "name": "データドリブン",
+            "pros": ["ホットフィックス可能", "プランナーアクセス", "A/Bテスト"],
+            "cons": ["初期設定複雑", "ランタイムオーバーヘッド"],
+            "useCases": ["ライブサービス", "大規模ゲーム"]
+          }
+        }
+      }
+    },
+    "ui": {
+      "backToHome": "戻る",
+      "caseStudy": "ケーススタディ",
+      "fundamental": "基本原理",
+      "designDecision": "設計判断",
+      "gameInfo": "ゲーム情報",
+      "genre": "ジャンル",
+      "releaseYear": "リリース",
+      "keyFeatures": "主な特徴",
+      "relatedFundamentals": "関連する基本原理",
+      "relatedDecisions": "関連する設計判断",
+      "coreConcepts": "コアコンセプト",
+      "usedIn": "使用分野",
+      "runDemo": "デモを実行",
+      "contentComingSoon": "コンテンツ準備中",
+      "contentComingSoonDesc": "このページの詳細コンテンツは近日追加予定です。",
+      "detailedContentComingSoon": "詳細コンテンツ準備中",
+      "detailedContentComingSoonDesc": "より詳しい説明と例が近日追加予定です。",
+      "theorySection": "理論説明",
+      "visualizationSection": "可視化",
+      "visualizationDemoSection": "可視化 / デモ",
+      "theoryPlaceholder": "理論説明エリア",
+      "visualizationPlaceholder": "可視化エリア",
+      "considerations": "検討事項",
+      "pros": "メリット",
+      "cons": "デメリット",
+      "useCases": "ユースケース",
+      "pageNotFound": "ページが見つかりません",
+      "goHome": "ホームへ戻る",
+      "graphView": "グラフ",
+      "bookView": "目次"
+    }
   }
 }
