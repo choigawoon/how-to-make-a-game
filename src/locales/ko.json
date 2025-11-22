@@ -272,5 +272,258 @@
     "number": "{{value, number}}",
     "currency": "{{value, currency}}",
     "percent": "{{value, percent}}"
+  },
+  "course": {
+    "main": {
+      "title": "게임 개발의 구조",
+      "description": "3계층으로 이해하는 게임 개발",
+      "center": {
+        "title": "게임 개발",
+        "description": "3계층 지식 구조"
+      }
+    },
+    "layers": {
+      "cases": {
+        "title": "사례로 배우기",
+        "description": "실제 게임들이 어떻게 구현했는지",
+        "center": {
+          "title": "사례 연구",
+          "description": "게임을 선택하세요"
+        }
+      },
+      "fundamentals": {
+        "title": "기본 원리",
+        "description": "게임 장르 무관하게 항상 필요한 불변 법칙",
+        "center": {
+          "title": "핵심 원리",
+          "description": "주제를 선택하세요"
+        }
+      },
+      "decisions": {
+        "title": "설계 결정",
+        "description": "게임 특성에 따라 달라지는 트레이드오프",
+        "center": {
+          "title": "설계 선택지",
+          "description": "주제를 선택하세요"
+        }
+      }
+    },
+    "cases": {
+      "super-mario": {
+        "title": "슈퍼마리오",
+        "description": "플랫포머의 정석, 정밀한 물리와 타이밍",
+        "genre": "플랫포머",
+        "year": "1985",
+        "keyFeatures": ["정밀한 점프 물리", "타이밍 기반 게임플레이", "레벨 디자인"],
+        "fundamentals": ["물리 연산", "렌더링"],
+        "decisions": ["틱레이트"]
+      },
+      "maplestory": {
+        "title": "메이플스토리",
+        "description": "2D MMORPG, 대규모 동시접속 처리",
+        "genre": "2D MMORPG",
+        "year": "2003",
+        "keyFeatures": ["대규모 동시접속", "실시간 전투", "경제 시스템"],
+        "fundamentals": ["네트워크 통신", "직렬화", "모델링"],
+        "decisions": ["멀티플레이 아키텍처", "동기화 전략"]
+      },
+      "overwatch": {
+        "title": "오버워치",
+        "description": "FPS, 클라이언트 예측과 서버 권한",
+        "genre": "FPS",
+        "year": "2016",
+        "keyFeatures": ["클라이언트 예측", "서버 권한", "Favor the Shooter"],
+        "fundamentals": ["네트워크 통신", "물리 연산"],
+        "decisions": ["물리 처리 방식", "동기화 전략", "틱레이트"]
+      },
+      "pubg": {
+        "title": "배틀그라운드",
+        "description": "배틀로얄, 대규모 맵과 100인 동기화",
+        "genre": "배틀로얄",
+        "year": "2017",
+        "keyFeatures": ["100인 동기화", "대규모 맵", "동적 안전구역"],
+        "fundamentals": ["네트워크 통신", "모델링"],
+        "decisions": ["멀티플레이 아키텍처", "물리 처리 방식"]
+      },
+      "lol": {
+        "title": "리그 오브 레전드",
+        "description": "MOBA, 결정론적 시뮬레이션",
+        "genre": "MOBA",
+        "year": "2009",
+        "keyFeatures": ["결정론적 시뮬레이션", "락스텝", "리플레이 시스템"],
+        "fundamentals": ["모델링", "네트워크 통신"],
+        "decisions": ["동기화 전략", "틱레이트", "밸런싱"]
+      },
+      "starcraft": {
+        "title": "스타크래프트",
+        "description": "RTS, 락스텝과 완벽한 동기화",
+        "genre": "RTS",
+        "year": "1998",
+        "keyFeatures": ["완벽한 동기화", "락스텝 네트워킹", "리플레이"],
+        "fundamentals": ["모델링", "네트워크 통신"],
+        "decisions": ["동기화 전략", "틱레이트"]
+      }
+    },
+    "fundamentals": {
+      "modeling-simulation": {
+        "title": "모델링 & 시뮬레이션",
+        "description": "게임 세계의 상태 정의와 업데이트",
+        "concepts": ["게임 루프", "상태 머신", "ECS 패턴", "월드 업데이트"],
+        "usedIn": ["모든 게임"]
+      },
+      "serialization": {
+        "title": "직렬화 & 상태관리",
+        "description": "데이터 저장, 전송, 복원",
+        "concepts": ["JSON", "MessagePack", "Protocol Buffers", "압축", "상태 스냅샷"],
+        "usedIn": ["저장/로드", "네트워크 전송", "리플레이"]
+      },
+      "rendering": {
+        "title": "렌더링 & 시각화",
+        "description": "게임 상태를 화면에 표현",
+        "concepts": ["렌더링 파이프라인", "보간", "프레임 독립성", "LOD"],
+        "usedIn": ["모든 게임"]
+      },
+      "physics": {
+        "title": "물리 연산",
+        "description": "충돌, 중력, 힘의 계산",
+        "concepts": ["충돌 감지", "강체 역학", "Raycast", "트리거"],
+        "usedIn": ["플랫포머", "FPS", "레이싱"]
+      },
+      "networking": {
+        "title": "네트워크 통신 기초",
+        "description": "TCP/UDP, 패킷, 지연시간",
+        "concepts": ["TCP vs UDP", "지연시간", "패킷 손실", "대역폭"],
+        "usedIn": ["멀티플레이어 게임"]
+      }
+    },
+    "decisions": {
+      "multiplayer-arch": {
+        "title": "멀티플레이 아키텍처",
+        "description": "P2P vs Client-Server, 권한 모델",
+        "considerations": ["플레이어 수", "치트 민감도", "예산", "지연시간 요구사항"],
+        "options": {
+          "p2p": {
+            "name": "P2P (Peer-to-Peer)",
+            "pros": ["서버 비용 없음", "낮은 지연시간 가능"],
+            "cons": ["치트 취약", "NAT 문제", "확장성 제한"],
+            "useCases": ["격투 게임", "소규모 협동"]
+          },
+          "client-server": {
+            "name": "Client-Server",
+            "pros": ["서버 권한으로 치트 방지", "확장성", "중앙 제어"],
+            "cons": ["서버 비용", "지연시간 증가"],
+            "useCases": ["FPS", "MMORPG", "배틀로얄"]
+          }
+        }
+      },
+      "physics-authority": {
+        "title": "물리 처리 방식",
+        "description": "서버 vs 클라이언트 물리 연산",
+        "considerations": ["반응성 요구사항", "경쟁성", "서버 리소스"],
+        "options": {
+          "server": {
+            "name": "서버 물리",
+            "pros": ["일관성 보장", "치트 방지"],
+            "cons": ["입력 지연", "서버 부하"],
+            "useCases": ["경쟁 게임", "e스포츠"]
+          },
+          "client": {
+            "name": "클라이언트 물리",
+            "pros": ["즉각적 반응", "서버 부하 감소"],
+            "cons": ["동기화 문제", "치트 가능"],
+            "useCases": ["싱글플레이어", "협동 PvE"]
+          }
+        }
+      },
+      "sync-strategy": {
+        "title": "동기화 전략",
+        "description": "낙관적 vs 비관적, 롤백",
+        "considerations": ["게임 템포", "허용 가능한 지연시간", "복잡도 예산"],
+        "options": {
+          "optimistic": {
+            "name": "낙관적 동기화",
+            "pros": ["즉각적 피드백", "좋은 UX"],
+            "cons": ["롤백 필요", "복잡한 구현"],
+            "useCases": ["액션 게임", "FPS"]
+          },
+          "pessimistic": {
+            "name": "비관적 동기화",
+            "pros": ["단순한 구현", "일관성 보장"],
+            "cons": ["입력 지연", "느린 반응"],
+            "useCases": ["턴제 게임", "RTS"]
+          }
+        }
+      },
+      "tickrate": {
+        "title": "틱레이트 & 보간",
+        "description": "업데이트 주기와 부드러운 표현",
+        "considerations": ["게임 장르", "정밀도 요구사항", "인프라 비용"],
+        "options": {
+          "high": {
+            "name": "높은 틱레이트 (60-128Hz)",
+            "pros": ["정밀한 히트박스", "부드러운 움직임"],
+            "cons": ["높은 대역폭", "서버 부하"],
+            "useCases": ["FPS", "격투 게임"]
+          },
+          "low": {
+            "name": "낮은 틱레이트 (10-30Hz)",
+            "pros": ["낮은 대역폭", "서버 비용 절감"],
+            "cons": ["보간 필요", "정밀도 감소"],
+            "useCases": ["MMORPG", "전략 게임"]
+          }
+        }
+      },
+      "balancing": {
+        "title": "밸런싱 구조",
+        "description": "데이터 드리븐 밸런싱 설계",
+        "considerations": ["팀 구성", "업데이트 빈도", "운영 계획"],
+        "options": {
+          "hardcoded": {
+            "name": "하드코딩",
+            "pros": ["빠른 개발", "단순함"],
+            "cons": ["패치 필요", "유연성 부족"],
+            "useCases": ["소규모 프로젝트", "프로토타입"]
+          },
+          "data-driven": {
+            "name": "데이터 드리븐",
+            "pros": ["핫픽스 가능", "기획자 접근성", "A/B 테스트"],
+            "cons": ["초기 설정 복잡", "런타임 오버헤드"],
+            "useCases": ["라이브 서비스", "대규모 게임"]
+          }
+        }
+      }
+    },
+    "ui": {
+      "backToHome": "돌아가기",
+      "caseStudy": "사례 연구",
+      "fundamental": "기본 원리",
+      "designDecision": "설계 결정",
+      "gameInfo": "게임 정보",
+      "genre": "장르",
+      "releaseYear": "출시",
+      "keyFeatures": "핵심 특징",
+      "relatedFundamentals": "관련 기본 원리",
+      "relatedDecisions": "관련 설계 결정",
+      "coreConcepts": "핵심 개념",
+      "usedIn": "활용 분야",
+      "runDemo": "데모 실행하기",
+      "contentComingSoon": "콘텐츠 준비 중",
+      "contentComingSoonDesc": "이 페이지의 상세 내용이 곧 추가될 예정입니다.",
+      "detailedContentComingSoon": "상세 콘텐츠 준비 중",
+      "detailedContentComingSoonDesc": "더 자세한 설명과 예제가 곧 추가될 예정입니다.",
+      "theorySection": "이론 설명",
+      "visualizationSection": "시각화",
+      "visualizationDemoSection": "시각화 / 데모",
+      "theoryPlaceholder": "이론 설명 영역",
+      "visualizationPlaceholder": "시각화 영역",
+      "considerations": "결정 시 고려사항",
+      "pros": "장점",
+      "cons": "단점",
+      "useCases": "사용 사례",
+      "pageNotFound": "페이지를 찾을 수 없습니다",
+      "goHome": "홈으로 돌아가기",
+      "graphView": "그래프",
+      "bookView": "목차"
+    }
   }
 }

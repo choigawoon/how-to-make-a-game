@@ -1,19 +1,14 @@
 import type { MindMapData } from '@/types/course'
 
 // Main course mind map - 3 layers arranged in triangular pattern
+// Text content is stored in locale files under course.main and course.layers
 export const mainCourseTree: MindMapData = {
   id: 'main',
-  title: '게임 개발의 구조',
-  titleEn: 'Structure of Game Development',
-  description: '3계층으로 이해하는 게임 개발',
   centerPosition: { x: 0, y: 0 },
   nodes: [
     // Center node (title node)
     {
       id: 'center',
-      title: '게임 개발',
-      titleEn: 'Game Dev',
-      description: '3계층 지식 구조',
       position: { x: 0, y: 0 },
       color: 'purple',
       icon: 'Gamepad2',
@@ -22,9 +17,6 @@ export const mainCourseTree: MindMapData = {
     // Layer 1: Case Studies (top)
     {
       id: 'cases',
-      title: '사례로 배우기',
-      titleEn: 'Case Studies',
-      description: '실제 게임들이 어떻게 구현했는지',
       position: { x: 0, y: -280 },
       color: 'blue',
       icon: 'Trophy',
@@ -33,9 +25,6 @@ export const mainCourseTree: MindMapData = {
     // Layer 2: Fundamentals (bottom-left)
     {
       id: 'fundamentals',
-      title: '기본 원리',
-      titleEn: 'Fundamentals',
-      description: '게임 장르 무관하게 항상 필요한 불변 법칙',
       position: { x: -280, y: 180 },
       color: 'green',
       icon: 'Blocks',
@@ -44,9 +33,6 @@ export const mainCourseTree: MindMapData = {
     // Layer 3: Design Decisions (bottom-right)
     {
       id: 'decisions',
-      title: '설계 결정',
-      titleEn: 'Design Decisions',
-      description: '게임 특성에 따라 달라지는 트레이드오프',
       position: { x: 280, y: 180 },
       color: 'orange',
       icon: 'GitBranch',

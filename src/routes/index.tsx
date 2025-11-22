@@ -1,5 +1,6 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useEffect, useState, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Map, BookOpen, ChevronRight, Home } from 'lucide-react'
 import { MindMap } from '@/components/mindmap'
 import { BookView } from '@/components/mindmap/BookView'
@@ -32,11 +33,18 @@ interface BreadcrumbItem {
 }
 
 function LandingPage() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const [viewMode, setViewMode] = useState<ViewMode>('mindmap')
   const [breadcrumbs, setBreadcrumbs] = useState<BreadcrumbItem[]>([
-    { id: 'main', title: '게임 개발', data: mainCourseTree },
+    { id: 'main', title: 'main', data: mainCourseTree },
   ])
+
+  // Helper to get translated title for breadcrumb
+  const getBreadcrumbTitle = (id: string): string => {
+    if (id === 'main') return t('course.main.center.title')
+    return t(`course.layers.${id}.title` as never) as string
+  }
 
   const currentMindmap = breadcrumbs[breadcrumbs.length - 1].data
 
@@ -64,7 +72,7 @@ function LandingPage() {
     if (subMindmap) {
       setBreadcrumbs(prev => [
         ...prev,
-        { id: node.id, title: node.title, data: subMindmap },
+        { id: node.id, title: node.id, data: subMindmap },
       ])
       return
     }
@@ -110,7 +118,7 @@ function LandingPage() {
                   {index === 0 ? (
                     <Home className="h-4 w-4" />
                   ) : (
-                    crumb.title
+                    getBreadcrumbTitle(crumb.id)
                   )}
                 </button>
               </div>
@@ -130,7 +138,7 @@ function LandingPage() {
               }`}
             >
               <Map className="h-4 w-4 mr-1.5" />
-              그래프
+              {t('course.ui.graphView')}
             </Button>
             <Button
               variant="ghost"
@@ -143,7 +151,7 @@ function LandingPage() {
               }`}
             >
               <BookOpen className="h-4 w-4 mr-1.5" />
-              목차
+              {t('course.ui.bookView')}
             </Button>
           </div>
         </div>

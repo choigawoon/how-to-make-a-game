@@ -1,19 +1,14 @@
 import type { MindMapData } from '@/types/course'
 
 // Layer 1: Case Studies - Learn from real games
+// Text content is stored in locale files under course.cases
 export const casesTree: MindMapData = {
   id: 'cases',
-  title: '사례로 배우기',
-  titleEn: 'Case Studies',
-  description: '실제 게임들이 2, 3계층을 어떻게 구현했는지',
   centerPosition: { x: 0, y: 0 },
   nodes: [
     // Center node
     {
       id: 'cases-center',
-      title: '사례 연구',
-      titleEn: 'Case Studies',
-      description: '게임을 선택하세요',
       position: { x: 0, y: 0 },
       color: 'blue',
       icon: 'Trophy',
@@ -22,9 +17,6 @@ export const casesTree: MindMapData = {
     // Super Mario (top)
     {
       id: 'super-mario',
-      title: '슈퍼마리오',
-      titleEn: 'Super Mario',
-      description: '플랫포머의 정석, 정밀한 물리와 타이밍',
       position: { x: 0, y: -250 },
       color: 'red',
       icon: 'Gamepad2',
@@ -34,9 +26,6 @@ export const casesTree: MindMapData = {
     // MapleStory (top-right)
     {
       id: 'maplestory',
-      title: '메이플스토리',
-      titleEn: 'MapleStory',
-      description: '2D MMORPG, 대규모 동시접속 처리',
       position: { x: 220, y: -125 },
       color: 'orange',
       icon: 'TreePine',
@@ -46,9 +35,6 @@ export const casesTree: MindMapData = {
     // Overwatch (bottom-right)
     {
       id: 'overwatch',
-      title: '오버워치',
-      titleEn: 'Overwatch',
-      description: 'FPS, 클라이언트 예측과 서버 권한',
       position: { x: 220, y: 125 },
       color: 'amber',
       icon: 'Crosshair',
@@ -58,9 +44,6 @@ export const casesTree: MindMapData = {
     // PUBG (bottom)
     {
       id: 'pubg',
-      title: '배틀그라운드',
-      titleEn: 'PUBG',
-      description: '배틀로얄, 대규모 맵과 100인 동기화',
       position: { x: 0, y: 250 },
       color: 'yellow',
       icon: 'Target',
@@ -70,9 +53,6 @@ export const casesTree: MindMapData = {
     // League of Legends (bottom-left)
     {
       id: 'lol',
-      title: '리그 오브 레전드',
-      titleEn: 'League of Legends',
-      description: 'MOBA, 결정론적 시뮬레이션',
       position: { x: -220, y: 125 },
       color: 'cyan',
       icon: 'Swords',
@@ -82,9 +62,6 @@ export const casesTree: MindMapData = {
     // StarCraft (top-left)
     {
       id: 'starcraft',
-      title: '스타크래프트',
-      titleEn: 'StarCraft',
-      description: 'RTS, 락스텝과 완벽한 동기화',
       position: { x: -220, y: -125 },
       color: 'indigo',
       icon: 'Rocket',
