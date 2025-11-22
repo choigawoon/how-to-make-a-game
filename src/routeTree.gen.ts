@@ -14,6 +14,7 @@ import { Route as MswTestRouteImport } from './routes/msw-test'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TopicTopicIdRouteImport } from './routes/topic/$topicId'
 import { Route as DemoSerializationRouteImport } from './routes/demo/serialization'
+import { Route as DemoGameWorldRouteImport } from './routes/demo/game-world'
 
 const ZustandTestRoute = ZustandTestRouteImport.update({
   id: '/zustand-test',
@@ -40,11 +41,17 @@ const DemoSerializationRoute = DemoSerializationRouteImport.update({
   path: '/demo/serialization',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DemoGameWorldRoute = DemoGameWorldRouteImport.update({
+  id: '/demo/game-world',
+  path: '/demo/game-world',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/msw-test': typeof MswTestRoute
   '/zustand-test': typeof ZustandTestRoute
+  '/demo/game-world': typeof DemoGameWorldRoute
   '/demo/serialization': typeof DemoSerializationRoute
   '/topic/$topicId': typeof TopicTopicIdRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/msw-test': typeof MswTestRoute
   '/zustand-test': typeof ZustandTestRoute
+  '/demo/game-world': typeof DemoGameWorldRoute
   '/demo/serialization': typeof DemoSerializationRoute
   '/topic/$topicId': typeof TopicTopicIdRoute
 }
@@ -60,6 +68,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/msw-test': typeof MswTestRoute
   '/zustand-test': typeof ZustandTestRoute
+  '/demo/game-world': typeof DemoGameWorldRoute
   '/demo/serialization': typeof DemoSerializationRoute
   '/topic/$topicId': typeof TopicTopicIdRoute
 }
@@ -69,6 +78,7 @@ export interface FileRouteTypes {
     | '/'
     | '/msw-test'
     | '/zustand-test'
+    | '/demo/game-world'
     | '/demo/serialization'
     | '/topic/$topicId'
   fileRoutesByTo: FileRoutesByTo
@@ -76,6 +86,7 @@ export interface FileRouteTypes {
     | '/'
     | '/msw-test'
     | '/zustand-test'
+    | '/demo/game-world'
     | '/demo/serialization'
     | '/topic/$topicId'
   id:
@@ -83,6 +94,7 @@ export interface FileRouteTypes {
     | '/'
     | '/msw-test'
     | '/zustand-test'
+    | '/demo/game-world'
     | '/demo/serialization'
     | '/topic/$topicId'
   fileRoutesById: FileRoutesById
@@ -91,6 +103,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MswTestRoute: typeof MswTestRoute
   ZustandTestRoute: typeof ZustandTestRoute
+  DemoGameWorldRoute: typeof DemoGameWorldRoute
   DemoSerializationRoute: typeof DemoSerializationRoute
   TopicTopicIdRoute: typeof TopicTopicIdRoute
 }
@@ -132,6 +145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoSerializationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/demo/game-world': {
+      id: '/demo/game-world'
+      path: '/demo/game-world'
+      fullPath: '/demo/game-world'
+      preLoaderRoute: typeof DemoGameWorldRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -139,6 +159,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MswTestRoute: MswTestRoute,
   ZustandTestRoute: ZustandTestRoute,
+  DemoGameWorldRoute: DemoGameWorldRoute,
   DemoSerializationRoute: DemoSerializationRoute,
   TopicTopicIdRoute: TopicTopicIdRoute,
 }

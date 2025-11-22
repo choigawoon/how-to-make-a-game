@@ -14,6 +14,10 @@ import {
   Download,
   HardDrive,
   GitBranch,
+  Boxes,
+  Zap,
+  Grid3X3,
+  Clock,
 } from 'lucide-react'
 import type { MindMapNode as MindMapNodeType } from '@/types/course'
 import { nodeColorClasses } from '@/content/course-tree'
@@ -34,6 +38,10 @@ const iconMap: Record<string, LucideIcon> = {
   Download,
   HardDrive,
   GitBranch,
+  Boxes,
+  Zap,
+  Grid3x3: Grid3X3,
+  Clock,
 }
 
 interface MindMapNodeProps {
