@@ -267,6 +267,79 @@ function LockstepDemoPage() {
             </p>
           </CardContent>
         </Card>
+
+        {/* References */}
+        <Card className="bg-slate-800/30 border-slate-700 mt-8">
+          <CardHeader>
+            <CardTitle className="text-lg">참고 자료</CardTitle>
+          </CardHeader>
+          <CardContent className="text-sm text-slate-300">
+            <div className="space-y-3">
+              <div>
+                <h4 className="font-semibold text-slate-200 mb-2">락스텝 & 롤백 넷코드</h4>
+                <ul className="list-disc list-inside space-y-1 text-xs text-slate-400">
+                  <li>
+                    <a href="https://meseta.medium.com/netcode-concepts-part-3-lockstep-and-rollback-f70e9297271" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                      Netcode Concepts Part 3: Lockstep and Rollback - Medium
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.snapnet.dev/blog/netcode-architectures-part-2-rollback/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                      Netcode Architectures Part 2: Rollback - SnapNet
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://en.wikipedia.org/wiki/GGPO" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                      GGPO - Wikipedia
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.gabrielgambetta.com/client-side-prediction-server-reconciliation.html" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                      Client-Side Prediction and Server Reconciliation - Gabriel Gambetta
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="font-semibold text-slate-200 mb-2">철권 8 롤백 넷코드</h4>
+                <ul className="list-disc list-inside space-y-1 text-xs text-slate-400">
+                  <li>
+                    <a href="https://esports.gg/news/tekken-8/tekken-8-rollback-netcode/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                      Tekken 8 Rollback Netcode – All you need to know - esports.gg
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.escapistmagazine.com/does-tekken-8-have-rollback-netcode/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                      Does Tekken 8 Have Rollback Netcode? - Escapist Magazine
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="font-semibold text-slate-200 mb-2">리그 오브 레전드 네트워킹</h4>
+                <ul className="list-disc list-inside space-y-1 text-xs text-slate-400">
+                  <li>
+                    <a href="https://leagueoflegends.fandom.com/wiki/Tick_and_updates" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                      Tick and updates - League of Legends Wiki
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://technology.riotgames.com/news/fixing-internet-real-time-applications-part-ii" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                      Fixing the Internet for Real Time Applications: Part II - Riot Games
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://technology.riotgames.com/news/leveling-networking-multi-game-future" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                      Leveling Up Networking for A Multi-Game Future - Riot Games
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )
