@@ -59,6 +59,15 @@ export const fundamentalsTree: MindMapData = {
       type: 'lesson',
       lessonPath: '/fundamentals/networking',
     },
+    // Game Loop (bottom)
+    {
+      id: 'game-loop',
+      position: { x: 0, y: 280 },
+      color: 'red',
+      icon: 'RefreshCw',
+      type: 'lesson',
+      lessonPath: '/fundamentals/game-loop',
+    },
   ],
   connections: [
     // Connect center to all topics
@@ -67,6 +76,7 @@ export const fundamentalsTree: MindMapData = {
     { from: 'fundamentals-center', to: 'rendering' },
     { from: 'fundamentals-center', to: 'physics' },
     { from: 'fundamentals-center', to: 'networking' },
+    { from: 'fundamentals-center', to: 'game-loop' },
     // Connect related topics
     { from: 'modeling-simulation', to: 'serialization', style: 'dashed' },
     { from: 'serialization', to: 'rendering', style: 'dashed' },

@@ -328,81 +328,177 @@
         "description": "플랫포머의 정석, 정밀한 물리와 타이밍",
         "genre": "플랫포머",
         "year": "1985",
-        "keyFeatures": ["정밀한 점프 물리", "타이밍 기반 게임플레이", "레벨 디자인"],
-        "fundamentals": ["물리 연산", "렌더링"],
-        "decisions": ["틱레이트"]
+        "keyFeatures": [
+          "정밀한 점프 물리",
+          "타이밍 기반 게임플레이",
+          "레벨 디자인"
+        ],
+        "fundamentals": [
+          "물리 연산",
+          "렌더링"
+        ],
+        "decisions": [
+          "틱레이트"
+        ]
       },
       "maplestory": {
         "title": "메이플스토리",
         "description": "2D MMORPG, 대규모 동시접속 처리",
         "genre": "2D MMORPG",
         "year": "2003",
-        "keyFeatures": ["대규모 동시접속", "실시간 전투", "경제 시스템"],
-        "fundamentals": ["네트워크 통신", "직렬화", "모델링"],
-        "decisions": ["멀티플레이 아키텍처", "동기화 전략"]
+        "keyFeatures": [
+          "대규모 동시접속",
+          "실시간 전투",
+          "경제 시스템"
+        ],
+        "fundamentals": [
+          "네트워크 통신",
+          "직렬화",
+          "모델링"
+        ],
+        "decisions": [
+          "멀티플레이 아키텍처",
+          "동기화 전략"
+        ]
       },
       "overwatch": {
         "title": "오버워치",
         "description": "FPS, 클라이언트 예측과 서버 권한",
         "genre": "FPS",
         "year": "2016",
-        "keyFeatures": ["클라이언트 예측", "서버 권한", "Favor the Shooter"],
-        "fundamentals": ["네트워크 통신", "물리 연산"],
-        "decisions": ["물리 처리 방식", "동기화 전략", "틱레이트"]
+        "keyFeatures": [
+          "클라이언트 예측",
+          "서버 권한",
+          "Favor the Shooter"
+        ],
+        "fundamentals": [
+          "네트워크 통신",
+          "물리 연산"
+        ],
+        "decisions": [
+          "물리 처리 방식",
+          "동기화 전략",
+          "틱레이트"
+        ]
       },
       "pubg": {
         "title": "배틀그라운드",
         "description": "배틀로얄, 대규모 맵과 100인 동기화",
         "genre": "배틀로얄",
         "year": "2017",
-        "keyFeatures": ["100인 동기화", "대규모 맵", "동적 안전구역"],
-        "fundamentals": ["네트워크 통신", "모델링"],
-        "decisions": ["멀티플레이 아키텍처", "물리 처리 방식"]
+        "keyFeatures": [
+          "100인 동기화",
+          "대규모 맵",
+          "동적 안전구역"
+        ],
+        "fundamentals": [
+          "네트워크 통신",
+          "모델링"
+        ],
+        "decisions": [
+          "멀티플레이 아키텍처",
+          "물리 처리 방식"
+        ]
       },
       "lol": {
         "title": "리그 오브 레전드",
         "description": "MOBA, 결정론적 시뮬레이션",
         "genre": "MOBA",
         "year": "2009",
-        "keyFeatures": ["결정론적 시뮬레이션", "락스텝", "리플레이 시스템"],
-        "fundamentals": ["모델링", "네트워크 통신"],
-        "decisions": ["동기화 전략", "틱레이트", "밸런싱"]
+        "keyFeatures": [
+          "결정론적 시뮬레이션",
+          "락스텝",
+          "리플레이 시스템"
+        ],
+        "fundamentals": [
+          "모델링",
+          "네트워크 통신"
+        ],
+        "decisions": [
+          "동기화 전략",
+          "틱레이트",
+          "밸런싱"
+        ]
       },
       "starcraft": {
         "title": "스타크래프트",
         "description": "RTS, 락스텝과 완벽한 동기화",
         "genre": "RTS",
         "year": "1998",
-        "keyFeatures": ["완벽한 동기화", "락스텝 네트워킹", "리플레이"],
-        "fundamentals": ["모델링", "네트워크 통신"],
-        "decisions": ["동기화 전략", "틱레이트"]
+        "keyFeatures": [
+          "완벽한 동기화",
+          "락스텝 네트워킹",
+          "리플레이"
+        ],
+        "fundamentals": [
+          "모델링",
+          "네트워크 통신"
+        ],
+        "decisions": [
+          "동기화 전략",
+          "틱레이트"
+        ]
       },
       "candy-crush": {
         "title": "캔디크러쉬",
         "description": "3매치 퍼즐, 연쇄 반응 처리",
         "genre": "퍼즐",
         "year": "2012",
-        "keyFeatures": ["3매치 알고리즘", "연쇄 반응", "특수 캔디 생성"],
-        "fundamentals": ["모델링", "렌더링"],
-        "decisions": ["밸런싱"]
+        "keyFeatures": [
+          "3매치 알고리즘",
+          "연쇄 반응",
+          "특수 캔디 생성"
+        ],
+        "fundamentals": [
+          "모델링",
+          "렌더링"
+        ],
+        "decisions": [
+          "밸런싱"
+        ]
       },
       "fortnite": {
         "title": "포트나이트",
         "description": "배틀로얄, Replication Graph와 대규모 동기화",
         "genre": "배틀로얄 / 빌딩",
         "year": "2017",
-        "keyFeatures": ["100인 동기화", "Replication Graph", "20→30Hz 틱레이트 진화", "클라이언트 예측"],
-        "fundamentals": ["네트워크 통신", "모델링", "직렬화"],
-        "decisions": ["멀티플레이 아키텍처", "틱레이트", "동기화 전략"]
+        "keyFeatures": [
+          "100인 동기화",
+          "Replication Graph",
+          "20→30Hz 틱레이트 진화",
+          "클라이언트 예측"
+        ],
+        "fundamentals": [
+          "네트워크 통신",
+          "모델링",
+          "직렬화"
+        ],
+        "decisions": [
+          "멀티플레이 아키텍처",
+          "틱레이트",
+          "동기화 전략"
+        ]
       },
       "counter-strike": {
         "title": "카운터스트라이크",
         "description": "경쟁 FPS, 정밀한 히트 판정과 틱레이트",
         "genre": "택티컬 FPS",
         "year": "2012 (CS:GO) / 2023 (CS2)",
-        "keyFeatures": ["64Hz vs 128Hz 틱레이트", "서브틱 시스템 (CS2)", "Peeker's Advantage", "Lag Compensation"],
-        "fundamentals": ["네트워크 통신", "물리 연산"],
-        "decisions": ["틱레이트", "동기화 전략", "물리 처리 방식"]
+        "keyFeatures": [
+          "64Hz vs 128Hz 틱레이트",
+          "서브틱 시스템 (CS2)",
+          "Peeker's Advantage",
+          "Lag Compensation"
+        ],
+        "fundamentals": [
+          "네트워크 통신",
+          "물리 연산"
+        ],
+        "decisions": [
+          "틱레이트",
+          "동기화 전략",
+          "물리 처리 방식"
+        ]
       }
     },
     "fundamentals": {
@@ -413,8 +509,20 @@
       "modeling-simulation": {
         "title": "모델링 & 시뮬레이션",
         "description": "게임 세계의 상태 정의와 업데이트. 게임 엔진이 어떻게 시뮬레이션을 실행하는지 이해하는 것이 모든 게임 개발의 기초입니다.",
-        "concepts": ["게임 루프", "틱/프레임", "물리 스텝", "상태 머신", "ECS 패턴", "결정론적 시뮬레이션"],
-        "usedIn": ["모든 게임", "RTS (스타크래프트)", "MOBA (LoL)", "격투 게임"],
+        "concepts": [
+          "게임 루프",
+          "틱/프레임",
+          "물리 스텝",
+          "상태 머신",
+          "ECS 패턴",
+          "결정론적 시뮬레이션"
+        ],
+        "usedIn": [
+          "모든 게임",
+          "RTS (스타크래프트)",
+          "MOBA (LoL)",
+          "격투 게임"
+        ],
         "gameLoop": {
           "title": "게임 루프와 틱",
           "description": "게임 엔진의 핵심은 게임 루프입니다. 매 틱(또는 프레임)마다 입력 처리부터 렌더링까지 모든 작업이 순차적으로 실행됩니다.",
@@ -425,32 +533,60 @@
               {
                 "name": "1. 입력 처리 (Input)",
                 "description": "키보드, 마우스, 게임패드 입력을 수집하고 처리합니다. 네트워크 게임에서는 원격 플레이어의 입력도 이 단계에서 처리됩니다.",
-                "examples": ["키 입력 큐 처리", "마우스 델타 계산", "네트워크 입력 패킷 수신"]
+                "examples": [
+                  "키 입력 큐 처리",
+                  "마우스 델타 계산",
+                  "네트워크 입력 패킷 수신"
+                ]
               },
               {
                 "name": "2. 게임 로직 (Update)",
                 "description": "AI, 스킬 쿨다운, 버프/디버프, 스폰 등 게임 규칙을 실행합니다. 이 단계에서 게임 상태가 변경됩니다.",
-                "examples": ["AI 의사결정", "타이머/쿨다운 갱신", "상태 머신 전이", "이벤트 처리"]
+                "examples": [
+                  "AI 의사결정",
+                  "타이머/쿨다운 갱신",
+                  "상태 머신 전이",
+                  "이벤트 처리"
+                ]
               },
               {
                 "name": "3. 물리 시뮬레이션 (Physics)",
                 "description": "충돌 감지, 강체 역학, 캐릭터 컨트롤러를 처리합니다. 물리는 별도의 고정 타임스텝으로 실행될 수 있습니다.",
-                "examples": ["충돌 감지 및 응답", "중력/속도 적용", "레이캐스트", "조인트/컨스트레인트"]
+                "examples": [
+                  "충돌 감지 및 응답",
+                  "중력/속도 적용",
+                  "레이캐스트",
+                  "조인트/컨스트레인트"
+                ]
               },
               {
                 "name": "4. 네트워크 (Network)",
                 "description": "상태 동기화, 패킷 전송/수신, RPC 호출을 처리합니다. 클라이언트-서버 모델에서는 이 단계가 특히 중요합니다.",
-                "examples": ["상태 스냅샷 전송", "입력 패킷 전송", "Lag Compensation", "보간 데이터 준비"]
+                "examples": [
+                  "상태 스냅샷 전송",
+                  "입력 패킷 전송",
+                  "Lag Compensation",
+                  "보간 데이터 준비"
+                ]
               },
               {
                 "name": "5. 렌더링 준비 (Late Update)",
                 "description": "카메라 추적, UI 갱신, 애니메이션 블렌딩 등 렌더링 직전 작업을 수행합니다.",
-                "examples": ["카메라 위치 계산", "LOD 결정", "컬링", "애니메이션 상태 갱신"]
+                "examples": [
+                  "카메라 위치 계산",
+                  "LOD 결정",
+                  "컬링",
+                  "애니메이션 상태 갱신"
+                ]
               },
               {
                 "name": "6. 렌더링 (Render)",
                 "description": "화면에 그립니다. GPU에 드로우콜을 보내고 프레임 버퍼를 스왑합니다.",
-                "examples": ["드로우콜 제출", "셰이더 실행", "프레임 버퍼 스왑"]
+                "examples": [
+                  "드로우콜 제출",
+                  "셰이더 실행",
+                  "프레임 버퍼 스왑"
+                ]
               }
             ]
           },
@@ -688,26 +824,72 @@
       "serialization": {
         "title": "직렬화 & 상태관리",
         "description": "데이터 저장, 전송, 복원",
-        "concepts": ["JSON", "MessagePack", "Protocol Buffers", "압축", "상태 스냅샷"],
-        "usedIn": ["저장/로드", "네트워크 전송", "리플레이"]
+        "concepts": [
+          "JSON",
+          "MessagePack",
+          "Protocol Buffers",
+          "압축",
+          "상태 스냅샷"
+        ],
+        "usedIn": [
+          "저장/로드",
+          "네트워크 전송",
+          "리플레이"
+        ]
       },
       "rendering": {
         "title": "렌더링 & 시각화",
         "description": "게임 상태를 화면에 표현",
-        "concepts": ["렌더링 파이프라인", "보간", "프레임 독립성", "LOD"],
-        "usedIn": ["모든 게임"]
+        "concepts": [
+          "렌더링 파이프라인",
+          "보간",
+          "프레임 독립성",
+          "LOD"
+        ],
+        "usedIn": [
+          "모든 게임"
+        ]
       },
       "physics": {
         "title": "물리 연산",
         "description": "충돌, 중력, 힘의 계산",
-        "concepts": ["충돌 감지", "강체 역학", "Raycast", "트리거"],
-        "usedIn": ["플랫포머", "FPS", "레이싱"]
+        "concepts": [
+          "충돌 감지",
+          "강체 역학",
+          "Raycast",
+          "트리거"
+        ],
+        "usedIn": [
+          "플랫포머",
+          "FPS",
+          "레이싱"
+        ]
       },
       "networking": {
         "title": "네트워크 통신 기초",
         "description": "TCP/UDP, 패킷, 지연시간",
-        "concepts": ["TCP vs UDP", "지연시간", "패킷 손실", "대역폭"],
-        "usedIn": ["멀티플레이어 게임"]
+        "concepts": [
+          "TCP vs UDP",
+          "지연시간",
+          "패킷 손실",
+          "대역폭"
+        ],
+        "usedIn": [
+          "멀티플레이어 게임"
+        ]
+      },
+      "game-loop": {
+        "title": "게임 루프",
+        "description": "게임의 심장박동",
+        "concepts": [
+          "입력 처리",
+          "업데이트",
+          "렌더링",
+          "FPS 제어"
+        ],
+        "usedIn": [
+          "모든 게임"
+        ]
       }
     },
     "decisions": {
@@ -718,19 +900,45 @@
       "multiplayer-arch": {
         "title": "멀티플레이 아키텍처",
         "description": "P2P vs Client-Server, 권한 모델",
-        "considerations": ["플레이어 수", "치트 민감도", "예산", "지연시간 요구사항"],
+        "considerations": [
+          "플레이어 수",
+          "치트 민감도",
+          "예산",
+          "지연시간 요구사항"
+        ],
         "options": {
           "p2p": {
             "name": "P2P (Peer-to-Peer)",
-            "pros": ["서버 비용 없음", "낮은 지연시간 가능"],
-            "cons": ["치트 취약", "NAT 문제", "확장성 제한"],
-            "useCases": ["격투 게임", "소규모 협동"]
+            "pros": [
+              "서버 비용 없음",
+              "낮은 지연시간 가능"
+            ],
+            "cons": [
+              "치트 취약",
+              "NAT 문제",
+              "확장성 제한"
+            ],
+            "useCases": [
+              "격투 게임",
+              "소규모 협동"
+            ]
           },
           "client-server": {
             "name": "Client-Server",
-            "pros": ["서버 권한으로 치트 방지", "확장성", "중앙 제어"],
-            "cons": ["서버 비용", "지연시간 증가"],
-            "useCases": ["FPS", "MMORPG", "배틀로얄"]
+            "pros": [
+              "서버 권한으로 치트 방지",
+              "확장성",
+              "중앙 제어"
+            ],
+            "cons": [
+              "서버 비용",
+              "지연시간 증가"
+            ],
+            "useCases": [
+              "FPS",
+              "MMORPG",
+              "배틀로얄"
+            ]
           }
         },
         "caseStudies": {
@@ -796,19 +1004,41 @@
       "physics-authority": {
         "title": "물리 처리 방식",
         "description": "서버 vs 클라이언트 물리 연산",
-        "considerations": ["반응성 요구사항", "경쟁성", "서버 리소스"],
+        "considerations": [
+          "반응성 요구사항",
+          "경쟁성",
+          "서버 리소스"
+        ],
         "options": {
           "server": {
             "name": "서버 물리",
-            "pros": ["일관성 보장", "치트 방지"],
-            "cons": ["입력 지연", "서버 부하"],
-            "useCases": ["경쟁 게임", "e스포츠"]
+            "pros": [
+              "일관성 보장",
+              "치트 방지"
+            ],
+            "cons": [
+              "입력 지연",
+              "서버 부하"
+            ],
+            "useCases": [
+              "경쟁 게임",
+              "e스포츠"
+            ]
           },
           "client": {
             "name": "클라이언트 물리",
-            "pros": ["즉각적 반응", "서버 부하 감소"],
-            "cons": ["동기화 문제", "치트 가능"],
-            "useCases": ["싱글플레이어", "협동 PvE"]
+            "pros": [
+              "즉각적 반응",
+              "서버 부하 감소"
+            ],
+            "cons": [
+              "동기화 문제",
+              "치트 가능"
+            ],
+            "useCases": [
+              "싱글플레이어",
+              "협동 PvE"
+            ]
           }
         },
         "caseStudies": {
@@ -871,19 +1101,41 @@
       "sync-strategy": {
         "title": "동기화 전략",
         "description": "낙관적 vs 비관적, 롤백",
-        "considerations": ["게임 템포", "허용 가능한 지연시간", "복잡도 예산"],
+        "considerations": [
+          "게임 템포",
+          "허용 가능한 지연시간",
+          "복잡도 예산"
+        ],
         "options": {
           "optimistic": {
             "name": "낙관적 동기화",
-            "pros": ["즉각적 피드백", "좋은 UX"],
-            "cons": ["롤백 필요", "복잡한 구현"],
-            "useCases": ["액션 게임", "FPS"]
+            "pros": [
+              "즉각적 피드백",
+              "좋은 UX"
+            ],
+            "cons": [
+              "롤백 필요",
+              "복잡한 구현"
+            ],
+            "useCases": [
+              "액션 게임",
+              "FPS"
+            ]
           },
           "pessimistic": {
             "name": "비관적 동기화",
-            "pros": ["단순한 구현", "일관성 보장"],
-            "cons": ["입력 지연", "느린 반응"],
-            "useCases": ["턴제 게임", "RTS"]
+            "pros": [
+              "단순한 구현",
+              "일관성 보장"
+            ],
+            "cons": [
+              "입력 지연",
+              "느린 반응"
+            ],
+            "useCases": [
+              "턴제 게임",
+              "RTS"
+            ]
           }
         },
         "caseStudies": {
@@ -954,7 +1206,12 @@
       "tickrate": {
         "title": "틱레이트 & 보간",
         "description": "서버 업데이트 주기와 클라이언트 보간의 역할",
-        "considerations": ["게임 장르", "정밀도 요구사항", "인프라 비용", "플레이어 기대치"],
+        "considerations": [
+          "게임 장르",
+          "정밀도 요구사항",
+          "인프라 비용",
+          "플레이어 기대치"
+        ],
         "basics": {
           "title": "틱레이트란?",
           "description": "틱레이트는 서버가 게임 상태를 업데이트하는 주기입니다. 64Hz 서버는 초당 64번(15.6ms 간격), 128Hz는 초당 128번(7.8ms 간격) 상태를 계산합니다.",
@@ -1038,15 +1295,38 @@
         "options": {
           "high": {
             "name": "높은 틱레이트 (60-128Hz)",
-            "pros": ["투사체 궤적 일관성", "미세한 타이밍 정밀도", "프로/하이레벨 플레이어 선호"],
-            "cons": ["서버 비용 증가", "대역폭 요구 증가", "대부분 플레이어 체감 미미"],
-            "useCases": ["e스포츠", "경쟁 FPS", "격투 게임"]
+            "pros": [
+              "투사체 궤적 일관성",
+              "미세한 타이밍 정밀도",
+              "프로/하이레벨 플레이어 선호"
+            ],
+            "cons": [
+              "서버 비용 증가",
+              "대역폭 요구 증가",
+              "대부분 플레이어 체감 미미"
+            ],
+            "useCases": [
+              "e스포츠",
+              "경쟁 FPS",
+              "격투 게임"
+            ]
           },
           "low": {
             "name": "낮은 틱레이트 (20-64Hz)",
-            "pros": ["서버 비용 절감", "대역폭 절약", "대규모 플레이어 지원 용이"],
-            "cons": ["투사체 물리 부정확", "하이레벨 플레이어 불만"],
-            "useCases": ["배틀로얄", "MMORPG", "일반 매치메이킹"]
+            "pros": [
+              "서버 비용 절감",
+              "대역폭 절약",
+              "대규모 플레이어 지원 용이"
+            ],
+            "cons": [
+              "투사체 물리 부정확",
+              "하이레벨 플레이어 불만"
+            ],
+            "useCases": [
+              "배틀로얄",
+              "MMORPG",
+              "일반 매치메이킹"
+            ]
           }
         },
         "caseStudies": {
@@ -1114,19 +1394,42 @@
       "balancing": {
         "title": "밸런싱 구조",
         "description": "데이터 드리븐 밸런싱 설계",
-        "considerations": ["팀 구성", "업데이트 빈도", "운영 계획"],
+        "considerations": [
+          "팀 구성",
+          "업데이트 빈도",
+          "운영 계획"
+        ],
         "options": {
           "hardcoded": {
             "name": "하드코딩",
-            "pros": ["빠른 개발", "단순함"],
-            "cons": ["패치 필요", "유연성 부족"],
-            "useCases": ["소규모 프로젝트", "프로토타입"]
+            "pros": [
+              "빠른 개발",
+              "단순함"
+            ],
+            "cons": [
+              "패치 필요",
+              "유연성 부족"
+            ],
+            "useCases": [
+              "소규모 프로젝트",
+              "프로토타입"
+            ]
           },
           "data-driven": {
             "name": "데이터 드리븐",
-            "pros": ["핫픽스 가능", "기획자 접근성", "A/B 테스트"],
-            "cons": ["초기 설정 복잡", "런타임 오버헤드"],
-            "useCases": ["라이브 서비스", "대규모 게임"]
+            "pros": [
+              "핫픽스 가능",
+              "기획자 접근성",
+              "A/B 테스트"
+            ],
+            "cons": [
+              "초기 설정 복잡",
+              "런타임 오버헤드"
+            ],
+            "useCases": [
+              "라이브 서비스",
+              "대규모 게임"
+            ]
           }
         }
       }
