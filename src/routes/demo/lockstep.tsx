@@ -213,57 +213,192 @@ function LockstepDemoPage() {
           </CardContent>
         </Card>
 
-        {/* Other Networking Models */}
+        {/* Architecture Comparison: WC3 vs LoL */}
         <Card className="bg-slate-800/30 border-slate-700 mt-8">
           <CardHeader>
-            <CardTitle className="text-lg">다른 네트워킹 모델: 서버 권위</CardTitle>
+            <CardTitle className="text-lg">아키텍처 비교: 워크래프트3 vs 리그 오브 레전드</CardTitle>
           </CardHeader>
           <CardContent className="text-sm text-slate-300 space-y-4">
             <p>
-              락스텝/롤백은 <strong>P2P 방식</strong>입니다. 반면 리그 오브 레전드(LoL) 같은 게임은
-              <strong>서버 권위(Server-Authoritative)</strong> 모델을 사용합니다.
+              LoL은 워크래프트3 유즈맵(DotA)에서 파생되었지만, 네트워킹 아키텍처는 완전히 다릅니다.
+              왜 이런 결정을 했을까요?
             </p>
 
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="p-4 bg-indigo-900/20 border border-indigo-500/30 rounded-lg">
+                <h4 className="font-semibold text-indigo-400 mb-2">워크래프트3 / 스타크래프트</h4>
+                <p className="text-xs text-slate-400 mb-2">P2P 락스텝 (한 플레이어가 호스트)</p>
+                <ul className="list-disc list-inside space-y-1 text-xs">
+                  <li>한 플레이어가 "호스트"(의사 서버) 역할</li>
+                  <li>모든 클라이언트가 동일한 결정론적 시뮬레이션 실행</li>
+                  <li><strong>입력만 전송</strong> → 대역폭 절약</li>
+                  <li>TCP 사용 (끊김보다 렉 선호)</li>
+                  <li>호스트 이탈 시 새 호스트 선출 가능</li>
+                </ul>
+                <div className="mt-2 p-2 bg-slate-900 rounded text-xs">
+                  <strong>왜?</strong> 과거 네트워크 대역폭이 매우 제한적이었음.
+                  수천 유닛 상태를 매 프레임 전송하는 것은 불가능했음.
+                </div>
+              </div>
+
+              <div className="p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg">
+                <h4 className="font-semibold text-cyan-400 mb-2">리그 오브 레전드</h4>
+                <p className="text-xs text-slate-400 mb-2">전용 서버 권위 (Dedicated Server)</p>
+                <ul className="list-disc list-inside space-y-1 text-xs">
+                  <li>Riot의 전용 서버가 게임 상태 계산</li>
+                  <li>서버가 결정론적 시뮬레이션 실행</li>
+                  <li><strong>상태를 전송</strong> → 대역폭 더 사용</li>
+                  <li>UDP 사용 (빠른 전송 우선)</li>
+                  <li>서버가 단일 진실 공급원 (치팅 방지)</li>
+                </ul>
+                <div className="mt-2 p-2 bg-slate-900 rounded text-xs">
+                  <strong>왜?</strong> 대역폭이 충분해짐 + 경쟁 게임에서 치팅 방지가 중요 +
+                  전용 서버 인프라 구축 가능.
+                </div>
+              </div>
+            </div>
+
+            <div className="p-3 bg-amber-900/20 border border-amber-500/30 rounded-lg">
+              <h4 className="font-semibold text-amber-400 mb-2">🎮 DotA → Dota 2의 전환</h4>
+              <p className="text-xs">
+                <strong>DotA 1</strong>은 워크래프트3 엔진의 P2P 락스텝을 그대로 사용했습니다.
+                <strong>Dota 2</strong>는 Valve의 Source 2 엔진으로 재작성되며 클라이언트-서버 모델로 전환했습니다.
+                이는 LoL과 동일한 이유: 치팅 방지 + 전용 서버 인프라.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* LoL Command Processing Detail */}
+        <Card className="bg-slate-800/30 border-slate-700 mt-8">
+          <CardHeader>
+            <CardTitle className="text-lg">LoL의 커맨드 처리: 클라이언트 예측 vs 서버 대기</CardTitle>
+          </CardHeader>
+          <CardContent className="text-sm text-slate-300 space-y-4">
             <div className="p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg">
-              <h4 className="font-semibold text-cyan-400 mb-2">🎮 리그 오브 레전드의 네트워킹</h4>
+              <h4 className="font-semibold text-cyan-400 mb-2">🎮 리그 오브 레전드의 커맨드 흐름</h4>
               <ul className="list-disc list-inside space-y-1 text-xs">
                 <li><strong>서버 틱 레이트:</strong> 30Hz (33ms마다 게임 상태 업데이트)</li>
-                <li><strong>클라이언트 예측:</strong> 사용하지 않음 (클릭 시 서버 응답 대기)</li>
-                <li><strong>보간(Interpolation):</strong> 부드러운 이동을 위해 클라이언트에서 보간 처리</li>
-                <li><strong>권장 핑:</strong> 60ms 이하 (밀리초 단위의 게임)</li>
+                <li><strong>기본 동작:</strong> 클라이언트 예측 사용 안 함 (서버 응답 대기)</li>
+                <li><strong>보간(Interpolation):</strong> 서버 업데이트 사이 부드러운 이동 처리</li>
+                <li><strong>클럭 동기화:</strong> 클라이언트 시간이 서버 시간에 점진적으로 수렴</li>
               </ul>
-              <p className="text-xs mt-2 text-slate-400">
-                LoL에서 클릭 시 약간의 지연이 느껴지는 이유는 클라이언트 예측을 사용하지 않고
-                서버 확인을 기다리기 때문입니다. 대신 서버가 게임 상태의 유일한 진실 공급원이 되어
-                치팅 방지에 유리합니다.
-              </p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-4">
               <div className="p-3 bg-slate-900 rounded-lg">
-                <h4 className="font-semibold text-indigo-400 mb-2">락스텝 (P2P)</h4>
-                <ul className="list-disc list-inside space-y-1 text-xs">
-                  <li>서버 없이 피어 간 직접 통신</li>
-                  <li>모든 클라이언트가 전체 시뮬레이션</li>
-                  <li>입력만 전송 (대역폭 ↓)</li>
-                  <li>수백 유닛 동기화 가능</li>
-                </ul>
+                <h4 className="font-semibold text-green-400 mb-2">기본 모드 (예측 OFF)</h4>
+                <ol className="list-decimal list-inside space-y-1 text-xs">
+                  <li>플레이어가 이동 클릭</li>
+                  <li>입력이 서버로 전송</li>
+                  <li>서버가 처리 후 상태 브로드캐스트</li>
+                  <li>클라이언트가 상태 수신 후 렌더링</li>
+                </ol>
+                <p className="text-xs text-slate-400 mt-2">
+                  → 핑만큼 지연이 발생하지만 정확함
+                </p>
               </div>
 
               <div className="p-3 bg-slate-900 rounded-lg">
-                <h4 className="font-semibold text-cyan-400 mb-2">서버 권위</h4>
-                <ul className="list-disc list-inside space-y-1 text-xs">
-                  <li>서버가 게임 상태 계산</li>
-                  <li>클라이언트는 렌더링 담당</li>
-                  <li>상태 전체 전송 (대역폭 ↑)</li>
-                  <li>치팅 방지에 유리</li>
-                </ul>
+                <h4 className="font-semibold text-yellow-400 mb-2">"이동 예측" 옵션 (예측 ON)</h4>
+                <ol className="list-decimal list-inside space-y-1 text-xs">
+                  <li>플레이어가 이동 클릭</li>
+                  <li>클라이언트가 즉시 예측 이동 표시</li>
+                  <li>동시에 서버로 전송</li>
+                  <li>서버 응답과 불일치 시 보정</li>
+                </ol>
+                <p className="text-xs text-slate-400 mt-2">
+                  → 반응은 빠르지만 "순간이동" 현상 발생 가능
+                </p>
+              </div>
+            </div>
+
+            <div className="p-3 bg-slate-900 rounded-lg">
+              <h4 className="font-semibold text-slate-200 mb-2">Riot의 권장 사항</h4>
+              <p className="text-xs">
+                <span className="text-cyan-400">"이동 예측"</span> 옵션은 <strong>고핑 플레이어</strong>를 위한 것입니다.
+                Riot은 "대부분의 경우 이 설정이 필요하지 않으며 스킬에는 영향을 주지 않는다"고 밝혔습니다.
+                <strong>안정적인 저핑 연결</strong>에서는 OFF를 권장합니다.
+              </p>
+            </div>
+
+            <p className="text-xs text-slate-400">
+              이것이 LoL에서 클릭 시 약간의 지연이 느껴지는 이유입니다. FPS 게임처럼 즉각적인 반응 대신,
+              서버가 게임 상태의 유일한 진실 공급원이 되어 치팅과 비동기화를 방지합니다.
+            </p>
+          </CardContent>
+        </Card>
+
+        {/* Decision Case Study */}
+        <Card className="bg-slate-800/30 border-slate-700 mt-8">
+          <CardHeader>
+            <CardTitle className="text-lg">의사결정 사례: 멀티플레이 정책 변경</CardTitle>
+          </CardHeader>
+          <CardContent className="text-sm text-slate-300 space-y-4">
+            <p>
+              게임의 네트워킹 모델은 고정된 것이 아닙니다. 기술 발전, 플레이어 피드백, 경쟁 환경에 따라
+              변경될 수 있습니다. 아래는 실제 멀티플레이 정책 변경 사례입니다.
+            </p>
+
+            <div className="p-4 bg-amber-900/20 border border-amber-500/30 rounded-lg">
+              <h4 className="font-semibold text-amber-400 mb-2">🎮 철권 7 → 철권 8: 지연 기반에서 롤백으로</h4>
+              <div className="space-y-2 text-xs">
+                <p>
+                  <strong>문제:</strong> 철권 7의 지연 기반 넷코드는 5-20프레임의 입력 지연을 발생시켜
+                  온라인 대전의 반응성이 크게 떨어졌습니다. 스트리트 파이터 5, 길티기어 등 경쟁작들이
+                  롤백을 채택하면서 비교 대상이 되었습니다.
+                </p>
+                <p>
+                  <strong>결정:</strong> 철권 8에서 롤백 넷코드로 전환. 3D 격투 게임은 캐릭터당 155개 이상의
+                  기술과 복잡한 애니메이션으로 롤백 구현이 어렵지만, 개발팀이 이를 감수.
+                </p>
+                <p>
+                  <strong>결과:</strong> 로컬 입력 반응성 대폭 개선. 크로스플랫폼 대전 지원.
+                  SF6보다는 약간 떨어지지만 "99%의 매치에서 부드러운 경험" 제공.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-4 bg-indigo-900/20 border border-indigo-500/30 rounded-lg">
+              <h4 className="font-semibold text-indigo-400 mb-2">🎮 왜 스타크래프트는 락스텝을 유지할까?</h4>
+              <div className="space-y-2 text-xs">
+                <p>
+                  <strong>이유 1 - 유닛 수:</strong> 한 경기에 수백 개의 유닛이 존재. 롤백 시 모든 유닛 상태를
+                  저장하고 재시뮬레이션하는 것은 메모리와 CPU 부담이 큼.
+                </p>
+                <p>
+                  <strong>이유 2 - 입력 특성:</strong> RTS는 격투 게임만큼 프레임 단위 정밀 입력이 필요하지 않음.
+                  2-4프레임 지연은 수용 가능한 수준.
+                </p>
+                <p>
+                  <strong>이유 3 - 레거시:</strong> 결정론적 시뮬레이션이 잘 작동하고 있으며,
+                  리플레이 시스템도 이에 의존. 변경 시 대규모 리팩토링 필요.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg">
+              <h4 className="font-semibold text-cyan-400 mb-2">🎮 왜 LoL은 클라이언트 예측을 기본으로 하지 않을까?</h4>
+              <div className="space-y-2 text-xs">
+                <p>
+                  <strong>이유 1 - 치팅 방지:</strong> 서버가 유일한 진실 공급원이면 클라이언트 조작이 어려움.
+                  경쟁 게임에서 공정성이 가장 중요.
+                </p>
+                <p>
+                  <strong>이유 2 - 복잡한 상호작용:</strong> 10명의 챔피언, 미니언, 스킬샷이 복잡하게 상호작용.
+                  클라이언트 예측이 틀리면 "순간이동" 현상이 빈번해짐.
+                </p>
+                <p>
+                  <strong>이유 3 - 서버 인프라:</strong> Riot Direct 네트워크로 60ms 이하 핑을 보장.
+                  저지연 환경에서는 예측의 이점이 크지 않음.
+                </p>
               </div>
             </div>
 
             <p className="text-xs text-slate-400">
-              각 모델은 게임 장르에 맞게 선택됩니다. RTS(수백 유닛)는 락스텝, MOBA(10명+치팅 방지)는 서버 권위,
-              격투 게임(입력 반응성)은 롤백이 적합합니다.
+              각 게임의 네트워킹 결정은 <strong>게임 장르</strong>, <strong>입력 특성</strong>,
+              <strong>보안 요구사항</strong>, <strong>인프라 환경</strong>을 종합적으로 고려한 결과입니다.
+              정답은 없으며, 트레이드오프를 이해하는 것이 중요합니다.
             </p>
           </CardContent>
         </Card>
@@ -321,6 +456,16 @@ function LockstepDemoPage() {
                 <h4 className="font-semibold text-slate-200 mb-2">리그 오브 레전드 네트워킹</h4>
                 <ul className="list-disc list-inside space-y-1 text-xs text-slate-400">
                   <li>
+                    <a href="https://technology.riotgames.com/news/determinism-league-legends-introduction" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                      Determinism in League of Legends: Introduction - Riot Games
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://technology.riotgames.com/news/determinism-league-legends-unified-clock" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                      Determinism in League of Legends: Unified Clock - Riot Games
+                    </a>
+                  </li>
+                  <li>
                     <a href="https://leagueoflegends.fandom.com/wiki/Tick_and_updates" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
                       Tick and updates - League of Legends Wiki
                     </a>
@@ -331,8 +476,29 @@ function LockstepDemoPage() {
                     </a>
                   </li>
                   <li>
-                    <a href="https://technology.riotgames.com/news/leveling-networking-multi-game-future" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
-                      Leveling Up Networking for A Multi-Game Future - Riot Games
+                    <a href="https://1v9.gg/definitions/league-of-legends/movement-prediction" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                      What is Movement Prediction in League of Legends? - 1v9
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="font-semibold text-slate-200 mb-2">워크래프트3 / DotA 네트워킹</h4>
+                <ul className="list-disc list-inside space-y-1 text-xs text-slate-400">
+                  <li>
+                    <a href="https://www.gamedev.net/forums/topic/331938-how-does-the-networking-of-warcraft-3-work/3165375/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                      How does the networking of Warcraft 3 work? - GameDev.net
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://ruoyusun.com/2019/09/30/game-networking-6.html" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                      Game Networking Demystified, Part VI: Game Genres and FAQ
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://medium.com/@treeform/dont-use-lockstep-in-rts-games-b40f3dd6fddb" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                      Don't use Lockstep in RTS games - Medium
                     </a>
                   </li>
                 </ul>
