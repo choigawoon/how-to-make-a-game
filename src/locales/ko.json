@@ -582,6 +582,65 @@
             "cons": ["서버 비용", "지연시간 증가"],
             "useCases": ["FPS", "MMORPG", "배틀로얄"]
           }
+        },
+        "caseStudies": {
+          "title": "아키텍처 전환 사례",
+          "items": [
+            {
+              "title": "워크래프트3 vs 리그 오브 레전드: 아키텍처 비교",
+              "gameId": "lol",
+              "problem": "LoL은 워크래프트3 유즈맵(DotA)에서 파생되었지만, 네트워킹 아키텍처는 완전히 다릅니다. 왜 이런 결정을 했을까요?",
+              "decision": "워크래프트3/스타크래프트는 P2P 락스텝(한 플레이어가 호스트)을 사용합니다. 모든 클라이언트가 동일한 결정론적 시뮬레이션을 실행하고 입력만 전송합니다. 과거 네트워크 대역폭이 제한적이었기 때문입니다. 반면 LoL은 Riot의 전용 서버가 게임 상태를 계산하는 Client-Server 모델을 선택했습니다. 서버가 단일 진실 공급원이 되어 치팅을 방지합니다.",
+              "result": "LoL은 대역폭이 충분해진 환경에서 치팅 방지와 확장성을 확보. 전용 서버 인프라로 안정적인 경쟁 환경 제공.",
+              "demoPath": "/demo/lockstep"
+            },
+            {
+              "title": "DotA → Dota 2: P2P에서 Client-Server로",
+              "gameId": "dota2",
+              "problem": "DotA 1은 워크래프트3 엔진의 P2P 락스텝을 그대로 사용했습니다.",
+              "decision": "Dota 2는 Valve의 Source 2 엔진으로 재작성되며 클라이언트-서버 모델로 전환했습니다. 이는 LoL과 동일한 이유: 치팅 방지 + 전용 서버 인프라.",
+              "result": "치팅 방지, 안정적인 e스포츠 환경, 매치메이킹 시스템 개선.",
+              "demoPath": "/demo/lockstep"
+            },
+            {
+              "title": "스타크래프트: P2P 락스텝의 이유",
+              "gameId": "starcraft",
+              "problem": "많은 게임들이 Client-Server로 전환하는데 스타크래프트는 왜 P2P를 유지할까요?",
+              "decision": "P2P 락스텝 유지. 수천 유닛 상태를 매 프레임 전송하는 것은 불가능했던 1998년 환경에서 설계됨. 입력만 전송하여 대역폭 절약. TCP 사용으로 끊김보다 렉을 선호.",
+              "result": "낮은 대역폭 요구사항, 완벽한 동기화, 리플레이 시스템 지원. 다만 호스트 이탈 시 새 호스트 선출 필요.",
+              "demoPath": "/demo/lockstep"
+            }
+          ]
+        },
+        "references": {
+          "title": "참고 자료",
+          "items": [
+            {
+              "title": "How does the networking of Warcraft 3 work?",
+              "url": "https://www.gamedev.net/forums/topic/331938-how-does-the-networking-of-warcraft-3-work/3165375/",
+              "description": "워크래프트3의 P2P 네트워킹 구조"
+            },
+            {
+              "title": "Game Networking Demystified, Part VI: Game Genres and FAQ",
+              "url": "https://ruoyusun.com/2019/09/30/game-networking-6.html",
+              "description": "장르별 게임 네트워킹 아키텍처 분석"
+            },
+            {
+              "title": "Don't use Lockstep in RTS games",
+              "url": "https://medium.com/@treeform/dont-use-lockstep-in-rts-games-b40f3dd6fddb",
+              "description": "락스텝의 한계와 대안"
+            },
+            {
+              "title": "Fixing the Internet for Real Time Applications: Part II",
+              "url": "https://technology.riotgames.com/news/fixing-internet-real-time-applications-part-ii",
+              "description": "Riot Games의 네트워크 최적화"
+            },
+            {
+              "title": "1500 Archers on a 28.8: Network Programming in Age of Empires",
+              "url": "https://www.gamedeveloper.com/programming/1500-archers-on-a-28-8-network-programming-in-age-of-empires",
+              "description": "에이지 오브 엠파이어의 네트워킹 아키텍처"
+            }
+          ]
         }
       },
       "physics-authority": {
@@ -620,6 +679,70 @@
             "cons": ["입력 지연", "느린 반응"],
             "useCases": ["턴제 게임", "RTS"]
           }
+        },
+        "caseStudies": {
+          "title": "의사결정 사례 연구",
+          "items": [
+            {
+              "title": "철권 7 → 철권 8: 지연 기반에서 롤백으로",
+              "gameId": "tekken",
+              "problem": "철권 7의 지연 기반 넷코드는 5-20프레임의 입력 지연을 발생시켜 온라인 대전의 반응성이 크게 떨어졌습니다. 스트리트 파이터 5, 길티기어 등 경쟁작들이 롤백을 채택하면서 비교 대상이 되었습니다.",
+              "decision": "철권 8에서 롤백 넷코드로 전환. 3D 격투 게임은 캐릭터당 155개 이상의 기술과 복잡한 애니메이션으로 롤백 구현이 어렵지만, 개발팀이 이를 감수.",
+              "result": "로컬 입력 반응성 대폭 개선. 크로스플랫폼 대전 지원. SF6보다는 약간 떨어지지만 '99%의 매치에서 부드러운 경험' 제공.",
+              "demoPath": "/demo/lockstep"
+            },
+            {
+              "title": "왜 스타크래프트는 락스텝을 유지할까?",
+              "gameId": "starcraft",
+              "problem": "격투 게임들이 롤백으로 전환하는 추세에서 스타크래프트는 여전히 지연 기반 락스텝을 사용합니다.",
+              "decision": "락스텝 유지. 1) 한 경기에 수백 개의 유닛이 존재하여 롤백 시 모든 유닛 상태를 저장하고 재시뮬레이션하는 것은 메모리와 CPU 부담이 큼. 2) RTS는 격투 게임만큼 프레임 단위 정밀 입력이 필요하지 않아 2-4프레임 지연은 수용 가능. 3) 결정론적 시뮬레이션이 잘 작동하고 있으며 리플레이 시스템도 이에 의존.",
+              "result": "안정적인 동기화 유지, 리플레이 시스템 보존, 레거시 시스템과의 호환성 유지.",
+              "demoPath": "/demo/lockstep"
+            },
+            {
+              "title": "왜 LoL은 클라이언트 예측을 기본으로 하지 않을까?",
+              "gameId": "lol",
+              "problem": "FPS 게임들은 클라이언트 예측으로 즉각적인 반응성을 제공하는데, LoL은 왜 서버 응답을 기다릴까요?",
+              "decision": "서버 권위 우선. 1) 서버가 유일한 진실 공급원이면 클라이언트 조작이 어려워 경쟁 게임에서 공정성 보장. 2) 10명의 챔피언, 미니언, 스킬샷이 복잡하게 상호작용하여 클라이언트 예측이 틀리면 '순간이동' 현상이 빈번해짐. 3) Riot Direct 네트워크로 60ms 이하 핑을 보장하여 저지연 환경에서는 예측의 이점이 크지 않음.",
+              "result": "치팅 방지, 일관된 게임 경험, 안정적인 경쟁 환경 제공.",
+              "demoPath": "/demo/lockstep"
+            }
+          ]
+        },
+        "references": {
+          "title": "참고 자료",
+          "items": [
+            {
+              "title": "Netcode Concepts Part 3: Lockstep and Rollback",
+              "url": "https://meseta.medium.com/netcode-concepts-part-3-lockstep-and-rollback-f70e9297271",
+              "description": "락스텝과 롤백 넷코드의 개념과 비교"
+            },
+            {
+              "title": "Netcode Architectures Part 2: Rollback",
+              "url": "https://www.snapnet.dev/blog/netcode-architectures-part-2-rollback/",
+              "description": "롤백 넷코드 아키텍처 심층 분석"
+            },
+            {
+              "title": "GGPO - Wikipedia",
+              "url": "https://en.wikipedia.org/wiki/GGPO",
+              "description": "격투 게임을 위한 롤백 넷코드 라이브러리"
+            },
+            {
+              "title": "Client-Side Prediction and Server Reconciliation",
+              "url": "https://www.gabrielgambetta.com/client-side-prediction-server-reconciliation.html",
+              "description": "클라이언트 예측과 서버 조정 기법"
+            },
+            {
+              "title": "Tekken 8 Rollback Netcode – All you need to know",
+              "url": "https://esports.gg/news/tekken-8/tekken-8-rollback-netcode/",
+              "description": "철권 8의 롤백 넷코드 구현"
+            },
+            {
+              "title": "Determinism in League of Legends: Introduction",
+              "url": "https://technology.riotgames.com/news/determinism-league-legends-introduction",
+              "description": "LoL의 결정론적 시뮬레이션"
+            }
+          ]
         }
       },
       "tickrate": {
@@ -699,7 +822,14 @@
       "example": "예시",
       "usedInGames": "사용된 게임",
       "viewCaseStudy": "사례 보기",
-      "learnMore": "자세히 보기"
+      "learnMore": "자세히 보기",
+      "decisionCaseStudies": "의사결정 사례 연구",
+      "references": "참고 자료",
+      "problem": "문제",
+      "decision": "결정",
+      "result": "결과",
+      "viewDemo": "데모 보기",
+      "relatedCaseStudy": "관련 사례"
     }
   }
 }
