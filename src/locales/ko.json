@@ -362,6 +362,15 @@
         "keyFeatures": ["완벽한 동기화", "락스텝 네트워킹", "리플레이"],
         "fundamentals": ["모델링", "네트워크 통신"],
         "decisions": ["동기화 전략", "틱레이트"]
+      },
+      "candy-crush": {
+        "title": "캔디크러쉬",
+        "description": "3매치 퍼즐, 연쇄 반응 처리",
+        "genre": "퍼즐",
+        "year": "2012",
+        "keyFeatures": ["3매치 알고리즘", "연쇄 반응", "특수 캔디 생성"],
+        "fundamentals": ["모델링", "렌더링"],
+        "decisions": ["밸런싱"]
       }
     },
     "fundamentals": {
