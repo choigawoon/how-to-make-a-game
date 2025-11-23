@@ -77,6 +77,24 @@ export const casesTree: MindMapData = {
       type: 'lesson',
       lessonPath: '/demo/candy-crush',
     },
+    // Fortnite (outer ring - between pubg and overwatch)
+    {
+      id: 'fortnite',
+      position: { x: 110, y: 200 },
+      color: 'violet',
+      icon: 'Building',
+      type: 'lesson',
+      lessonPath: '/cases/fortnite',
+    },
+    // Counter-Strike (outer ring - between starcraft and super-mario)
+    {
+      id: 'counter-strike',
+      position: { x: -110, y: -200 },
+      color: 'slate',
+      icon: 'Bomb',
+      type: 'lesson',
+      lessonPath: '/cases/counter-strike',
+    },
   ],
   connections: [
     // Connect center to all games
@@ -87,13 +105,17 @@ export const casesTree: MindMapData = {
     { from: 'cases-center', to: 'lol' },
     { from: 'cases-center', to: 'starcraft' },
     { from: 'cases-center', to: 'candy-crush' },
+    { from: 'cases-center', to: 'fortnite' },
+    { from: 'cases-center', to: 'counter-strike' },
     // Connect adjacent games
     { from: 'super-mario', to: 'candy-crush', style: 'dashed' },
     { from: 'candy-crush', to: 'maplestory', style: 'dashed' },
     { from: 'maplestory', to: 'overwatch', style: 'dashed' },
-    { from: 'overwatch', to: 'pubg', style: 'dashed' },
+    { from: 'overwatch', to: 'fortnite', style: 'dashed' },
+    { from: 'fortnite', to: 'pubg', style: 'dashed' },
     { from: 'pubg', to: 'lol', style: 'dashed' },
     { from: 'lol', to: 'starcraft', style: 'dashed' },
-    { from: 'starcraft', to: 'super-mario', style: 'dashed' },
+    { from: 'starcraft', to: 'counter-strike', style: 'dashed' },
+    { from: 'counter-strike', to: 'super-mario', style: 'dashed' },
   ],
 }
