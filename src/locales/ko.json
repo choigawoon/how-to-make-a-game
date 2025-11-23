@@ -833,45 +833,88 @@
       },
       "tickrate": {
         "title": "틱레이트 & 보간",
-        "description": "업데이트 주기와 부드러운 표현",
-        "considerations": ["게임 장르", "정밀도 요구사항", "인프라 비용"],
+        "description": "업데이트 주기 - 과대평가된 지표와 실제 중요한 요소들",
+        "considerations": ["게임 장르", "정밀도 요구사항", "인프라 비용", "마케팅 가치"],
+        "misconceptions": {
+          "title": "틱레이트에 대한 오해",
+          "description": "틱레이트는 넷코드 품질의 일부일 뿐, 전체가 아닙니다. 실제 체감에 더 큰 영향을 미치는 요소들이 있습니다.",
+          "items": [
+            {
+              "myth": "128Hz가 64Hz보다 2배 좋다",
+              "reality": "64Hz = 15.6ms, 128Hz = 7.8ms 간격. 차이는 7.8ms인데, 평균 네트워크 레이턴시(30-50ms)에 비하면 작은 부분입니다. 블라인드 테스트에서 41.3%만이 128틱을 정확히 구분했습니다."
+            },
+            {
+              "myth": "틱레이트가 낮으면 히트 판정이 안 된다",
+              "reality": "Lag Compensation이 이를 보정합니다. 서버가 클라이언트의 발사 시점으로 되감아 히트 판정을 수행하므로, 틱레이트가 낮아도 '내 화면에서 맞춘 건 맞은 것'으로 처리됩니다."
+            },
+            {
+              "myth": "높은 틱레이트 = 좋은 넷코드",
+              "reality": "총 지연은 '100ms 보간 + 내 핑 + 상대 핑 + 서버→클라이언트 전송 + 프레임 렌더링 + 디스플레이 지연'으로 350-400ms에 달합니다. 틱레이트는 이 중 작은 부분입니다."
+            }
+          ]
+        },
+        "whatMattersMore": {
+          "title": "실제로 중요한 요소들",
+          "items": [
+            {
+              "name": "Lag Compensation 품질",
+              "description": "서버가 과거 상태를 얼마나 정확히 되감아 히트 판정하는지가 핵심입니다. 이게 없으면 온라인 FPS는 플레이 불가능합니다.",
+              "impact": "매우 높음"
+            },
+            {
+              "name": "클라이언트 예측 & 보간",
+              "description": "클라이언트가 서버 응답을 기다리지 않고 즉시 반응하는 정도. 보간 버퍼(cl_interp_ratio) 설정이 체감에 큰 영향.",
+              "impact": "높음"
+            },
+            {
+              "name": "클라이언트 프레임레이트",
+              "description": "144fps는 60fps보다 업데이트를 더 빨리 봅니다. 발로란트는 높은 fps가 peeker's advantage를 49%까지 줄인다고 밝혔습니다.",
+              "impact": "높음"
+            },
+            {
+              "name": "네트워크 품질",
+              "description": "핑, 지터, 패킷 손실이 틱레이트보다 체감에 더 큰 영향을 미칩니다.",
+              "impact": "매우 높음"
+            }
+          ]
+        },
         "options": {
           "high": {
             "name": "높은 틱레이트 (60-128Hz)",
-            "pros": ["정밀한 히트박스", "부드러운 움직임"],
-            "cons": ["높은 대역폭", "서버 부하"],
-            "useCases": ["FPS", "격투 게임"]
+            "pros": ["수류탄 궤적 일관성", "미세한 정밀도 향상 (~4%)"],
+            "cons": ["높은 대역폭", "서버 비용 증가", "실제 체감 차이 미미"],
+            "useCases": ["e스포츠 (마케팅)", "프로 수준 경쟁"]
           },
           "low": {
-            "name": "낮은 틱레이트 (10-30Hz)",
-            "pros": ["낮은 대역폭", "서버 비용 절감"],
-            "cons": ["보간 필요", "정밀도 감소"],
-            "useCases": ["MMORPG", "전략 게임"]
+            "name": "낮은 틱레이트 (20-64Hz)",
+            "pros": ["낮은 대역폭", "서버 비용 절감", "대부분 플레이어 체감 무차이"],
+            "cons": ["일부 물리 연산 부정확", "고수준 플레이어 불만"],
+            "useCases": ["일반 매치메이킹", "배틀로얄", "MMORPG"]
           }
         },
         "caseStudies": {
           "title": "의사결정 사례 연구",
           "items": [
             {
-              "title": "CS:GO → CS2: 64Hz vs 128Hz 논쟁과 서브틱 해결책",
+              "title": "CS2 서브틱: '틱레이트는 더 이상 중요하지 않다'는 Valve의 주장",
               "gameId": "counter-strike",
-              "problem": "CS:GO 공식 매치메이킹은 64Hz 서버를 사용했지만, 프로와 열성 팬들은 128Hz를 요구했습니다. 64Hz에서는 빠른 움직임이나 정밀한 에임에서 '샷이 안 맞는' 느낌이 발생했습니다. FACEIT/ESEA 등 서드파티 서비스는 128Hz를 제공하여 차이가 두드러졌습니다.",
-              "decision": "CS2에서 '서브틱(Sub-tick)' 시스템 도입. 틱레이트에 관계없이 서버가 틱 사이의 정확한 입력 타이밍을 알 수 있게 됨. 클라이언트가 틱 내 정확한 시간을 함께 전송하여 128Hz의 정밀도를 64Hz 대역폭으로 달성.",
-              "result": "64Hz 서버에서도 128Hz급 히트 판정 정밀도 제공. 서버 인프라 비용 절감 + 경쟁 공정성 확보. 다만 일부 고수준 플레이어들은 여전히 128Hz의 부드러움을 선호."
+              "problem": "CS:GO에서 64Hz vs 128Hz 논쟁이 10년간 지속되었습니다. 프로들은 128Hz를 요구했지만, Valve는 서버 비용과 대부분 플레이어가 차이를 못 느낀다는 이유로 64Hz를 유지했습니다.",
+              "decision": "CS2에서 서브틱 시스템 도입. 클라이언트가 틱 내 정확한 타이밍을 전송하여 틱레이트와 무관하게 정밀한 입력 처리. Valve는 '이제 틱레이트는 이동과 사격에 중요하지 않다'고 선언.",
+              "result": "이론적으로는 64Hz로 128Hz급 정밀도 달성. 하지만 프로 선수 ropz는 '서브틱이 설명대로 좋지 않다, 64와 128 차이가 있다'고 비판. 커뮤니티는 여전히 분열되어 있으며, Faceit의 128Hz 서버 시도를 Valve가 차단하여 논란이 됨."
             },
             {
-              "title": "포트나이트: 20Hz에서 30Hz로, 그리고 Replication Graph",
+              "title": "포트나이트: 틱레이트보다 Replication Graph가 핵심",
               "gameId": "fortnite",
-              "problem": "초기 포트나이트는 20Hz 서버 틱레이트로 운영되었습니다. 100명 플레이어의 건물/총격/이동을 모두 동기화하려니 대역폭과 서버 부하가 심했습니다. 플레이어들은 '총알이 휘어간다', '벽을 세웠는데 뚫린다' 등의 불만을 제기했습니다.",
-              "decision": "틱레이트를 30Hz로 증가시키고, 'Replication Graph' 시스템을 도입. 각 클라이언트에게 관련 있는 데이터만 선별적으로 전송하여 대역폭 최적화. 가까운 적은 더 자주, 먼 적은 덜 자주 업데이트.",
-              "result": "히트 판정과 건축 반응성 개선. 100명 동시 플레이에서도 안정적인 게임플레이 제공. 에픽게임즈는 이 시스템을 Unreal Engine에 통합하여 다른 대규모 멀티플레이어 게임에서도 활용 가능."
+              "problem": "20Hz에서 30Hz로 올렸지만, 실제 개선은 틱레이트 증가보다 다른 최적화에서 왔습니다.",
+              "decision": "Replication Graph 도입 - 각 클라이언트에게 관련 데이터만 선별 전송. 가까운 적은 자주, 먼 적은 덜 자주 업데이트. 이것이 대역폭을 절약하면서 반응성을 개선한 핵심.",
+              "result": "틱레이트 50% 증가(20→30Hz)보다 Replication Graph의 선별적 업데이트가 체감 개선에 더 기여. 에픽은 이를 Unreal Engine에 통합하여 대규모 멀티플레이어의 표준 솔루션으로 제공."
             },
             {
-              "title": "발로란트 vs 오버워치: 128Hz로 경쟁 우위 확보",
+              "title": "발로란트 128Hz: 기술적 우위인가, 마케팅인가?",
               "gameId": "overwatch",
-              "problem": "오버워치는 63Hz 서버 틱레이트를 사용했습니다. 경쟁 FPS 시장에서 이는 논란이 되었고, 특히 히트스캔 영웅(위도우메이커, 맥크리)의 히트 판정에서 불만이 많았습니다.",
-              "decision": "발로란트는 출시부터 128Hz 서버를 제공하며 이를 핵심 마케팅 포인트로 삼았습니다. 오버워치 2에서 Blizzard는 일부 경쟁전 모드에서 틱레이트를 높이는 실험을 진행했지만, 기본 틱레이트는 유지했습니다.",
-              "result": "발로란트가 경쟁 FPS 시장에서 '넷코드가 좋다'는 평판을 확보. 틱레이트가 게임 선택의 중요 요소가 됨을 증명. 인프라 비용 vs 경쟁력 트레이드오프의 대표 사례."
+              "problem": "오버워치(63Hz) 대비 발로란트(128Hz)는 '넷코드가 좋다'는 평판을 얻었습니다. 실제로 128Hz가 결정적이었을까요?",
+              "decision": "Riot는 128Hz를 마케팅 포인트로 내세웠지만, 실제 경쟁력은 다른 곳에서 왔습니다: 최소 버퍼링(1프레임), 서버 위치 최적화, 클라이언트 성능 최적화. 이들이 peeker's advantage를 28% 줄였고, 높은 fps는 추가 49%를 줄였습니다.",
+              "result": "128Hz는 직관적인 마케팅 수치(128 > 64 = 좋다!)로 효과적이었지만, 실제 넷코드 품질은 버퍼링 최적화와 lag compensation 품질에서 왔습니다. 틱레이트만으로는 '좋은 넷코드'를 만들 수 없음을 보여주는 사례."
             }
           ]
         },
@@ -879,34 +922,34 @@
           "title": "참고 자료",
           "items": [
             {
-              "title": "CS2's Sub-Tick System Explained",
-              "url": "https://www.youtube.com/watch?v=vdLRLO3bdm0",
-              "description": "CS2 서브틱 시스템의 작동 원리"
+              "title": "Dignitas: Tickrate, Interpolation, Lag Compensation and You",
+              "url": "https://dignitas.gg/articles/tickrate-interpolation-lag-compensation-and-you-probably-not-the-reason-why-you-just-missed-that-shot",
+              "description": "틱레이트가 과대평가된 이유와 실제 중요한 요소들"
+            },
+            {
+              "title": "Valve Developer: Source Multiplayer Networking",
+              "url": "https://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking",
+              "description": "Lag Compensation과 보간의 공식 문서"
+            },
+            {
+              "title": "Riot: Peeking into Valorant's Netcode",
+              "url": "https://technology.riotgames.com/news/peeking-valorants-netcode",
+              "description": "발로란트의 넷코드 최적화 - 버퍼링과 fps의 중요성"
+            },
+            {
+              "title": "CS2 Sub-tick System Explained",
+              "url": "https://cs2pulse.com/tick-rate-subtick-system-explained/",
+              "description": "서브틱 시스템의 작동 원리와 커뮤니티 반응"
             },
             {
               "title": "Battle(non)sense: Fortnite Netcode Analysis",
               "url": "https://www.youtube.com/watch?v=W5lUCeAu_2k",
-              "description": "포트나이트의 틱레이트와 히트 판정 분석"
+              "description": "포트나이트의 틱레이트와 실제 지연 분석"
             },
             {
-              "title": "Epic Games: Replication Graph Overview",
-              "url": "https://docs.unrealengine.com/en-US/Gameplay/Networking/ReplicationGraph/",
-              "description": "언리얼 엔진의 Replication Graph 시스템"
-            },
-            {
-              "title": "Valorant's 128-Tick Servers",
-              "url": "https://technology.riotgames.com/news/valorants-128-tick-servers",
-              "description": "발로란트의 128Hz 서버 아키텍처"
-            },
-            {
-              "title": "CS:GO 64 vs 128 Tick - The Debate",
-              "url": "https://www.reddit.com/r/GlobalOffensive/comments/4y62o5/csgo_128_tick_vs_64_tick/",
-              "description": "커뮤니티의 64Hz vs 128Hz 논쟁"
-            },
-            {
-              "title": "Overwatch Netcode Analysis",
-              "url": "https://www.youtube.com/watch?v=vHO6Ky-w0UQ",
-              "description": "오버워치의 넷코드와 틱레이트 분석"
+              "title": "64 tick vs 128 tick: the decade-long debate",
+              "url": "https://tips.gg/article/64-tick-vs-128-tick-the-decade-long-debate-continues/",
+              "description": "블라인드 테스트와 플라시보 효과 연구"
             }
           ]
         }
