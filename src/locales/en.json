@@ -531,7 +531,14 @@
       "example": "Example",
       "usedInGames": "Used In",
       "viewCaseStudy": "View Case Study",
-      "learnMore": "Learn More"
+      "learnMore": "Learn More",
+      "decisionCaseStudies": "Decision Case Studies",
+      "references": "References",
+      "problem": "Problem",
+      "decision": "Decision",
+      "result": "Result",
+      "viewDemo": "View Demo",
+      "relatedCaseStudy": "Related Case Study"
     }
   }
 }

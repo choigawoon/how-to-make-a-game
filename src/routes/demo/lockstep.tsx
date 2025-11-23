@@ -134,7 +134,7 @@ function LockstepDemoPage() {
           <CardHeader>
             <CardTitle className="text-lg flex items-center justify-between">
               <span>락스텝의 진화: 지연 기반 vs 롤백</span>
-              <Link to="/decisions/sync-strategy">
+              <Link to="/decisions/$categoryId" params={{ categoryId: 'sync-strategy' }}>
                 <Button variant="outline" size="sm" className="text-orange-400 border-orange-400/30 hover:bg-orange-400/10">
                   동기화 전략 비교 →
                 </Button>
@@ -225,7 +225,7 @@ function LockstepDemoPage() {
           <CardHeader>
             <CardTitle className="text-lg flex items-center justify-between">
               <span>아키텍처 비교: 워크래프트3 vs 리그 오브 레전드</span>
-              <Link to="/decisions/multiplayer-arch">
+              <Link to="/decisions/$categoryId" params={{ categoryId: 'multiplayer-arch' }}>
                 <Button variant="outline" size="sm" className="text-cyan-400 border-cyan-400/30 hover:bg-cyan-400/10">
                   더 많은 사례 보기 →
                 </Button>
@@ -349,12 +349,12 @@ function LockstepDemoPage() {
             <CardTitle className="text-lg flex items-center justify-between">
               <span>의사결정 사례: 멀티플레이 정책 변경</span>
               <div className="flex gap-2">
-                <Link to="/decisions/sync-strategy">
+                <Link to="/decisions/$categoryId" params={{ categoryId: 'sync-strategy' }}>
                   <Button variant="outline" size="sm" className="text-orange-400 border-orange-400/30 hover:bg-orange-400/10">
                     동기화 전략 →
                   </Button>
                 </Link>
-                <Link to="/decisions/multiplayer-arch">
+                <Link to="/decisions/$categoryId" params={{ categoryId: 'multiplayer-arch' }}>
                   <Button variant="outline" size="sm" className="text-cyan-400 border-cyan-400/30 hover:bg-cyan-400/10">
                     멀티플레이 아키텍처 →
                   </Button>
