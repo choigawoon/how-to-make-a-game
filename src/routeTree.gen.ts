@@ -14,7 +14,10 @@ import { Route as MswTestRouteImport } from './routes/msw-test'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as FundamentalsTopicIdRouteImport } from './routes/fundamentals/$topicId'
 import { Route as DemoSerializationRouteImport } from './routes/demo/serialization'
+import { Route as DemoMarioJumpRouteImport } from './routes/demo/mario-jump'
+import { Route as DemoLockstepRouteImport } from './routes/demo/lockstep'
 import { Route as DemoGameWorldRouteImport } from './routes/demo/game-world'
+import { Route as DemoCandyCrushRouteImport } from './routes/demo/candy-crush'
 import { Route as DecisionsCategoryIdRouteImport } from './routes/decisions/$categoryId'
 import { Route as CasesGameIdRouteImport } from './routes/cases/$gameId'
 
@@ -43,9 +46,24 @@ const DemoSerializationRoute = DemoSerializationRouteImport.update({
   path: '/demo/serialization',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DemoMarioJumpRoute = DemoMarioJumpRouteImport.update({
+  id: '/demo/mario-jump',
+  path: '/demo/mario-jump',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemoLockstepRoute = DemoLockstepRouteImport.update({
+  id: '/demo/lockstep',
+  path: '/demo/lockstep',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DemoGameWorldRoute = DemoGameWorldRouteImport.update({
   id: '/demo/game-world',
   path: '/demo/game-world',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemoCandyCrushRoute = DemoCandyCrushRouteImport.update({
+  id: '/demo/candy-crush',
+  path: '/demo/candy-crush',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DecisionsCategoryIdRoute = DecisionsCategoryIdRouteImport.update({
@@ -65,7 +83,10 @@ export interface FileRoutesByFullPath {
   '/zustand-test': typeof ZustandTestRoute
   '/cases/$gameId': typeof CasesGameIdRoute
   '/decisions/$categoryId': typeof DecisionsCategoryIdRoute
+  '/demo/candy-crush': typeof DemoCandyCrushRoute
   '/demo/game-world': typeof DemoGameWorldRoute
+  '/demo/lockstep': typeof DemoLockstepRoute
+  '/demo/mario-jump': typeof DemoMarioJumpRoute
   '/demo/serialization': typeof DemoSerializationRoute
   '/fundamentals/$topicId': typeof FundamentalsTopicIdRoute
 }
@@ -75,7 +96,10 @@ export interface FileRoutesByTo {
   '/zustand-test': typeof ZustandTestRoute
   '/cases/$gameId': typeof CasesGameIdRoute
   '/decisions/$categoryId': typeof DecisionsCategoryIdRoute
+  '/demo/candy-crush': typeof DemoCandyCrushRoute
   '/demo/game-world': typeof DemoGameWorldRoute
+  '/demo/lockstep': typeof DemoLockstepRoute
+  '/demo/mario-jump': typeof DemoMarioJumpRoute
   '/demo/serialization': typeof DemoSerializationRoute
   '/fundamentals/$topicId': typeof FundamentalsTopicIdRoute
 }
@@ -86,7 +110,10 @@ export interface FileRoutesById {
   '/zustand-test': typeof ZustandTestRoute
   '/cases/$gameId': typeof CasesGameIdRoute
   '/decisions/$categoryId': typeof DecisionsCategoryIdRoute
+  '/demo/candy-crush': typeof DemoCandyCrushRoute
   '/demo/game-world': typeof DemoGameWorldRoute
+  '/demo/lockstep': typeof DemoLockstepRoute
+  '/demo/mario-jump': typeof DemoMarioJumpRoute
   '/demo/serialization': typeof DemoSerializationRoute
   '/fundamentals/$topicId': typeof FundamentalsTopicIdRoute
 }
@@ -98,7 +125,10 @@ export interface FileRouteTypes {
     | '/zustand-test'
     | '/cases/$gameId'
     | '/decisions/$categoryId'
+    | '/demo/candy-crush'
     | '/demo/game-world'
+    | '/demo/lockstep'
+    | '/demo/mario-jump'
     | '/demo/serialization'
     | '/fundamentals/$topicId'
   fileRoutesByTo: FileRoutesByTo
@@ -108,7 +138,10 @@ export interface FileRouteTypes {
     | '/zustand-test'
     | '/cases/$gameId'
     | '/decisions/$categoryId'
+    | '/demo/candy-crush'
     | '/demo/game-world'
+    | '/demo/lockstep'
+    | '/demo/mario-jump'
     | '/demo/serialization'
     | '/fundamentals/$topicId'
   id:
@@ -118,7 +151,10 @@ export interface FileRouteTypes {
     | '/zustand-test'
     | '/cases/$gameId'
     | '/decisions/$categoryId'
+    | '/demo/candy-crush'
     | '/demo/game-world'
+    | '/demo/lockstep'
+    | '/demo/mario-jump'
     | '/demo/serialization'
     | '/fundamentals/$topicId'
   fileRoutesById: FileRoutesById
@@ -129,7 +165,10 @@ export interface RootRouteChildren {
   ZustandTestRoute: typeof ZustandTestRoute
   CasesGameIdRoute: typeof CasesGameIdRoute
   DecisionsCategoryIdRoute: typeof DecisionsCategoryIdRoute
+  DemoCandyCrushRoute: typeof DemoCandyCrushRoute
   DemoGameWorldRoute: typeof DemoGameWorldRoute
+  DemoLockstepRoute: typeof DemoLockstepRoute
+  DemoMarioJumpRoute: typeof DemoMarioJumpRoute
   DemoSerializationRoute: typeof DemoSerializationRoute
   FundamentalsTopicIdRoute: typeof FundamentalsTopicIdRoute
 }
@@ -171,11 +210,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoSerializationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/demo/mario-jump': {
+      id: '/demo/mario-jump'
+      path: '/demo/mario-jump'
+      fullPath: '/demo/mario-jump'
+      preLoaderRoute: typeof DemoMarioJumpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demo/lockstep': {
+      id: '/demo/lockstep'
+      path: '/demo/lockstep'
+      fullPath: '/demo/lockstep'
+      preLoaderRoute: typeof DemoLockstepRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/demo/game-world': {
       id: '/demo/game-world'
       path: '/demo/game-world'
       fullPath: '/demo/game-world'
       preLoaderRoute: typeof DemoGameWorldRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demo/candy-crush': {
+      id: '/demo/candy-crush'
+      path: '/demo/candy-crush'
+      fullPath: '/demo/candy-crush'
+      preLoaderRoute: typeof DemoCandyCrushRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/decisions/$categoryId': {
@@ -201,7 +261,10 @@ const rootRouteChildren: RootRouteChildren = {
   ZustandTestRoute: ZustandTestRoute,
   CasesGameIdRoute: CasesGameIdRoute,
   DecisionsCategoryIdRoute: DecisionsCategoryIdRoute,
+  DemoCandyCrushRoute: DemoCandyCrushRoute,
   DemoGameWorldRoute: DemoGameWorldRoute,
+  DemoLockstepRoute: DemoLockstepRoute,
+  DemoMarioJumpRoute: DemoMarioJumpRoute,
   DemoSerializationRoute: DemoSerializationRoute,
   FundamentalsTopicIdRoute: FundamentalsTopicIdRoute,
 }

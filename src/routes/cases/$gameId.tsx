@@ -11,6 +11,11 @@ const GAME_DEMOS: Record<string, { path: string; titleKey: string; descriptionKe
     titleKey: 'course.demos.marioJump.title',
     descriptionKey: 'course.demos.marioJump.description',
   },
+  'starcraft': {
+    path: '/demo/lockstep',
+    titleKey: 'course.demos.lockstep.title',
+    descriptionKey: 'course.demos.lockstep.description',
+  },
 }
 
 export const Route = createFileRoute('/cases/$gameId')({

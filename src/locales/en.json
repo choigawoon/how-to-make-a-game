@@ -526,7 +526,12 @@
       "bookView": "Outline",
       "back": "Back",
       "demo": "Demo",
-      "view": "View"
+      "view": "View",
+      "benefits": "Benefits",
+      "example": "Example",
+      "usedInGames": "Used In",
+      "viewCaseStudy": "View Case Study",
+      "learnMore": "Learn More"
     }
   }
 }
