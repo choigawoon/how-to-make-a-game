@@ -68,6 +68,15 @@ export const casesTree: MindMapData = {
       type: 'lesson',
       lessonPath: '/cases/starcraft',
     },
+    // Candy Crush (outer ring - between super-mario and maplestory)
+    {
+      id: 'candy-crush',
+      position: { x: 110, y: -200 },
+      color: 'pink',
+      icon: 'Candy',
+      type: 'lesson',
+      lessonPath: '/demo/candy-crush',
+    },
   ],
   connections: [
     // Connect center to all games
@@ -77,8 +86,10 @@ export const casesTree: MindMapData = {
     { from: 'cases-center', to: 'pubg' },
     { from: 'cases-center', to: 'lol' },
     { from: 'cases-center', to: 'starcraft' },
+    { from: 'cases-center', to: 'candy-crush' },
     // Connect adjacent games
-    { from: 'super-mario', to: 'maplestory', style: 'dashed' },
+    { from: 'super-mario', to: 'candy-crush', style: 'dashed' },
+    { from: 'candy-crush', to: 'maplestory', style: 'dashed' },
     { from: 'maplestory', to: 'overwatch', style: 'dashed' },
     { from: 'overwatch', to: 'pubg', style: 'dashed' },
     { from: 'pubg', to: 'lol', style: 'dashed' },
