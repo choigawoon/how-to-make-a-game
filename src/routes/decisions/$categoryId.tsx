@@ -1,8 +1,24 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
-import { ArrowLeft, GitBranch, Construction } from 'lucide-react'
+import { ArrowLeft, GitBranch, Construction, ExternalLink, Play, BookOpen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { decisionsTree } from '@/content'
+
+// Type definitions for case studies and references
+interface CaseStudyItem {
+  title: string
+  gameId: string
+  problem: string
+  decision: string
+  result: string
+  demoPath?: string
+}
+
+interface ReferenceItem {
+  title: string
+  url: string
+  description: string
+}
 
 export const Route = createFileRoute('/decisions/$categoryId')({
   component: DecisionsPage,
@@ -42,6 +58,15 @@ function DecisionsPage() {
   const title = t(`course.decisions.${categoryId}.title` as never) as string
   const description = t(`course.decisions.${categoryId}.description` as never) as string
   const considerations = t(`course.decisions.${categoryId}.considerations` as never, { returnObjects: true }) as string[]
+
+  // Get case studies and references if they exist
+  const caseStudiesTitle = t(`course.decisions.${categoryId}.caseStudies.title` as never, { defaultValue: '' }) as string
+  const caseStudiesItems = t(`course.decisions.${categoryId}.caseStudies.items` as never, { returnObjects: true, defaultValue: [] }) as CaseStudyItem[]
+  const referencesTitle = t(`course.decisions.${categoryId}.references.title` as never, { defaultValue: '' }) as string
+  const referencesItems = t(`course.decisions.${categoryId}.references.items` as never, { returnObjects: true, defaultValue: [] }) as ReferenceItem[]
+
+  const hasCaseStudies = Array.isArray(caseStudiesItems) && caseStudiesItems.length > 0
+  const hasReferences = Array.isArray(referencesItems) && referencesItems.length > 0
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
@@ -133,14 +158,96 @@ function DecisionsPage() {
           </>
         )}
 
-        {/* Placeholder Content */}
-        <div className="bg-slate-900 rounded-lg p-8 border border-slate-800 border-dashed">
-          <div className="text-center">
-            <Construction className="h-12 w-12 text-slate-600 mx-auto mb-4" />
-            <h3 className="text-xl font-medium text-slate-400 mb-2">{t('course.ui.detailedContentComingSoon')}</h3>
-            <p className="text-slate-500">{t('course.ui.detailedContentComingSoonDesc')}</p>
+        {/* Case Studies Section */}
+        {hasCaseStudies && (
+          <div className="mb-8">
+            <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+              <BookOpen className="h-5 w-5 text-orange-400" />
+              {caseStudiesTitle || t('course.ui.decisionCaseStudies')}
+            </h2>
+            <div className="space-y-4">
+              {caseStudiesItems.map((caseStudy, index) => (
+                <div key={index} className="bg-slate-900 rounded-lg p-6 border border-slate-800">
+                  <h3 className="text-lg font-medium mb-4 text-orange-300">{caseStudy.title}</h3>
+
+                  <div className="space-y-4 text-sm">
+                    <div className="p-3 bg-red-900/20 border border-red-500/30 rounded-lg">
+                      <h4 className="font-semibold text-red-400 mb-2">{t('course.ui.problem')}</h4>
+                      <p className="text-slate-300">{caseStudy.problem}</p>
+                    </div>
+
+                    <div className="p-3 bg-blue-900/20 border border-blue-500/30 rounded-lg">
+                      <h4 className="font-semibold text-blue-400 mb-2">{t('course.ui.decision')}</h4>
+                      <p className="text-slate-300">{caseStudy.decision}</p>
+                    </div>
+
+                    <div className="p-3 bg-green-900/20 border border-green-500/30 rounded-lg">
+                      <h4 className="font-semibold text-green-400 mb-2">{t('course.ui.result')}</h4>
+                      <p className="text-slate-300">{caseStudy.result}</p>
+                    </div>
+                  </div>
+
+                  {/* Links */}
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {caseStudy.demoPath && (
+                      <Link to={caseStudy.demoPath}>
+                        <Button variant="outline" size="sm" className="text-orange-400 border-orange-400/30 hover:bg-orange-400/10">
+                          <Play className="h-4 w-4 mr-1" />
+                          {t('course.ui.viewDemo')}
+                        </Button>
+                      </Link>
+                    )}
+                    {caseStudy.gameId && caseStudy.gameId !== 'tekken' && caseStudy.gameId !== 'dota2' && (
+                      <Link to="/cases/$gameId" params={{ gameId: caseStudy.gameId }}>
+                        <Button variant="outline" size="sm" className="text-blue-400 border-blue-400/30 hover:bg-blue-400/10">
+                          {t('course.ui.relatedCaseStudy')}
+                        </Button>
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* References Section */}
+        {hasReferences && (
+          <div className="mb-8">
+            <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+              <ExternalLink className="h-5 w-5 text-blue-400" />
+              {referencesTitle || t('course.ui.references')}
+            </h2>
+            <div className="bg-slate-900 rounded-lg p-6 border border-slate-800">
+              <ul className="space-y-3">
+                {referencesItems.map((ref, index) => (
+                  <li key={index} className="text-sm">
+                    <a
+                      href={ref.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-400 hover:underline font-medium"
+                    >
+                      {ref.title}
+                    </a>
+                    <p className="text-slate-400 mt-1">{ref.description}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
+
+        {/* Placeholder Content - only show if no case studies */}
+        {!hasCaseStudies && (
+          <div className="bg-slate-900 rounded-lg p-8 border border-slate-800 border-dashed mb-8">
+            <div className="text-center">
+              <Construction className="h-12 w-12 text-slate-600 mx-auto mb-4" />
+              <h3 className="text-xl font-medium text-slate-400 mb-2">{t('course.ui.detailedContentComingSoon')}</h3>
+              <p className="text-slate-500">{t('course.ui.detailedContentComingSoonDesc')}</p>
+            </div>
+          </div>
+        )}
 
         {/* Theory + Visualization placeholder */}
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">

@@ -132,7 +132,14 @@ function LockstepDemoPage() {
         {/* Lockstep Evolution */}
         <Card className="bg-slate-800/30 border-slate-700 mt-8">
           <CardHeader>
-            <CardTitle className="text-lg">락스텝의 진화: 지연 기반 vs 롤백</CardTitle>
+            <CardTitle className="text-lg flex items-center justify-between">
+              <span>락스텝의 진화: 지연 기반 vs 롤백</span>
+              <Link to="/decisions/sync-strategy">
+                <Button variant="outline" size="sm" className="text-orange-400 border-orange-400/30 hover:bg-orange-400/10">
+                  동기화 전략 비교 →
+                </Button>
+              </Link>
+            </CardTitle>
           </CardHeader>
           <CardContent className="text-sm text-slate-300 space-y-4">
             <p>
@@ -216,7 +223,14 @@ function LockstepDemoPage() {
         {/* Architecture Comparison: WC3 vs LoL */}
         <Card className="bg-slate-800/30 border-slate-700 mt-8">
           <CardHeader>
-            <CardTitle className="text-lg">아키텍처 비교: 워크래프트3 vs 리그 오브 레전드</CardTitle>
+            <CardTitle className="text-lg flex items-center justify-between">
+              <span>아키텍처 비교: 워크래프트3 vs 리그 오브 레전드</span>
+              <Link to="/decisions/multiplayer-arch">
+                <Button variant="outline" size="sm" className="text-cyan-400 border-cyan-400/30 hover:bg-cyan-400/10">
+                  더 많은 사례 보기 →
+                </Button>
+              </Link>
+            </CardTitle>
           </CardHeader>
           <CardContent className="text-sm text-slate-300 space-y-4">
             <p>
@@ -332,12 +346,27 @@ function LockstepDemoPage() {
         {/* Decision Case Study */}
         <Card className="bg-slate-800/30 border-slate-700 mt-8">
           <CardHeader>
-            <CardTitle className="text-lg">의사결정 사례: 멀티플레이 정책 변경</CardTitle>
+            <CardTitle className="text-lg flex items-center justify-between">
+              <span>의사결정 사례: 멀티플레이 정책 변경</span>
+              <div className="flex gap-2">
+                <Link to="/decisions/sync-strategy">
+                  <Button variant="outline" size="sm" className="text-orange-400 border-orange-400/30 hover:bg-orange-400/10">
+                    동기화 전략 →
+                  </Button>
+                </Link>
+                <Link to="/decisions/multiplayer-arch">
+                  <Button variant="outline" size="sm" className="text-cyan-400 border-cyan-400/30 hover:bg-cyan-400/10">
+                    멀티플레이 아키텍처 →
+                  </Button>
+                </Link>
+              </div>
+            </CardTitle>
           </CardHeader>
           <CardContent className="text-sm text-slate-300 space-y-4">
             <p>
               게임의 네트워킹 모델은 고정된 것이 아닙니다. 기술 발전, 플레이어 피드백, 경쟁 환경에 따라
               변경될 수 있습니다. 아래는 실제 멀티플레이 정책 변경 사례입니다.
+              더 자세한 분석과 레퍼런스는 <strong>동기화 전략</strong>과 <strong>멀티플레이 아키텍처</strong> 페이지에서 확인하세요.
             </p>
 
             <div className="p-4 bg-amber-900/20 border border-amber-500/30 rounded-lg">
