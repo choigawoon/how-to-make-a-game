@@ -3,19 +3,17 @@ import { devtools } from '@tanstack/devtools-vite'
 import viteReact from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import mdx from '@mdx-js/rollup'
 
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // Base URL for GitHub Pages deployment
-  // Change this to your repository name for GitHub Pages
-  // For Cloudflare Pages, use '/'
   base: process.env.GITHUB_PAGES ? '/how-to-make-a-game/' : '/',
-  // Tauri expects a fixed port, fail if that port is not available
   clearScreen: false,
   plugins: [
+    mdx(),
     devtools(),
     tanstackRouter({
       target: 'react',
@@ -113,32 +111,24 @@ export default defineConfig({
     },
   },
   server: {
-    // Tauri expects a fixed port
     port: 3000,
     strictPort: true,
-    // For Tauri mobile development
     host: process.env.TAURI_DEV_HOST || false,
     proxy: {
-      // Proxy /api requests to backend when VITE_API_MODE=real
-      // This allows frontend to make requests to /api/* without CORS issues
       '/api': {
         target: process.env.VITE_API_BASE_URL || 'http://localhost:8000',
         changeOrigin: true,
-        // If your backend doesn't use /api prefix, rewrite it
-        // rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },
   preview: {
-    // Preview mode (pnpm serve) proxy settings
-    // Only proxy when VITE_API_MODE=real, otherwise MSW will handle it
     proxy: process.env.VITE_API_MODE === 'real'
       ? {
-          '/api': {
-            target: process.env.VITE_API_BASE_URL || 'http://localhost:8000',
-            changeOrigin: true,
-          },
-        }
+        '/api': {
+          target: process.env.VITE_API_BASE_URL || 'http://localhost:8000',
+          changeOrigin: true,
+        },
+      }
       : {},
   },
 })

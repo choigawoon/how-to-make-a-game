@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
+import { useEffect, useState } from 'react'
 import { ArrowLeft, Blocks, Construction, Play, AlertTriangle, Wrench, CheckCircle, BookOpen, ExternalLink, Trophy } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { fundamentalsTree } from '@/content'
+import { loadContent, getNode } from '@/lib/content'
 
 export const Route = createFileRoute('/fundamentals/$topicId')({
   component: FundamentalsPage,
@@ -18,9 +19,21 @@ const demoPaths: Record<string, string> = {
 function FundamentalsPage() {
   const { t } = useTranslation()
   const { topicId } = Route.useParams()
+  const [content, setContent] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function load() {
+      setLoading(true)
+      const data = await loadContent(topicId)
+      setContent(data)
+      setLoading(false)
+    }
+    load()
+  }, [topicId])
 
   // Find the topic node from the mindmap
-  const topicNode = fundamentalsTree.nodes.find(node => node.id === topicId)
+  const topicNode = getNode(topicId)
   const demoPath = demoPaths[topicId]
 
   if (!topicNode) {
@@ -36,60 +49,20 @@ function FundamentalsPage() {
     )
   }
 
-  // Get translations for this topic (using type assertion for dynamic keys)
-  const title = t(`course.fundamentals.${topicId}.title` as never) as string
-  const description = t(`course.fundamentals.${topicId}.description` as never) as string
-  const concepts = t(`course.fundamentals.${topicId}.concepts` as never, { returnObjects: true }) as string[]
-  const usedIn = t(`course.fundamentals.${topicId}.usedIn` as never, { returnObjects: true }) as string[]
+  if (loading) {
+    return <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center">Loading...</div>
+  }
+
+  const frontmatter = content?.frontmatter || {}
+  const title = frontmatter.title || t(`course.fundamentals.${topicId}.title` as never)
+  const description = frontmatter.description || t(`course.fundamentals.${topicId}.description` as never)
+  const concepts = frontmatter.concepts || t(`course.fundamentals.${topicId}.concepts` as never, { returnObjects: true }) || []
+  const usedIn = frontmatter.usedIn || t(`course.fundamentals.${topicId}.usedIn` as never, { returnObjects: true }) || []
 
   // Get determinism content for modeling-simulation topic
+  // TODO: Move this to MDX content as well
   const hasDeterminism = topicId === 'modeling-simulation'
-  const determinism = hasDeterminism ? t(`course.fundamentals.${topicId}.determinism` as never, { returnObjects: true }) as {
-    title: string
-    why: {
-      title: string
-      description: string
-      benefits: string[]
-    }
-    causes: {
-      title: string
-      items: Array<{
-        name: string
-        description: string
-        example: string
-      }>
-    }
-    methodologies: {
-      title: string
-      items: Array<{
-        name: string
-        description: string
-        usedIn: string
-        example: string
-      }>
-    }
-    testing: {
-      title: string
-      description: string
-      items: string[]
-    }
-    caseStudies: {
-      title: string
-      items: Array<{
-        gameId: string
-        title: string
-        description: string
-      }>
-    }
-    references: {
-      title: string
-      items: Array<{
-        title: string
-        url: string
-        description: string
-      }>
-    }
-  } : null
+  const determinism = hasDeterminism ? t(`course.fundamentals.${topicId}.determinism` as never, { returnObjects: true }) as any : null
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
@@ -122,7 +95,7 @@ function FundamentalsPage() {
           <div className="bg-slate-900 rounded-lg p-6 border border-slate-800">
             <h3 className="text-sm font-medium text-slate-400 mb-3">{t('course.ui.coreConcepts')}</h3>
             <div className="flex flex-wrap gap-2">
-              {concepts.map((concept, i) => (
+              {concepts.map((concept: string, i: number) => (
                 <span key={i} className="px-3 py-1 bg-slate-800 text-slate-300 rounded-full text-sm">
                   {concept}
                 </span>
@@ -132,7 +105,7 @@ function FundamentalsPage() {
           <div className="bg-slate-900 rounded-lg p-6 border border-slate-800">
             <h3 className="text-sm font-medium text-slate-400 mb-3">{t('course.ui.usedIn')}</h3>
             <ul className="space-y-1">
-              {usedIn.map((item, i) => (
+              {usedIn.map((item: string, i: number) => (
                 <li key={i} className="text-sm text-slate-300">• {item}</li>
               ))}
             </ul>
@@ -167,7 +140,7 @@ function FundamentalsPage() {
                 <div>
                   <h4 className="text-sm font-medium text-slate-400 mb-2">{t('course.ui.benefits')}</h4>
                   <ul className="list-disc list-inside space-y-1">
-                    {determinism.why.benefits.map((benefit, i) => (
+                    {determinism.why.benefits.map((benefit: string, i: number) => (
                       <li key={i} className="text-sm text-slate-300">{benefit}</li>
                     ))}
                   </ul>
@@ -185,7 +158,7 @@ function FundamentalsPage() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {determinism.causes.items.map((cause, i) => (
+                  {determinism.causes.items.map((cause: any, i: number) => (
                     <div key={i} className="p-4 bg-slate-800/50 rounded-lg">
                       <h4 className="font-medium text-amber-300 mb-2">{cause.name}</h4>
                       <p className="text-sm text-slate-300 mb-2">{cause.description}</p>
@@ -208,7 +181,7 @@ function FundamentalsPage() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {determinism.methodologies.items.map((method, i) => (
+                  {determinism.methodologies.items.map((method: any, i: number) => (
                     <div key={i} className="p-4 bg-slate-800/50 rounded-lg border border-slate-700">
                       <h4 className="font-medium text-blue-300 mb-2">{method.name}</h4>
                       <p className="text-sm text-slate-300 mb-3">{method.description}</p>
@@ -239,7 +212,7 @@ function FundamentalsPage() {
               <CardContent className="space-y-4">
                 <p className="text-slate-300">{determinism.testing.description}</p>
                 <ul className="list-disc list-inside space-y-2">
-                  {determinism.testing.items.map((item, i) => (
+                  {determinism.testing.items.map((item: string, i: number) => (
                     <li key={i} className="text-sm text-slate-300">{item}</li>
                   ))}
                 </ul>
@@ -256,7 +229,7 @@ function FundamentalsPage() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {determinism.caseStudies.items.map((caseStudy, i) => (
+                  {determinism.caseStudies.items.map((caseStudy: any, i: number) => (
                     <div key={i} className="p-4 bg-slate-800/50 rounded-lg border border-slate-700">
                       <h4 className="font-medium text-yellow-300 mb-2">{caseStudy.title}</h4>
                       <p className="text-sm text-slate-300 mb-3">{caseStudy.description}</p>
@@ -282,7 +255,7 @@ function FundamentalsPage() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {determinism.references.items.map((ref, i) => (
+                  {determinism.references.items.map((ref: any, i: number) => (
                     <a
                       key={i}
                       href={ref.url}

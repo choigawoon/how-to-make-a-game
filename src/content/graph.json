@@ -1,0 +1,541 @@
+{
+    "nodes": [
+        {
+            "id": "main",
+            "type": "root",
+            "position": {
+                "x": 0,
+                "y": 0
+            },
+            "data": {
+                "icon": "Gamepad2",
+                "color": "purple"
+            }
+        },
+        {
+            "id": "cases",
+            "type": "category",
+            "position": {
+                "x": 0,
+                "y": -280
+            },
+            "data": {
+                "icon": "Trophy",
+                "color": "blue"
+            }
+        },
+        {
+            "id": "fundamentals",
+            "type": "category",
+            "position": {
+                "x": -280,
+                "y": 180
+            },
+            "data": {
+                "icon": "Blocks",
+                "color": "green"
+            }
+        },
+        {
+            "id": "decisions",
+            "type": "category",
+            "position": {
+                "x": 280,
+                "y": 180
+            },
+            "data": {
+                "icon": "GitBranch",
+                "color": "orange"
+            }
+        },
+        {
+            "id": "super-mario",
+            "type": "lesson",
+            "position": {
+                "x": 0,
+                "y": -250
+            },
+            "data": {
+                "icon": "Gamepad2",
+                "color": "red"
+            }
+        },
+        {
+            "id": "maplestory",
+            "type": "lesson",
+            "position": {
+                "x": 220,
+                "y": -125
+            },
+            "data": {
+                "icon": "TreePine",
+                "color": "orange"
+            }
+        },
+        {
+            "id": "overwatch",
+            "type": "lesson",
+            "position": {
+                "x": 220,
+                "y": 125
+            },
+            "data": {
+                "icon": "Crosshair",
+                "color": "amber"
+            }
+        },
+        {
+            "id": "pubg",
+            "type": "lesson",
+            "position": {
+                "x": 0,
+                "y": 250
+            },
+            "data": {
+                "icon": "Target",
+                "color": "yellow"
+            }
+        },
+        {
+            "id": "lol",
+            "type": "lesson",
+            "position": {
+                "x": -220,
+                "y": 125
+            },
+            "data": {
+                "icon": "Swords",
+                "color": "cyan"
+            }
+        },
+        {
+            "id": "starcraft",
+            "type": "lesson",
+            "position": {
+                "x": -220,
+                "y": -125
+            },
+            "data": {
+                "icon": "Rocket",
+                "color": "indigo"
+            }
+        },
+        {
+            "id": "candy-crush",
+            "type": "lesson",
+            "position": {
+                "x": 110,
+                "y": -200
+            },
+            "data": {
+                "icon": "Candy",
+                "color": "pink"
+            }
+        },
+        {
+            "id": "fortnite",
+            "type": "lesson",
+            "position": {
+                "x": 110,
+                "y": 200
+            },
+            "data": {
+                "icon": "Building",
+                "color": "purple"
+            }
+        },
+        {
+            "id": "counter-strike",
+            "type": "lesson",
+            "position": {
+                "x": -110,
+                "y": -200
+            },
+            "data": {
+                "icon": "Bomb",
+                "color": "teal"
+            }
+        },
+        {
+            "id": "modeling-simulation",
+            "type": "lesson",
+            "position": {
+                "x": 0,
+                "y": -220
+            },
+            "data": {
+                "icon": "Box",
+                "color": "blue"
+            }
+        },
+        {
+            "id": "serialization",
+            "type": "lesson",
+            "position": {
+                "x": 200,
+                "y": -68
+            },
+            "data": {
+                "icon": "Database",
+                "color": "teal"
+            }
+        },
+        {
+            "id": "rendering",
+            "type": "lesson",
+            "position": {
+                "x": 124,
+                "y": 178
+            },
+            "data": {
+                "icon": "Monitor",
+                "color": "purple"
+            }
+        },
+        {
+            "id": "physics",
+            "type": "lesson",
+            "position": {
+                "x": -124,
+                "y": 178
+            },
+            "data": {
+                "icon": "Orbit",
+                "color": "orange"
+            }
+        },
+        {
+            "id": "networking",
+            "type": "lesson",
+            "position": {
+                "x": -200,
+                "y": -68
+            },
+            "data": {
+                "icon": "Network",
+                "color": "cyan"
+            }
+        },
+        {
+            "id": "game-loop",
+            "type": "lesson",
+            "position": {
+                "x": 0,
+                "y": 280
+            },
+            "data": {
+                "icon": "RefreshCw",
+                "color": "red"
+            }
+        },
+        {
+            "id": "multiplayer-arch",
+            "type": "lesson",
+            "position": {
+                "x": 0,
+                "y": -220
+            },
+            "data": {
+                "icon": "Users",
+                "color": "blue"
+            }
+        },
+        {
+            "id": "physics-authority",
+            "type": "lesson",
+            "position": {
+                "x": 200,
+                "y": -68
+            },
+            "data": {
+                "icon": "Server",
+                "color": "red"
+            }
+        },
+        {
+            "id": "sync-strategy",
+            "type": "lesson",
+            "position": {
+                "x": 124,
+                "y": 178
+            },
+            "data": {
+                "icon": "RefreshCw",
+                "color": "purple"
+            }
+        },
+        {
+            "id": "tickrate",
+            "type": "lesson",
+            "position": {
+                "x": -124,
+                "y": 178
+            },
+            "data": {
+                "icon": "Timer",
+                "color": "teal"
+            }
+        },
+        {
+            "id": "balancing",
+            "type": "lesson",
+            "position": {
+                "x": -200,
+                "y": -68
+            },
+            "data": {
+                "icon": "Scale",
+                "color": "yellow"
+            }
+        }
+    ],
+    "edges": [
+        {
+            "source": "main",
+            "target": "cases",
+            "type": "structure"
+        },
+        {
+            "source": "main",
+            "target": "fundamentals",
+            "type": "structure"
+        },
+        {
+            "source": "main",
+            "target": "decisions",
+            "type": "structure"
+        },
+        {
+            "source": "cases",
+            "target": "fundamentals",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "cases",
+            "target": "decisions",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "fundamentals",
+            "target": "decisions",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "cases",
+            "target": "super-mario",
+            "type": "structure"
+        },
+        {
+            "source": "cases",
+            "target": "maplestory",
+            "type": "structure"
+        },
+        {
+            "source": "cases",
+            "target": "overwatch",
+            "type": "structure"
+        },
+        {
+            "source": "cases",
+            "target": "pubg",
+            "type": "structure"
+        },
+        {
+            "source": "cases",
+            "target": "lol",
+            "type": "structure"
+        },
+        {
+            "source": "cases",
+            "target": "starcraft",
+            "type": "structure"
+        },
+        {
+            "source": "cases",
+            "target": "candy-crush",
+            "type": "structure"
+        },
+        {
+            "source": "cases",
+            "target": "fortnite",
+            "type": "structure"
+        },
+        {
+            "source": "cases",
+            "target": "counter-strike",
+            "type": "structure"
+        },
+        {
+            "source": "super-mario",
+            "target": "candy-crush",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "candy-crush",
+            "target": "maplestory",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "maplestory",
+            "target": "overwatch",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "overwatch",
+            "target": "fortnite",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "fortnite",
+            "target": "pubg",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "pubg",
+            "target": "lol",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "lol",
+            "target": "starcraft",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "starcraft",
+            "target": "counter-strike",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "counter-strike",
+            "target": "super-mario",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "fundamentals",
+            "target": "modeling-simulation",
+            "type": "structure"
+        },
+        {
+            "source": "fundamentals",
+            "target": "serialization",
+            "type": "structure"
+        },
+        {
+            "source": "fundamentals",
+            "target": "rendering",
+            "type": "structure"
+        },
+        {
+            "source": "fundamentals",
+            "target": "physics",
+            "type": "structure"
+        },
+        {
+            "source": "fundamentals",
+            "target": "networking",
+            "type": "structure"
+        },
+        {
+            "source": "fundamentals",
+            "target": "game-loop",
+            "type": "structure"
+        },
+        {
+            "source": "modeling-simulation",
+            "target": "serialization",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "serialization",
+            "target": "rendering",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "rendering",
+            "target": "physics",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "physics",
+            "target": "networking",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "networking",
+            "target": "modeling-simulation",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "decisions",
+            "target": "multiplayer-arch",
+            "type": "structure"
+        },
+        {
+            "source": "decisions",
+            "target": "physics-authority",
+            "type": "structure"
+        },
+        {
+            "source": "decisions",
+            "target": "sync-strategy",
+            "type": "structure"
+        },
+        {
+            "source": "decisions",
+            "target": "tickrate",
+            "type": "structure"
+        },
+        {
+            "source": "decisions",
+            "target": "balancing",
+            "type": "structure"
+        },
+        {
+            "source": "multiplayer-arch",
+            "target": "physics-authority",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "physics-authority",
+            "target": "sync-strategy",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "sync-strategy",
+            "target": "tickrate",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "tickrate",
+            "target": "balancing",
+            "type": "related",
+            "style": "dashed"
+        },
+        {
+            "source": "balancing",
+            "target": "multiplayer-arch",
+            "type": "related",
+            "style": "dashed"
+        }
+    ]
+}

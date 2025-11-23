@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
+import { useEffect, useState } from 'react'
 import { ArrowLeft, Trophy, Construction, Gamepad2, Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { casesTree } from '@/content'
+import { loadContent, getNode } from '@/lib/content'
 
 // Map of game IDs to their demo paths
 const GAME_DEMOS: Record<string, { path: string; titleKey: string; descriptionKey: string }> = {
@@ -25,9 +26,21 @@ export const Route = createFileRoute('/cases/$gameId')({
 function CaseStudyPage() {
   const { t } = useTranslation()
   const { gameId } = Route.useParams()
+  const [content, setContent] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function load() {
+      setLoading(true)
+      const data = await loadContent(gameId)
+      setContent(data)
+      setLoading(false)
+    }
+    load()
+  }, [gameId])
 
   // Find the game node from the mindmap
-  const gameNode = casesTree.nodes.find(node => node.id === gameId)
+  const gameNode = getNode(gameId)
 
   if (!gameNode) {
     return (
@@ -42,14 +55,18 @@ function CaseStudyPage() {
     )
   }
 
-  // Get translations for this game (using type assertion for dynamic keys)
-  const title = t(`course.cases.${gameId}.title` as never) as string
-  const description = t(`course.cases.${gameId}.description` as never) as string
-  const genre = t(`course.cases.${gameId}.genre` as never) as string
-  const year = t(`course.cases.${gameId}.year` as never) as string
-  const keyFeatures = t(`course.cases.${gameId}.keyFeatures` as never, { returnObjects: true }) as string[]
-  const fundamentals = t(`course.cases.${gameId}.fundamentals` as never, { returnObjects: true }) as string[]
-  const decisions = t(`course.cases.${gameId}.decisions` as never, { returnObjects: true }) as string[]
+  if (loading) {
+    return <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center">Loading...</div>
+  }
+
+  const frontmatter = content?.frontmatter || {}
+  const title = frontmatter.title || t(`course.cases.${gameId}.title` as never)
+  const description = frontmatter.description || t(`course.cases.${gameId}.description` as never)
+  const genre = frontmatter.genre || t(`course.cases.${gameId}.genre` as never)
+  const year = frontmatter.year || t(`course.cases.${gameId}.year` as never)
+  const keyFeatures = frontmatter.keyFeatures || t(`course.cases.${gameId}.keyFeatures` as never, { returnObjects: true }) || []
+  const fundamentals = frontmatter.fundamentals || t(`course.cases.${gameId}.fundamentals` as never, { returnObjects: true }) || []
+  const decisions = frontmatter.decisions || t(`course.cases.${gameId}.decisions` as never, { returnObjects: true }) || []
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
@@ -89,7 +106,7 @@ function CaseStudyPage() {
           <div className="bg-slate-900 rounded-lg p-6 border border-slate-800">
             <h3 className="text-sm font-medium text-slate-400 mb-3">{t('course.ui.keyFeatures')}</h3>
             <ul className="space-y-1">
-              {keyFeatures.map((feature, i) => (
+              {keyFeatures.map((feature: string, i: number) => (
                 <li key={i} className="text-sm">• {feature}</li>
               ))}
             </ul>
@@ -101,7 +118,7 @@ function CaseStudyPage() {
           <div className="bg-slate-900 rounded-lg p-6 border border-slate-800">
             <h3 className="text-sm font-medium text-green-400 mb-3">{t('course.ui.relatedFundamentals')}</h3>
             <div className="flex flex-wrap gap-2">
-              {fundamentals.map((item, i) => (
+              {fundamentals.map((item: string, i: number) => (
                 <span key={i} className="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">
                   {item}
                 </span>
@@ -111,7 +128,7 @@ function CaseStudyPage() {
           <div className="bg-slate-900 rounded-lg p-6 border border-slate-800">
             <h3 className="text-sm font-medium text-orange-400 mb-3">{t('course.ui.relatedDecisions')}</h3>
             <div className="flex flex-wrap gap-2">
-              {decisions.map((item, i) => (
+              {decisions.map((item: string, i: number) => (
                 <span key={i} className="px-3 py-1 bg-orange-500/20 text-orange-300 rounded-full text-sm">
                   {item}
                 </span>

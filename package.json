@@ -72,6 +72,8 @@
     "@vitejs/plugin-react": "^5.0.4",
     "jsdom": "^27.0.0",
     "prisma": "^6.19.0",
+    "remark-frontmatter": "^5.0.0",
+    "remark-mdx-frontmatter": "^5.2.0",
     "typescript": "^5.7.2",
     "vite": "^7.1.7",
     "vite-plugin-pwa": "^1.1.0",

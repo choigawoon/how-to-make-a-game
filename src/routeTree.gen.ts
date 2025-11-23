@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ZustandTestRouteImport } from './routes/zustand-test'
 import { Route as MswTestRouteImport } from './routes/msw-test'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LearnNodeIdRouteImport } from './routes/learn/$nodeId'
 import { Route as FundamentalsTopicIdRouteImport } from './routes/fundamentals/$topicId'
 import { Route as DemoSerializationRouteImport } from './routes/demo/serialization'
 import { Route as DemoMarioJumpRouteImport } from './routes/demo/mario-jump'
@@ -34,6 +35,11 @@ const MswTestRoute = MswTestRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnNodeIdRoute = LearnNodeIdRouteImport.update({
+  id: '/learn/$nodeId',
+  path: '/learn/$nodeId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FundamentalsTopicIdRoute = FundamentalsTopicIdRouteImport.update({
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/demo/mario-jump': typeof DemoMarioJumpRoute
   '/demo/serialization': typeof DemoSerializationRoute
   '/fundamentals/$topicId': typeof FundamentalsTopicIdRoute
+  '/learn/$nodeId': typeof LearnNodeIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/demo/mario-jump': typeof DemoMarioJumpRoute
   '/demo/serialization': typeof DemoSerializationRoute
   '/fundamentals/$topicId': typeof FundamentalsTopicIdRoute
+  '/learn/$nodeId': typeof LearnNodeIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -116,6 +124,7 @@ export interface FileRoutesById {
   '/demo/mario-jump': typeof DemoMarioJumpRoute
   '/demo/serialization': typeof DemoSerializationRoute
   '/fundamentals/$topicId': typeof FundamentalsTopicIdRoute
+  '/learn/$nodeId': typeof LearnNodeIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
     | '/demo/mario-jump'
     | '/demo/serialization'
     | '/fundamentals/$topicId'
+    | '/learn/$nodeId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
     | '/demo/mario-jump'
     | '/demo/serialization'
     | '/fundamentals/$topicId'
+    | '/learn/$nodeId'
   id:
     | '__root__'
     | '/'
@@ -157,6 +168,7 @@ export interface FileRouteTypes {
     | '/demo/mario-jump'
     | '/demo/serialization'
     | '/fundamentals/$topicId'
+    | '/learn/$nodeId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -171,6 +183,7 @@ export interface RootRouteChildren {
   DemoMarioJumpRoute: typeof DemoMarioJumpRoute
   DemoSerializationRoute: typeof DemoSerializationRoute
   FundamentalsTopicIdRoute: typeof FundamentalsTopicIdRoute
+  LearnNodeIdRoute: typeof LearnNodeIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -194,6 +207,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/$nodeId': {
+      id: '/learn/$nodeId'
+      path: '/learn/$nodeId'
+      fullPath: '/learn/$nodeId'
+      preLoaderRoute: typeof LearnNodeIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fundamentals/$topicId': {
@@ -267,6 +287,7 @@ const rootRouteChildren: RootRouteChildren = {
   DemoMarioJumpRoute: DemoMarioJumpRoute,
   DemoSerializationRoute: DemoSerializationRoute,
   FundamentalsTopicIdRoute: FundamentalsTopicIdRoute,
+  LearnNodeIdRoute: LearnNodeIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
