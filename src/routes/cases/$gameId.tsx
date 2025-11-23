@@ -1,8 +1,17 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
-import { ArrowLeft, Trophy, Construction } from 'lucide-react'
+import { ArrowLeft, Trophy, Construction, Gamepad2, Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { casesTree } from '@/content'
+
+// Map of game IDs to their demo paths
+const GAME_DEMOS: Record<string, { path: string; titleKey: string; descriptionKey: string }> = {
+  'super-mario': {
+    path: '/demo/mario-jump',
+    titleKey: 'course.demos.marioJump.title',
+    descriptionKey: 'course.demos.marioJump.description',
+  },
+}
 
 export const Route = createFileRoute('/cases/$gameId')({
   component: CaseStudyPage,
@@ -105,6 +114,35 @@ function CaseStudyPage() {
             </div>
           </div>
         </div>
+
+        {/* Demo Section */}
+        {GAME_DEMOS[gameId] && (
+          <div className="mb-8">
+            <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-lg p-6 border border-slate-700">
+              <div className="flex items-start justify-between">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-red-500/20 rounded-lg">
+                    <Gamepad2 className="h-6 w-6 text-red-400" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-medium mb-1">
+                      {t(GAME_DEMOS[gameId].titleKey as never) as string}
+                    </h3>
+                    <p className="text-sm text-slate-400">
+                      {t(GAME_DEMOS[gameId].descriptionKey as never) as string}
+                    </p>
+                  </div>
+                </div>
+                <Link to={GAME_DEMOS[gameId].path}>
+                  <Button className="bg-red-600 hover:bg-red-700">
+                    <Play className="h-4 w-4 mr-2" />
+                    {t('course.ui.runDemo')}
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Placeholder Content */}
         <div className="bg-slate-900 rounded-lg p-8 border border-slate-800 border-dashed">
