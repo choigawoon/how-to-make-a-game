@@ -138,10 +138,15 @@ class JumpScene extends Phaser.Scene {
     const platform2 = this.add.rectangle(300, 150, 80, 15, 0x475569)
     this.platforms.add(platform2)
 
+    // Create player texture (red rectangle representing Mario)
+    const playerGraphics = this.add.graphics()
+    playerGraphics.fillStyle(0xef4444, 1)
+    playerGraphics.fillRect(0, 0, 24, 32)
+    playerGraphics.generateTexture('player', 24, 32)
+    playerGraphics.destroy()
+
     // Create player
-    this.player = this.physics.add.sprite(50, 240, '__DEFAULT')
-    this.player.setDisplaySize(24, 32)
-    this.player.setTint(0xef4444)
+    this.player = this.physics.add.sprite(50, 240, 'player')
     this.player.setBounce(0)
     this.player.setCollideWorldBounds(true)
     this.player.setGravityY(this.gravity)
