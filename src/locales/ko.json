@@ -286,6 +286,10 @@
       "marioJump": {
         "title": "슈퍼마리오 점프 구현",
         "description": "Phaser 엔진으로 다양한 점프 메커니즘을 직접 체험해보세요"
+      },
+      "lockstep": {
+        "title": "락스텝 동기화 데모",
+        "description": "스타크래프트 스타일의 결정론적 동기화를 직접 체험해보세요"
       }
     },
     "layers": {
@@ -382,9 +386,158 @@
     "fundamentals": {
       "modeling-simulation": {
         "title": "모델링 & 시뮬레이션",
-        "description": "게임 세계의 상태 정의와 업데이트",
-        "concepts": ["게임 루프", "상태 머신", "ECS 패턴", "월드 업데이트"],
-        "usedIn": ["모든 게임"]
+        "description": "게임 세계의 상태 정의와 업데이트. 특히 멀티플레이어 게임에서는 모든 클라이언트가 동일한 시뮬레이션 결과를 얻어야 하는 결정론적 시뮬레이션이 핵심입니다.",
+        "concepts": ["게임 루프", "상태 머신", "ECS 패턴", "월드 업데이트", "결정론적 시뮬레이션", "고정소수점 연산"],
+        "usedIn": ["모든 게임", "RTS (스타크래프트)", "MOBA (LoL)", "격투 게임"],
+        "determinism": {
+          "title": "결정론적 시뮬레이션",
+          "why": {
+            "title": "왜 결정론이 필요한가?",
+            "description": "락스텝 네트워킹에서는 모든 클라이언트가 동일한 입력을 받아 동일한 결과를 계산해야 합니다. 한 비트라도 차이가 나면 시간이 지남에 따라 게임 상태가 완전히 달라집니다.",
+            "benefits": [
+              "입력만 전송하면 되므로 대역폭 절약",
+              "리플레이 시스템 구현 용이 (입력 시퀀스만 저장)",
+              "수백 개의 유닛도 완벽하게 동기화 가능",
+              "치팅 감지 가능 (시뮬레이션 결과 비교)"
+            ]
+          },
+          "causes": {
+            "title": "비결정성의 원인",
+            "items": [
+              {
+                "name": "부동소수점 연산",
+                "description": "IEEE 754 표준에도 불구하고, CPU/GPU 아키텍처, 컴파일러 최적화, FPU 설정에 따라 미세한 차이 발생",
+                "example": "x86 vs ARM, -ffast-math 옵션, 80비트 확장 정밀도"
+              },
+              {
+                "name": "정렬되지 않은 컨테이너",
+                "description": "HashMap, HashSet 등의 순회 순서가 플랫폼마다 다름",
+                "example": "엔티티 업데이트 순서가 달라지면 충돌 처리 결과가 달라짐"
+              },
+              {
+                "name": "난수 생성",
+                "description": "시스템 난수 생성기는 플랫폼마다 다른 시퀀스 생성",
+                "example": "Math.random(), /dev/urandom"
+              },
+              {
+                "name": "시간 기반 로직",
+                "description": "System.currentTimeMillis(), Date.now() 등은 각 기기마다 다름",
+                "example": "스폰 타이밍, 쿨다운 계산"
+              },
+              {
+                "name": "초기화되지 않은 메모리",
+                "description": "C/C++에서 초기화되지 않은 변수는 예측 불가능한 값을 가짐",
+                "example": "스택 변수, malloc 반환값"
+              },
+              {
+                "name": "멀티스레딩",
+                "description": "스레드 실행 순서가 OS 스케줄러에 따라 달라짐",
+                "example": "물리 업데이트와 AI 업데이트의 경쟁 조건"
+              }
+            ]
+          },
+          "methodologies": {
+            "title": "결정론 달성 방법",
+            "items": [
+              {
+                "name": "고정소수점 연산 (Fixed-Point)",
+                "description": "부동소수점 대신 정수 기반 고정소수점 사용. 완전히 결정적이지만 구현이 복잡하고 정밀도 제한이 있음.",
+                "usedIn": "스타크래프트, 에이지 오브 엠파이어, 팩토리오",
+                "example": "Q16.16 형식: 상위 16비트는 정수, 하위 16비트는 소수"
+              },
+              {
+                "name": "Soft Float 라이브러리",
+                "description": "하드웨어 FPU 대신 소프트웨어로 부동소수점 연산을 에뮬레이션. 느리지만 크로스플랫폼에서 동일한 결과 보장.",
+                "usedIn": "일부 모바일 게임, 에뮬레이터",
+                "example": "Berkeley SoftFloat, libfixmath"
+              },
+              {
+                "name": "결정론적 난수 생성기",
+                "description": "동일한 시드에서 동일한 시퀀스를 생성하는 PRNG 사용",
+                "usedIn": "모든 락스텝 게임",
+                "example": "Xorshift, PCG, Mersenne Twister (시드 고정)"
+              },
+              {
+                "name": "정렬된 컨테이너",
+                "description": "HashMap 대신 TreeMap, 순회 전 정렬, 삽입 순서 보존 컨테이너 사용",
+                "usedIn": "모든 락스텝 게임",
+                "example": "LinkedHashMap, sorted iteration"
+              },
+              {
+                "name": "틱 기반 시뮬레이션",
+                "description": "실제 시간 대신 논리적 틱 카운터 사용. delta time 대신 고정 시간 간격으로 업데이트.",
+                "usedIn": "RTS, 격투 게임, 시뮬레이션",
+                "example": "16ms/tick (60Hz), 프레임 번호로 타이밍 계산"
+              },
+              {
+                "name": "단일 스레드 시뮬레이션",
+                "description": "게임 로직은 단일 스레드에서 실행하여 경쟁 조건 방지. 렌더링만 별도 스레드.",
+                "usedIn": "대부분의 락스텝 게임",
+                "example": "게임 로직 스레드 + 렌더링 스레드 분리"
+              }
+            ]
+          },
+          "testing": {
+            "title": "결정론 검증",
+            "description": "결정론적 시뮬레이션을 검증하는 방법들",
+            "items": [
+              "체크섬 비교: 매 틱마다 게임 상태의 해시를 계산하여 모든 클라이언트가 동일한지 확인",
+              "리플레이 검증: 같은 입력 시퀀스로 여러 번 실행해서 동일한 결과가 나오는지 확인",
+              "크로스 플랫폼 테스트: Windows, Mac, Linux, 다양한 CPU에서 동일한 결과 확인",
+              "장시간 테스트: 미세한 차이가 누적되므로 긴 게임에서 동기화 유지 확인"
+            ]
+          },
+          "caseStudies": {
+            "title": "관련 사례 연구",
+            "items": [
+              {
+                "gameId": "starcraft",
+                "title": "스타크래프트",
+                "description": "고정소수점 연산과 락스텝으로 수백 유닛의 완벽한 동기화 달성"
+              },
+              {
+                "gameId": "lol",
+                "title": "리그 오브 레전드",
+                "description": "서버 권위 모델이지만 리플레이를 위해 결정론적 시뮬레이션 사용"
+              }
+            ]
+          },
+          "references": {
+            "title": "참고 자료",
+            "items": [
+              {
+                "title": "Gaffer On Games: Deterministic Lockstep",
+                "url": "https://gafferongames.com/post/deterministic_lockstep/",
+                "description": "락스텝 네트워킹의 기초와 결정론적 시뮬레이션 구현"
+              },
+              {
+                "title": "Forrestthewoods: Synchronous RTS Engines and a Tale of Desyncs",
+                "url": "https://www.forrestthewoods.com/blog/synchronous_rts_engines_and_a_tale_of_desyncs/",
+                "description": "RTS 게임에서의 디싱크 문제와 해결 방법"
+              },
+              {
+                "title": "Factorio Friday Facts #302: The Oil Changes",
+                "url": "https://factorio.com/blog/post/fff-302",
+                "description": "팩토리오의 부동소수점 결정론 문제 해결 사례"
+              },
+              {
+                "title": "Age of Empires Multiplayer Architecture",
+                "url": "https://www.gamedeveloper.com/programming/1500-archers-on-a-28-8-network-programming-in-age-of-empires",
+                "description": "에이지 오브 엠파이어의 네트워킹 아키텍처 (1500 궁수)"
+              },
+              {
+                "title": "Floating Point Determinism",
+                "url": "https://randomascii.wordpress.com/2013/07/16/floating-point-determinism/",
+                "description": "부동소수점 결정론에 대한 심층 분석"
+              },
+              {
+                "title": "GGPO: Fighting Game Networking",
+                "url": "http://ggpo.net/",
+                "description": "격투 게임을 위한 롤백 넷코드 라이브러리"
+              }
+            ]
+          }
+        }
       },
       "serialization": {
         "title": "직렬화 & 상태관리",
@@ -541,7 +694,12 @@
       "bookView": "목차",
       "back": "뒤로",
       "demo": "데모",
-      "view": "보기"
+      "view": "보기",
+      "benefits": "장점",
+      "example": "예시",
+      "usedInGames": "사용된 게임",
+      "viewCaseStudy": "사례 보기",
+      "learnMore": "자세히 보기"
     }
   }
 }
