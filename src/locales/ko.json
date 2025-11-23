@@ -381,6 +381,24 @@
         "keyFeatures": ["3매치 알고리즘", "연쇄 반응", "특수 캔디 생성"],
         "fundamentals": ["모델링", "렌더링"],
         "decisions": ["밸런싱"]
+      },
+      "fortnite": {
+        "title": "포트나이트",
+        "description": "배틀로얄, Replication Graph와 대규모 동기화",
+        "genre": "배틀로얄 / 빌딩",
+        "year": "2017",
+        "keyFeatures": ["100인 동기화", "Replication Graph", "20→30Hz 틱레이트 진화", "클라이언트 예측"],
+        "fundamentals": ["네트워크 통신", "모델링", "직렬화"],
+        "decisions": ["멀티플레이 아키텍처", "틱레이트", "동기화 전략"]
+      },
+      "counter-strike": {
+        "title": "카운터스트라이크",
+        "description": "경쟁 FPS, 정밀한 히트 판정과 틱레이트",
+        "genre": "택티컬 FPS",
+        "year": "2012 (CS:GO) / 2023 (CS2)",
+        "keyFeatures": ["64Hz vs 128Hz 틱레이트", "서브틱 시스템 (CS2)", "Peeker's Advantage", "Lag Compensation"],
+        "fundamentals": ["네트워크 통신", "물리 연산"],
+        "decisions": ["틱레이트", "동기화 전략", "물리 처리 방식"]
       }
     },
     "fundamentals": {
@@ -660,6 +678,62 @@
             "cons": ["동기화 문제", "치트 가능"],
             "useCases": ["싱글플레이어", "협동 PvE"]
           }
+        },
+        "caseStudies": {
+          "title": "의사결정 사례 연구",
+          "items": [
+            {
+              "title": "카운터스트라이크: Lag Compensation과 'Peeker's Advantage'",
+              "gameId": "counter-strike",
+              "problem": "CS에서 모서리를 돌아 적을 먼저 보는 플레이어(피커)가 유리합니다. 피커의 화면에서는 적이 보이지만, 적의 화면에서는 아직 피커가 나타나지 않은 상태입니다. 이것이 'Peeker's Advantage'입니다. 순수 서버 권한 모델에서는 빠른 움직임의 플레이어가 항상 불리해집니다.",
+              "decision": "Valve는 'Lag Compensation' 시스템을 구현했습니다. 서버가 과거의 히트박스 위치를 저장하고, 클라이언트가 발사한 시점의 서버 상태로 되감아 히트 판정을 수행합니다. 이렇게 하면 클라이언트의 화면에서 맞춘 샷이 실제로 히트로 인정됩니다.",
+              "result": "'Favor the Shooter' 원칙으로 사격자의 조준이 더 정확하게 반영됨. 다만 피격자 입장에서는 '이미 숨었는데 맞았다'는 느낌이 발생. cl_interp_ratio 등 클라이언트 설정으로 보간 버퍼를 조절하여 트레이드오프 조정 가능."
+            },
+            {
+              "title": "오버워치: 'Favor the Shooter'와 하이브리드 접근",
+              "gameId": "overwatch",
+              "problem": "오버워치는 다양한 영웅이 존재하고, 트레이서 같은 빠른 영웅과 위도우메이커 같은 저격수가 공존합니다. 순수 서버 권한에서는 고핑 플레이어가 빠른 영웅을 맞추기 어렵고, 순수 클라이언트 권한에서는 치트와 불공정이 발생합니다.",
+              "decision": "Blizzard는 'Favor the Shooter' 정책을 채택했습니다. 공격자의 클라이언트에서 맞은 것으로 판정되면 서버가 이를 존중합니다. 단, 방어 스킬(겐지 튕기기, D.Va 매트릭스)은 서버에서 우선 처리하여 '이미 막았는데 맞았다'를 방지.",
+              "result": "공격자의 에임이 정확히 반영되어 쾌적한 공격 경험 제공. 방어 스킬의 신뢰성 유지. 다만 피격자의 '억울한 죽음' 체감은 존재. GDC 2017에서 이 시스템을 상세히 공개."
+            },
+            {
+              "title": "포트나이트: 건축과 총격의 충돌",
+              "gameId": "fortnite",
+              "problem": "포트나이트는 총격 + 건축이 결합된 독특한 게임입니다. 플레이어가 벽을 세우는 동시에 적이 발사하면, 누가 먼저인지에 따라 결과가 달라집니다. 건축과 총격의 권한 충돌이 발생합니다.",
+              "decision": "에픽게임즈는 서버 권한을 기반으로 하되, 클라이언트 예측으로 즉각적인 건축 피드백을 제공합니다. 총알은 서버에서 판정하지만, 벽 건설은 클라이언트에서 즉시 표시됩니다. 충돌 시 서버가 최종 결정.",
+              "result": "건축의 반응성을 유지하면서 총격의 공정성 확보. 다만 높은 핑에서는 '벽을 세웠는데 뚫렸다'는 불만 발생. 이를 완화하기 위해 벽 건설에 짧은 우선권 부여."
+            }
+          ]
+        },
+        "references": {
+          "title": "참고 자료",
+          "items": [
+            {
+              "title": "Valve Developer: Source Multiplayer Networking",
+              "url": "https://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking",
+              "description": "소스 엔진의 Lag Compensation 구현"
+            },
+            {
+              "title": "Overwatch Gameplay Architecture and Netcode (GDC 2017)",
+              "url": "https://www.youtube.com/watch?v=W3aieHjyNvw",
+              "description": "오버워치의 Favor the Shooter 정책"
+            },
+            {
+              "title": "Battle(non)sense: How Do Bullets Work in Games?",
+              "url": "https://www.youtube.com/watch?v=hiHP0N-jMx8",
+              "description": "다양한 게임의 히트 판정 비교"
+            },
+            {
+              "title": "3kliksphilip: Peeker's Advantage Explained",
+              "url": "https://www.youtube.com/watch?v=3JaCcsmjYM8",
+              "description": "CS에서의 Peeker's Advantage 분석"
+            },
+            {
+              "title": "Fortnite Server Performance Update",
+              "url": "https://www.epicgames.com/fortnite/en-US/news/postmortem-of-service-outage-4-12",
+              "description": "포트나이트의 서버 아키텍처"
+            }
+          ]
         }
       },
       "sync-strategy": {
@@ -762,6 +836,67 @@
             "cons": ["보간 필요", "정밀도 감소"],
             "useCases": ["MMORPG", "전략 게임"]
           }
+        },
+        "caseStudies": {
+          "title": "의사결정 사례 연구",
+          "items": [
+            {
+              "title": "CS:GO → CS2: 64Hz vs 128Hz 논쟁과 서브틱 해결책",
+              "gameId": "counter-strike",
+              "problem": "CS:GO 공식 매치메이킹은 64Hz 서버를 사용했지만, 프로와 열성 팬들은 128Hz를 요구했습니다. 64Hz에서는 빠른 움직임이나 정밀한 에임에서 '샷이 안 맞는' 느낌이 발생했습니다. FACEIT/ESEA 등 서드파티 서비스는 128Hz를 제공하여 차이가 두드러졌습니다.",
+              "decision": "CS2에서 '서브틱(Sub-tick)' 시스템 도입. 틱레이트에 관계없이 서버가 틱 사이의 정확한 입력 타이밍을 알 수 있게 됨. 클라이언트가 틱 내 정확한 시간을 함께 전송하여 128Hz의 정밀도를 64Hz 대역폭으로 달성.",
+              "result": "64Hz 서버에서도 128Hz급 히트 판정 정밀도 제공. 서버 인프라 비용 절감 + 경쟁 공정성 확보. 다만 일부 고수준 플레이어들은 여전히 128Hz의 부드러움을 선호."
+            },
+            {
+              "title": "포트나이트: 20Hz에서 30Hz로, 그리고 Replication Graph",
+              "gameId": "fortnite",
+              "problem": "초기 포트나이트는 20Hz 서버 틱레이트로 운영되었습니다. 100명 플레이어의 건물/총격/이동을 모두 동기화하려니 대역폭과 서버 부하가 심했습니다. 플레이어들은 '총알이 휘어간다', '벽을 세웠는데 뚫린다' 등의 불만을 제기했습니다.",
+              "decision": "틱레이트를 30Hz로 증가시키고, 'Replication Graph' 시스템을 도입. 각 클라이언트에게 관련 있는 데이터만 선별적으로 전송하여 대역폭 최적화. 가까운 적은 더 자주, 먼 적은 덜 자주 업데이트.",
+              "result": "히트 판정과 건축 반응성 개선. 100명 동시 플레이에서도 안정적인 게임플레이 제공. 에픽게임즈는 이 시스템을 Unreal Engine에 통합하여 다른 대규모 멀티플레이어 게임에서도 활용 가능."
+            },
+            {
+              "title": "발로란트 vs 오버워치: 128Hz로 경쟁 우위 확보",
+              "gameId": "overwatch",
+              "problem": "오버워치는 63Hz 서버 틱레이트를 사용했습니다. 경쟁 FPS 시장에서 이는 논란이 되었고, 특히 히트스캔 영웅(위도우메이커, 맥크리)의 히트 판정에서 불만이 많았습니다.",
+              "decision": "발로란트는 출시부터 128Hz 서버를 제공하며 이를 핵심 마케팅 포인트로 삼았습니다. 오버워치 2에서 Blizzard는 일부 경쟁전 모드에서 틱레이트를 높이는 실험을 진행했지만, 기본 틱레이트는 유지했습니다.",
+              "result": "발로란트가 경쟁 FPS 시장에서 '넷코드가 좋다'는 평판을 확보. 틱레이트가 게임 선택의 중요 요소가 됨을 증명. 인프라 비용 vs 경쟁력 트레이드오프의 대표 사례."
+            }
+          ]
+        },
+        "references": {
+          "title": "참고 자료",
+          "items": [
+            {
+              "title": "CS2's Sub-Tick System Explained",
+              "url": "https://www.youtube.com/watch?v=vdLRLO3bdm0",
+              "description": "CS2 서브틱 시스템의 작동 원리"
+            },
+            {
+              "title": "Battle(non)sense: Fortnite Netcode Analysis",
+              "url": "https://www.youtube.com/watch?v=W5lUCeAu_2k",
+              "description": "포트나이트의 틱레이트와 히트 판정 분석"
+            },
+            {
+              "title": "Epic Games: Replication Graph Overview",
+              "url": "https://docs.unrealengine.com/en-US/Gameplay/Networking/ReplicationGraph/",
+              "description": "언리얼 엔진의 Replication Graph 시스템"
+            },
+            {
+              "title": "Valorant's 128-Tick Servers",
+              "url": "https://technology.riotgames.com/news/valorants-128-tick-servers",
+              "description": "발로란트의 128Hz 서버 아키텍처"
+            },
+            {
+              "title": "CS:GO 64 vs 128 Tick - The Debate",
+              "url": "https://www.reddit.com/r/GlobalOffensive/comments/4y62o5/csgo_128_tick_vs_64_tick/",
+              "description": "커뮤니티의 64Hz vs 128Hz 논쟁"
+            },
+            {
+              "title": "Overwatch Netcode Analysis",
+              "url": "https://www.youtube.com/watch?v=vHO6Ky-w0UQ",
+              "description": "오버워치의 넷코드와 틱레이트 분석"
+            }
+          ]
         }
       },
       "balancing": {
