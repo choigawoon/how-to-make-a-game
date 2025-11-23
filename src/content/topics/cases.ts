@@ -81,7 +81,7 @@ export const casesTree: MindMapData = {
     {
       id: 'fortnite',
       position: { x: 110, y: 200 },
-      color: 'violet',
+      color: 'purple',
       icon: 'Building',
       type: 'lesson',
       lessonPath: '/cases/fortnite',
@@ -90,7 +90,7 @@ export const casesTree: MindMapData = {
     {
       id: 'counter-strike',
       position: { x: -110, y: -200 },
-      color: 'slate',
+      color: 'teal',
       icon: 'Bomb',
       type: 'lesson',
       lessonPath: '/cases/counter-strike',
