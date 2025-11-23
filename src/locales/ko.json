@@ -282,6 +282,12 @@
         "description": "3계층 지식 구조"
       }
     },
+    "demos": {
+      "marioJump": {
+        "title": "슈퍼마리오 점프 구현",
+        "description": "Phaser 엔진으로 다양한 점프 메커니즘을 직접 체험해보세요"
+      }
+    },
     "layers": {
       "cases": {
         "title": "사례로 배우기",
