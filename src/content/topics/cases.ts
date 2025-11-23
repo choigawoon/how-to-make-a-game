@@ -59,14 +59,14 @@ export const casesTree: MindMapData = {
       type: 'lesson',
       lessonPath: '/cases/lol',
     },
-    // StarCraft (top-left)
+    // StarCraft (top-left) - Links to lockstep demo
     {
       id: 'starcraft',
       position: { x: -220, y: -125 },
       color: 'indigo',
       icon: 'Rocket',
       type: 'lesson',
-      lessonPath: '/cases/starcraft',
+      lessonPath: '/demo/lockstep',
     },
     // Candy Crush (outer ring - between super-mario and maplestory)
     {
