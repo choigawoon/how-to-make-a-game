@@ -319,6 +319,10 @@
       }
     },
     "cases": {
+      "cases-center": {
+        "title": "사례 연구",
+        "description": "게임을 선택하세요"
+      },
       "super-mario": {
         "title": "슈퍼마리오",
         "description": "플랫포머의 정석, 정밀한 물리와 타이밍",
@@ -402,6 +406,10 @@
       }
     },
     "fundamentals": {
+      "fundamentals-center": {
+        "title": "핵심 원리",
+        "description": "주제를 선택하세요"
+      },
       "modeling-simulation": {
         "title": "모델링 & 시뮬레이션",
         "description": "게임 세계의 상태 정의와 업데이트. 특히 멀티플레이어 게임에서는 모든 클라이언트가 동일한 시뮬레이션 결과를 얻어야 하는 결정론적 시뮬레이션이 핵심입니다.",
@@ -583,6 +591,10 @@
       }
     },
     "decisions": {
+      "decisions-center": {
+        "title": "설계 선택지",
+        "description": "주제를 선택하세요"
+      },
       "multiplayer-arch": {
         "title": "멀티플레이 아키텍처",
         "description": "P2P vs Client-Server, 권한 모델",
